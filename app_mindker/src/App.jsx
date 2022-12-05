@@ -1,12 +1,12 @@
 import './App.css';
 
-import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
 
 const App = () => {
   return (
-    <div className="App">
-      <h1>Hola todo bien?</h1>
-    </div>
+    <main className="App">
+      <Outlet />
+    </main>
   );
 };
 
