@@ -7,7 +7,7 @@ const Content = () => {
   const color = useColorModeValue('');
   return (
     <>
-      <Flex as="content" bg={bg} color={color} px={350} py={4}>
+      <Flex bg={bg} color={color} px={350} py={4}>
         <Flex align="center">
           <Heading as="cite" ml={100} w="100%">
             <Text>
@@ -33,4 +33,3 @@ const Content = () => {
   );
 };
 export default Content;
-
