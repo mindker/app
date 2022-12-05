@@ -12,11 +12,11 @@ export const loginUser = async (endpoint, credentials) => {
   }
 };
 
-export const RegisterUser = async (endpoint, newUser) => {
+export const RegisterUser = async (newUser) => {
   try {
     axios({
       method: 'post',
-      url: `http://localhost:8080/api/v1/users/${endpoint}`,
+      url: `http://localhost:8080/api/v1/users`,
       data: newUser,
     }).then((res) => console.log(res));
   } catch (error) {
