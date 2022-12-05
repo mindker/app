@@ -1,4 +1,4 @@
-import { Divider, Flex, Image, Text, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Image, Text, useColorModeValue } from '@chakra-ui/react';
 
 const Header = () => {
   const bg = useColorModeValue('#FFF', '#000');
@@ -24,7 +24,6 @@ const Header = () => {
           Mindker
         </Text>
       </Flex>
-      <Divider />
     </>
   );
 };

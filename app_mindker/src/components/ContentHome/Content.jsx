@@ -24,8 +24,7 @@ const Content = () => {
               the answer. The forgetting curve was first established in the late 19th
               century by the German psychologist Hermann Ebbinghaus. According to Hermann,
               the forgetting curve models the exponential rate at which humans forget
-              eslint-disable-next-line react/no-unescaped-entities information they have
-              learned.
+              information they have learned.
             </Text>
           </Heading>
         </Flex>
@@ -34,3 +33,4 @@ const Content = () => {
   );
 };
 export default Content;
+
