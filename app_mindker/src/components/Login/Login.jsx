@@ -8,7 +8,6 @@ import { loginUser } from '../../services/postsFunctionsApiUser';
 const Login = () => {
   const [user, setUser] = useState('user');
   const [local, setLocal] = useLocalStorage(user);
-
   const {
     handleSubmit,
     register,
@@ -19,6 +18,7 @@ const Login = () => {
     (async () => {
       const res = await loginUser('login', values);
       await setLocal(res);
+      console.log(local, user);
     })();
   };
 
@@ -68,11 +68,10 @@ const Login = () => {
           </p>
         ) : null}
       </FormLabel>
-      <Button variant="outline">
-        <button type="submit">Login</button>
+      <Button type="submit" variant="outline">
+        Login
       </Button>
     </form>
   );
 };
-
 export default Login;

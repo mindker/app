@@ -1,10 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Footer from '../../components/Footer/Footer';
-import Header from '../../components/Header/Header';
-import Register from '../../components/Register/Register';
-
 const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -17,14 +13,7 @@ const StyledDiv = styled.div`
 `;
 
 const HomeLayout = ({ children, direction }) => {
-  return (
-    <StyledDiv direction={direction}>
-      <Header />
-      <Register />
-      {children}
-      <Footer />
-    </StyledDiv>
-  );
+  return <StyledDiv direction={direction}>{children}</StyledDiv>;
 };
 
 export default HomeLayout;
