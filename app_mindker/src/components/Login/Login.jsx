@@ -1,4 +1,4 @@
-import { FormLabel, Input, Text } from '@chakra-ui/react';
+import { Button, FormLabel, Input, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -68,8 +68,9 @@ const Login = () => {
           </p>
         ) : null}
       </FormLabel>
-
-      <button type="submit">Login</button>
+      <Button variant="outline">
+        <button type="submit">Login</button>
+      </Button>
     </form>
   );
 };
