@@ -1,13 +1,4 @@
-import React from 'react';
-import {
-  Box,
-  Flex,
-  Heading,
-  Divider,
-  useColorModeValue,
-  Image,
-  Text,
-} from '@chakra-ui/react';
+import { Flex, Heading, Text, useColorModeValue } from '@chakra-ui/react';
 
 const Content = () => {
   //bg es background
@@ -20,9 +11,7 @@ const Content = () => {
         <Flex align="center">
           <Heading as="cite" ml={100} w="100%">
             <Text>
-              Introduction 
-              
-              Mindker is a collaborative learning application that generates
+              Introduction Mindker is a collaborative learning application that generates
               a community of users immersed in learning processes. All users of our
               application have at least one interest in common: learning. This app
               consists of a set of cards that are grouped into decks according to the
@@ -35,15 +24,13 @@ const Content = () => {
               the answer. The forgetting curve was first established in the late 19th
               century by the German psychologist Hermann Ebbinghaus. According to Hermann,
               the forgetting curve models the exponential rate at which humans forget
-              information they have "learned."
+              information they have learned.
             </Text>
           </Heading>
         </Flex>
-        <Box ml="auto">
-        </Box>
       </Flex>
-      <Divider />
     </>
   );
 };
 export default Content;
+

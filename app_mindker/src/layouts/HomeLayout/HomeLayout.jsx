@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import Content from '../../components/ContentHome/Content';
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import Register from '../../components/Register/Register';
@@ -22,6 +23,7 @@ const HomeLayout = ({ children, direction }) => {
       <Header />
       <Register />
       {children}
+      <Content />
       <Footer />
     </StyledDiv>
   );
