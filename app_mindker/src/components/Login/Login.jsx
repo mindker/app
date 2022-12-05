@@ -1,4 +1,4 @@
-import { FormLabel, Input, Text } from '@chakra-ui/react';
+import { Button, FormLabel, Input, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -6,7 +6,7 @@ import { useLocalStorage } from '../../custom/useLocalStorage';
 import { loginUser } from '../../services/postsFunctionsApiUser';
 
 const Login = () => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState('user');
   const [local, setLocal] = useLocalStorage(user);
 
   const {
@@ -18,11 +18,9 @@ const Login = () => {
   const onFormSubmit = (values) => {
     (async () => {
       const res = await loginUser('login', values);
-      await setUser(values.nickname);
       await setLocal(res);
     })();
   };
-  console.log(local);
 
   return (
     <form onSubmit={handleSubmit(onFormSubmit)}>
@@ -33,6 +31,7 @@ const Login = () => {
             required: true,
             minLength: 2,
           })}
+          onChange={(e) => setUser(e.target.value)}
           placeholder="nickname"
           type="text"
         />
@@ -69,8 +68,9 @@ const Login = () => {
           </p>
         ) : null}
       </FormLabel>
-
-      <button type="submit">Login</button>
+      <Button variant="outline">
+        <button type="submit">Login</button>
+      </Button>
     </form>
   );
 };
