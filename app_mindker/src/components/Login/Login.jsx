@@ -1,3 +1,4 @@
+import { FormLabel, Input, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -25,9 +26,9 @@ const Login = () => {
 
   return (
     <form onSubmit={handleSubmit(onFormSubmit)}>
-      <label>
-        <span>Nickname</span>
-        <input
+      <FormLabel>
+        <Text>Nickname</Text>
+        <Input
           {...register('nickname', {
             required: true,
             minLength: 2,
@@ -41,11 +42,11 @@ const Login = () => {
             Este campo es requerido y debe tener al menos 2 caracteres
           </p>
         ) : null}
-      </label>
+      </FormLabel>
 
-      <label>
-        <span>Password:</span>
-        <input
+      <FormLabel>
+        <Text>Password:</Text>
+        <Input
           {...register('password', {
             required: true,
             minLength: 6,
@@ -67,7 +68,7 @@ const Login = () => {
               : 'Este campo es requerido y debe tener al menos 6 caracteres'}
           </p>
         ) : null}
-      </label>
+      </FormLabel>
 
       <button type="submit">Login</button>
     </form>
