@@ -1,7 +1,7 @@
-import React from 'react';
+import HomeLayout from '../../layouts/HomeLayout/HomeLayout';
 
 const Home = () => {
-  return <div>home</div>;
+  return <HomeLayout direction="column" />;
 };
 
 export default Home;
