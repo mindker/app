@@ -4,7 +4,7 @@ export const loginUser = async (endpoint, credentials) => {
   try {
     return axios({
       method: 'post',
-      url: `http://localhost:8080/api/v1/users/${endpoint}`,
+      url: `http://localhost:8081/api/v1/users/${endpoint}`,
       data: credentials,
     }).then((res) => res.data.info.data.token);
   } catch (error) {
@@ -16,7 +16,7 @@ export const RegisterUser = async (newUser) => {
   try {
     axios({
       method: 'post',
-      url: `http://localhost:8080/api/v1/users`,
+      url: `http://localhost:8081/api/v1/users`,
       data: newUser,
     }).then((res) => console.log(res));
   } catch (error) {
