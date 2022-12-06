@@ -1,5 +1,7 @@
 import { useContext } from 'react';
+import { AiFillApi, AiFillContacts, AiFillHome } from 'react-icons/ai';
 
+import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import Content from '../../components/ContentHome/Content';
 import Footer from '../../components/Footer/Footer';
 import HeaderHome from '../../components/Headers/HeaderHome';
@@ -19,9 +21,33 @@ const Home = () => {
         text="Mindker"
         image="https://res.cloudinary.com/di5oqdvwa/image/upload/v1670257782/imagenes/Logo-hecho-porIris-que-es-una-crack_u48ufi.png"
       />
-      <button onClick={() => setHomeContent('register')}>Register</button>
-      <button onClick={() => setHomeContent('login')}>Login</button>
-      <button onClick={() => setHomeContent('content')}>MindKer Game</button>
+      <AgnosticButton
+        text="Register"
+        type="button"
+        variant="outline"
+        leftIcon={<AiFillContacts />}
+        colorScheme="yellow"
+        size="xs"
+        callBack={() => setHomeContent('register')}
+      />
+      <AgnosticButton
+        text="Login"
+        type="button"
+        variant="outline"
+        leftIcon={<AiFillApi />}
+        colorScheme="facebook"
+        size="xs"
+        callBack={() => setHomeContent('login')}
+      />
+      <AgnosticButton
+        text="MindKer"
+        type="button"
+        variant="outline"
+        leftIcon={<AiFillHome />}
+        colorScheme="twitter"
+        size="xs"
+        callBack={() => setHomeContent('content')}
+      />
       {homeContent == 'content' ? (
         <Content />
       ) : homeContent == 'register' ? (
