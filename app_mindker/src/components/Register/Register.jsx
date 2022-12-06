@@ -1,11 +1,13 @@
-import { Button, FormLabel } from '@chakra-ui/react';
+import { FormLabel } from '@chakra-ui/react';
 import { Input, Text } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { AiFillContacts } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
 import GlobalContext from '../../context/GlobalContext';
 import { loginUser, RegisterUser } from '../../services/postsFunctionsApiUser.js';
+import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -83,9 +85,13 @@ const Register = () => {
         type="file"
       />
       {errors.avatar ? <Text>Este campo es obligatorio</Text> : null}
-      <Button type="submit" variant="outline">
-        Iniciar sesión
-      </Button>
+      <AgnosticButton
+        text="Register"
+        type="submit"
+        variant="outline"
+        colorScheme="facebook"
+        leftIcon={<AiFillContacts />}
+      />
     </form>
   );
 };

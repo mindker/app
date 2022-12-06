@@ -1,10 +1,12 @@
-import { Button, FormLabel, Input, Text } from '@chakra-ui/react';
+import { FormLabel, Input, Text } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { AiFillApi } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
 import GlobalContext from '../../context/GlobalContext';
 import { loginUser } from '../../services/postsFunctionsApiUser';
+import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -70,9 +72,13 @@ const Login = () => {
           </p>
         ) : null}
       </FormLabel>
-      <Button type="submit" variant="outline">
-        Login
-      </Button>
+      <AgnosticButton
+        text="Login"
+        type="submit"
+        variant="outline"
+        leftIcon={<AiFillApi />}
+        colorScheme="facebook"
+      />
     </form>
   );
 };
