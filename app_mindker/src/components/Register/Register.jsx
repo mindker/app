@@ -1,24 +1,13 @@
-import {
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-} from '@chakra-ui/react';
+import { Button, FormLabel } from '@chakra-ui/react';
 import { Input, Text } from '@chakra-ui/react';
-import React from 'react';
-import { useState } from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { loginUser } from '../../services/postsFunctionsApiUser.js';
 
-import { RegisterUser } from '../../services/postsFunctionsApiUser.js';
-import { useLocalStorage } from '../../custom/useLocalStorage';
+import GlobalContext from '../../context/GlobalContext';
+import { loginUser, RegisterUser } from '../../services/postsFunctionsApiUser.js';
 
 const Register = () => {
-  /* const [newUser, setNewUser] = useState({}); */
-  //const handleInputChange = (e) => setInput(e.target.value);
-  //const isError = input === '';
-  const [user, setUser] = useState('user');
-  const [local, setLocal] = useLocalStorage(user);
+  const { setLocal, setUser } = useContext(GlobalContext);
   const {
     handleSubmit,
     register,
@@ -91,7 +80,9 @@ const Register = () => {
         type="file"
       />
       {errors.avatar ? <Text>Este campo es obligatorio</Text> : null}
-      <button type="submit">Iniciar sesión</button>
+      <Button type="submit" variant="outline">
+        Iniciar sesión
+      </Button>
     </form>
   );
 };
