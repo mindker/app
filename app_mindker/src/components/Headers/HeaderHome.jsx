@@ -15,7 +15,13 @@ const HeaderHome = ({ text, image }) => {
         justifyContent="space-between"
         width="100%"
       >
-        <Image src={image} alt={text} boxSize="100px" ml="4rem" />
+        <Image
+          src={image}
+          alt={text}
+          boxSize="100px"
+          ml="4rem"
+          title="imagen de mindker"
+        />
         <Text fontSize="50px" width="100%" textAlign="center">
           {text}
         </Text>

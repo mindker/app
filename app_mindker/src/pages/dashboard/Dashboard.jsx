@@ -1,12 +1,12 @@
-import HomeLayout from '../../layouts/HomeLayout/HomeLayout';
+import DashboardLayout from '../../layouts/DasboardLayout/DashboardLayout';
 
 const Dashboard = () => {
   //también se puede hacer con useEffect --> probar
 
   return (
-    <HomeLayout direction="column">
+    <DashboardLayout direction="column">
       <p>dashboard</p>
-    </HomeLayout>
+    </DashboardLayout>
   );
 };
 
