@@ -6,7 +6,6 @@ const StyledDiv = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  background-color: aquamarine;
   color: black;
   gap: 2rem;
   flex-direction: ${(props) => (props.direction == 'row' ? 'row' : 'column')};
