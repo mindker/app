@@ -1,10 +1,11 @@
 import { Flex, Image, Text, useColorModeValue } from '@chakra-ui/react';
 
-const Header = () => {
+const HeaderHome = ({ text, image }) => {
   const bg = useColorModeValue('#FFF', '#000');
   const color = useColorModeValue('#000', '#FFF');
+
   return (
-    <>
+    <header>
       <Flex
         as="header"
         bg={bg}
@@ -14,17 +15,12 @@ const Header = () => {
         justifyContent="space-between"
         width="100%"
       >
-        <Image
-          src="https://res.cloudinary.com/di5oqdvwa/image/upload/v1670257782/imagenes/Logo-hecho-porIris-que-es-una-crack_u48ufi.png"
-          alt="Logo"
-          boxSize="100px"
-          ml="4rem"
-        />
+        <Image src={image} alt={text} boxSize="100px" ml="4rem" />
         <Text fontSize="50px" width="100%" textAlign="center">
-          Mindker
+          {text}
         </Text>
       </Flex>
-    </>
+    </header>
   );
 };
-export default Header;
+export default HeaderHome;

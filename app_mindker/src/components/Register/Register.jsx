@@ -2,11 +2,13 @@ import { Button, FormLabel } from '@chakra-ui/react';
 import { Input, Text } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import GlobalContext from '../../context/GlobalContext';
 import { loginUser, RegisterUser } from '../../services/postsFunctionsApiUser.js';
 
 const Register = () => {
+  const navigate = useNavigate();
   const { setLocal, setUser } = useContext(GlobalContext);
   const {
     handleSubmit,
@@ -22,6 +24,7 @@ const Register = () => {
         password: values.password,
       });
       await setLocal(res);
+      res && navigate('dashboard');
     })();
   };
 
