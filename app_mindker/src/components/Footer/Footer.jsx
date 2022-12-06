@@ -1,15 +1,3 @@
-/* import React from 'react';
-
-const Footer = () => {
-  return (
-    <div className="footerContainer">
-      <p>Copyrght© 2022 Mindker. All Rights Reserved.</p>
-    </div>
-  );
-};
-
-export default Footer; */
-
 import { ButtonGroup, Container, IconButton, Stack, Text } from '@chakra-ui/react';
 import * as React from 'react';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';

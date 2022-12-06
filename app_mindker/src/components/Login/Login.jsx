@@ -1,13 +1,13 @@
 import { Button, FormLabel, Input, Text } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { useLocalStorage } from '../../custom/useLocalStorage';
+import GlobalContext from '../../context/GlobalContext';
 import { loginUser } from '../../services/postsFunctionsApiUser';
 
 const Login = () => {
-  const [user, setUser] = useState('user');
-  const [local, setLocal] = useLocalStorage(user);
+  const { setUser, setLocal } = useContext(GlobalContext);
+
   const {
     handleSubmit,
     register,
@@ -17,8 +17,7 @@ const Login = () => {
   const onFormSubmit = (values) => {
     (async () => {
       const res = await loginUser('login', values);
-      await setLocal(res);
-      console.log(local, user);
+      res && (await setLocal(res));
     })();
   };
 
