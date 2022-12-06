@@ -1,4 +1,6 @@
-import { Flex, Image, Text, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Text, useColorModeValue } from '@chakra-ui/react';
+
+import ImageComponent from '../ImageComponents/Image';
 
 const HeaderHome = ({ text, image }) => {
   const bg = useColorModeValue('#FFF', '#000');
@@ -15,11 +17,12 @@ const HeaderHome = ({ text, image }) => {
         justifyContent="space-between"
         width="100%"
       >
-        <Image
+        <ImageComponent
           src={image}
           alt={text}
           boxSize="100px"
           ml="4rem"
+          objectFit="cover"
           title="imagen de mindker"
         />
         <Text fontSize="50px" width="100%" textAlign="center">

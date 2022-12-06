@@ -1,3 +1,4 @@
+import DecksContainer from '../../components/DecksContainer/DecksContainer';
 import DashboardLayout from '../../layouts/DasboardLayout/DashboardLayout';
 
 const Dashboard = () => {
@@ -6,6 +7,7 @@ const Dashboard = () => {
   return (
     <DashboardLayout direction="column">
       <p>dashboard</p>
+      <DecksContainer spacing="30px" />
     </DashboardLayout>
   );
 };

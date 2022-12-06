@@ -6,7 +6,7 @@ export const loginUser = async (endpoint, credentials) => {
       method: 'post',
       url: `http://localhost:8081/api/v1/users/${endpoint}`,
       data: credentials,
-    }).then((res) => res.data.info.data.token);
+    }).then((res) => res.data);
   } catch (error) {
     console.log(error);
   }
