@@ -1,11 +1,13 @@
 import { Button, FormLabel, Input, Text } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import GlobalContext from '../../context/GlobalContext';
 import { loginUser } from '../../services/postsFunctionsApiUser';
 
 const Login = () => {
+  const navigate = useNavigate();
   const { setUser, setLocal } = useContext(GlobalContext);
 
   const {
@@ -18,6 +20,7 @@ const Login = () => {
     (async () => {
       const res = await loginUser('login', values);
       res && (await setLocal(res));
+      res && navigate('dashboard');
     })();
   };
 
