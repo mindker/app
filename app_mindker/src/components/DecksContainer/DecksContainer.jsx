@@ -1,14 +1,24 @@
 import { Stack } from '@chakra-ui/react';
-import { useContext } from 'react';
 
-import GlobalContext from '../../context/GlobalContext';
-
-const DecksContainer = ({ direction = ['row', 'column'], spacing }) => {
-  const { user } = useContext(GlobalContext);
+import DeckCard from '../Cards/DeckCard';
+const DecksContainer = ({
+  array,
+  callBack,
+  callBack2,
+  direction = ['row', 'column'],
+  spacing,
+}) => {
   return (
     <Stack direction={direction} spacing={spacing}>
-      {user.downloadedDecks.length ? (
-        user.downloadedDecks.map((deck) => <p key={deck.title}>{deck.title}</p>)
+      {array.length ? (
+        array.map((deck) => (
+          <DeckCard
+            key={deck.title}
+            object={deck}
+            callBack={callBack}
+            callBack2={callBack2}
+          />
+        ))
       ) : (
         <p>NO WAY</p>
       )}
