@@ -8,6 +8,7 @@ const AgnosticButton = ({
   size,
   colorScheme,
   leftIcon,
+  width,
 }) => {
   return (
     <Button
@@ -17,6 +18,7 @@ const AgnosticButton = ({
       size={size}
       colorScheme={colorScheme}
       leftIcon={leftIcon}
+      w={width}
     >
       {text}
     </Button>

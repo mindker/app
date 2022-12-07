@@ -1,28 +1,33 @@
-import { Stack } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+import GlobalContext from '../../context/GlobalContext';
 import DeckCard from '../Cards/DeckCard';
-const DecksContainer = ({
-  array,
-  callBack,
-  callBack2,
-  direction = ['row', 'column'],
-  spacing,
-}) => {
+const DecksContainer = ({ array }) => {
+  const { setIdDeck } = useContext(GlobalContext);
+  const navigate = useNavigate();
   return (
-    <Stack direction={direction} spacing={spacing}>
+    <Flex justifyContent="center" flexWrap="wrap" gap="2rem">
       {array.length ? (
         array.map((deck) => (
           <DeckCard
-            key={deck.title}
+            key={deck._id}
             object={deck}
-            callBack={callBack}
-            callBack2={callBack2}
+            callBack={() => {
+              navigate('/playPage');
+              setIdDeck(deck._id);
+            }}
+            callBack2={() => {
+              navigate('/editDeckPage');
+              setIdDeck(deck._id);
+            }}
           />
         ))
       ) : (
         <p>NO WAY</p>
       )}
-    </Stack>
+    </Flex>
   );
 };
 

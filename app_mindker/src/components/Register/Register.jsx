@@ -1,15 +1,17 @@
 import { FormLabel } from '@chakra-ui/react';
 import { Input, Text } from '@chakra-ui/react';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiFillContacts } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+
 import GlobalContext from '../../context/GlobalContext';
 import { loginUser, RegisterUser } from '../../services/postsFunctionsApiUser.js';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const Register = () => {
   const navigate = useNavigate();
+  const [avatar, setAvatar] = useState('');
   const { setLocal, setUser } = useContext(GlobalContext);
   const {
     handleSubmit,
@@ -19,12 +21,14 @@ const Register = () => {
 
   const onFormSubmit = (values) => {
     (async () => {
+      values = { ...values, avatar: avatar };
       await RegisterUser(values);
-      const res = await loginUser('login', {
+      const res = loginUser('login', {
         nickname: values.nickname,
         password: values.password,
-      });
-      await setLocal(res);
+      }).then((res) => res);
+      await setUser(res.info.data.user);
+      await setLocal(res.info.data.token);
       res && navigate('dashboard');
     })();
   };
@@ -82,6 +86,8 @@ const Register = () => {
         })}
         name="avatar"
         type="file"
+        onChange={(e) => setAvatar(e.target.files[0])}
+        accept="image/*"
       />
       {errors.avatar ? <Text>Este campo es obligatorio</Text> : null}
       <AgnosticButton

@@ -10,7 +10,7 @@ const DeckCard = ({ object, callBack, callBack2 }) => {
       <CardBody>
         <Flex flexDirection="row" justifyContent="space-around" gap="1rem">
           <Flex flexDirection="column" justifyContent="center" gap="2rem">
-            <TextComponent text={object.title} fontSize="4x1" color="black" as="bold" />
+            <TextComponent text={object.title} fontSize="4x1" color="black" />
             <TextComponent
               text={`Numero de preguntas ${object.cards.length}`}
               fontSize="sm"
