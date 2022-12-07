@@ -7,7 +7,7 @@ const DecksContainer = ({ array, callBack, callBack2 }) => {
       {array.length ? (
         array.map((deck) => (
           <DeckCard
-            key={deck.title}
+            key={deck._id}
             object={deck}
             callBack={callBack}
             callBack2={callBack2}

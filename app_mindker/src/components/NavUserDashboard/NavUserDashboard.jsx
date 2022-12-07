@@ -1,12 +1,14 @@
 import { Avatar, Box, Input, Text } from '@chakra-ui/react';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import GlobalContext from '../../context/GlobalContext';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const NavUserDashboard = () => {
-  const { user, setHomeContent } = useContext(GlobalContext);
+  const { user, setHomeContent, setDashboardContent, switcher, setSwitcher } =
+    useContext(GlobalContext);
+
   const navigate = useNavigate();
 
   const logout = () => {
@@ -52,12 +54,15 @@ const NavUserDashboard = () => {
           alignItems="center"
           gap="1rem"
         >
+          <AgnosticButton colorScheme="gray" width="13rem" text="My Decks" />
           <AgnosticButton
-            colorScheme="gray"
             width="13rem"
-            text="My Decks"
-          ></AgnosticButton>
-          <AgnosticButton width="13rem" text="Popular decks"></AgnosticButton>
+            text="Popular decks"
+            callBack={() => {
+              //setDashboardContent('decks');
+              setSwitcher(!switcher);
+            }}
+          />
 
           <AgnosticButton colorScheme="gray" width="13rem" text="Search" />
           <Input placeholder="categoty or title"></Input>
@@ -75,4 +80,4 @@ const NavUserDashboard = () => {
   );
 };
 
-export default NavUserDashboard;
+export default React.memo(NavUserDashboard);
