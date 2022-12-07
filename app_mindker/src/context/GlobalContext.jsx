@@ -11,7 +11,9 @@ const GlobalContextProvider = ({ children }) => {
   const [local, setLocal] = useLocalStorage(nickname);
   const [dashboardContent, setDashboardContent] = useState(false);
   const [switcher, setSwitcher] = useState(false);
-
+  const [param, setParam] = useState('');
+  const [idDeck, setIdDeck] = useState('');
+  const [paramReforce, setParamReforce] = useState('');
   const value = {
     homeContent,
     setHomeContent,
@@ -24,6 +26,12 @@ const GlobalContextProvider = ({ children }) => {
     setDashboardContent,
     switcher,
     setSwitcher,
+    param,
+    setParam,
+    paramReforce,
+    setParamReforce,
+    idDeck,
+    setIdDeck,
   };
   return <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>;
 };

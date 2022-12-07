@@ -7,32 +7,25 @@ import DashboardLayout from '../../layouts/DasboardLayout/DashboardLayout';
 import { getAgnostic } from '../../services/getServices';
 
 const Dashboard = () => {
-  const { user, dashboardContent, switcher } = useContext(GlobalContext);
+  const { user, dashboardContent, switcher, param } = useContext(GlobalContext);
   const allUserDecks = [...user.downloadedDecks, ...user.createdDecks];
   const [arrayDecks, setArrayDecks] = useState(allUserDecks);
   const [textDecks, setTextDecks] = useState('My Decks');
 
-  dashboardContent == 'decks'
-    ? setTextDecks('Popular Decks')
-    : dashboardContent == 'decks/deck/'
-    ? setTextDecks('Popular decks')
-    : false;
-
   useEffect(() => {
-    /* dashboardContent && */
-    switcher && getAgnostic('decks', '').then((res) => console.log(res.info.data));
-    console.log(switcher);
+    dashboardContent === 'decks'
+      ? setTextDecks('Popular Decks')
+      : dashboardContent === false
+      ? (setArrayDecks(allUserDecks), setTextDecks('My Decks'))
+      : setTextDecks(param);
+    dashboardContent &&
+      getAgnostic(dashboardContent, param).then((res) => setArrayDecks(res.info.data));
   }, [switcher]);
 
   return (
     <DashboardLayout direction="row">
       <NavUserDashboard />
-      <DecksSuperContainer
-        array={arrayDecks}
-        callBack={() => {}}
-        callBack2={() => {}}
-        text={textDecks}
-      />
+      <DecksSuperContainer array={arrayDecks} text={textDecks} />
     </DashboardLayout>
   );
 };
