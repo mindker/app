@@ -1,6 +1,7 @@
-import { Flex, Image, Text, useColorModeValue, Avatar, WrapItem } from '@chakra-ui/react';
+import { Avatar, Flex, Image, Text, useColorModeValue, WrapItem } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import GlobalContext from '../../context/GlobalContext';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
@@ -15,7 +16,7 @@ const HeaderDashboard = ({ text, image }) => {
     setHomeContent('content');
     navigate('/');
   };
-  
+
   return (
     <header>
       <Flex
