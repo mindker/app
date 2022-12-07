@@ -7,7 +7,7 @@ const StyledDiv = styled.div`
   align-items: center;
   flex-wrap: nowrap;
   color: black;
-  gap: 2rem;
+  gap: 0.3rem;
   flex-direction: ${(props) => (props.direction == 'row' ? 'row' : 'column')};
 `;
 
