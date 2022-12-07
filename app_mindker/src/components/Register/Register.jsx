@@ -4,7 +4,6 @@ import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiFillContacts } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-
 import GlobalContext from '../../context/GlobalContext';
 import { loginUser, RegisterUser } from '../../services/postsFunctionsApiUser.js';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';

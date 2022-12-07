@@ -22,7 +22,7 @@ const Login = () => {
     (async () => {
       const res = await loginUser('login', values);
       if (res) {
-        await setUser(res.info);
+        await setUser(res.info.data.user);
         await setLocal(res.info.data.token);
         navigate('dashboard');
       }
