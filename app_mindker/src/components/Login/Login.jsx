@@ -10,7 +10,7 @@ import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setUser, setLocal } = useContext(GlobalContext);
+  const { setNickname, setUser, setLocal } = useContext(GlobalContext);
 
   const {
     handleSubmit,
@@ -21,8 +21,11 @@ const Login = () => {
   const onFormSubmit = (values) => {
     (async () => {
       const res = await loginUser('login', values);
-      res && (await setLocal(res));
-      res && navigate('dashboard');
+      if (res) {
+        await setUser(res.info.data.user);
+        await setLocal(res.info.data.token);
+        navigate('dashboard');
+      }
     })();
   };
 
@@ -35,7 +38,7 @@ const Login = () => {
             required: true,
             minLength: 2,
           })}
-          onChange={(e) => setUser(e.target.value)}
+          onChange={(e) => setNickname(e.target.value)}
           placeholder="nickname"
           type="text"
         />
