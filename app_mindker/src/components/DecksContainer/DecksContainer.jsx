@@ -1,15 +1,9 @@
-import { Stack } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 
 import DeckCard from '../Cards/DeckCard';
-const DecksContainer = ({
-  array,
-  callBack,
-  callBack2,
-  direction = ['row', 'column'],
-  spacing,
-}) => {
+const DecksContainer = ({ array, callBack, callBack2 }) => {
   return (
-    <Stack direction={direction} spacing={spacing}>
+    <Flex justifyContent="center" flexWrap="wrap" gap="2rem">
       {array.length ? (
         array.map((deck) => (
           <DeckCard
@@ -22,7 +16,7 @@ const DecksContainer = ({
       ) : (
         <p>NO WAY</p>
       )}
-    </Stack>
+    </Flex>
   );
 };
 

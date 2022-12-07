@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 const StyledDiv = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   color: black;
   gap: 2rem;
   flex-direction: ${(props) => (props.direction == 'row' ? 'row' : 'column')};
