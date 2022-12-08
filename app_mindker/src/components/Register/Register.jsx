@@ -23,12 +23,17 @@ const Register = () => {
     (async () => {
       values = { ...values, avatar: avatar };
       await RegisterUser(values);
-      const res = loginUser('login', {
+      const res = await loginUser('login', {
         nickname: values.nickname,
         password: values.password,
-      }).then((res) => res);
+      });
+      console.log(`nickname : ${values.nickname} password: ${values.password}`);
+      console.log('despues de login');
+      console.log(res);
       await setUser(res.info.data.user);
+      console.log('despues de setUser');
       await setLocal(res.info.data.token);
+      console.log('después de setLocal');
       res && navigate('dashboard');
     })();
   };
