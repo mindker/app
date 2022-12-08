@@ -7,7 +7,8 @@ import DashboardLayout from '../../layouts/DasboardLayout/DashboardLayout';
 import { getAgnostic } from '../../services/getServices';
 
 const Dashboard = () => {
-  const { user, dashboardContent, switcher, param } = useContext(GlobalContext);
+  const { user, dashboardContent, switcher, param, setParam, paramReforce } =
+    useContext(GlobalContext);
   const allUserDecks = [...user.downloadedDecks, ...user.createdDecks];
   const [arrayDecks, setArrayDecks] = useState(allUserDecks);
   const [textDecks, setTextDecks] = useState('My Decks');
@@ -17,7 +18,8 @@ const Dashboard = () => {
       ? setTextDecks('Popular Decks')
       : dashboardContent === false
       ? (setArrayDecks(allUserDecks), setTextDecks('My Decks'))
-      : setTextDecks(param);
+      : param == '' && setParam(paramReforce),
+      setTextDecks(param);
     dashboardContent &&
       getAgnostic(dashboardContent, param).then((res) => setArrayDecks(res.info.data));
   }, [switcher]);
