@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import GlobalContext from '../../context/GlobalContext';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
+import EditProfileModal from '../Modals/EditProfileModal';
 
 const NavUserDashboard = () => {
   const {
@@ -14,8 +15,6 @@ const NavUserDashboard = () => {
     setSwitcher,
     setParam,
     setParamReforce,
-    paramReforce,
-    param,
   } = useContext(GlobalContext);
 
   const navigate = useNavigate();
@@ -40,12 +39,7 @@ const NavUserDashboard = () => {
     >
       <Box>
         <Box justifyItems="right" display="flex">
-          <AgnosticButton
-            leftIcon="⚙"
-            callBack={() => {
-              navigate('/updateProfile');
-            }}
-          />
+          <EditProfileModal />
         </Box>
         <Box
           bg="white"
@@ -94,7 +88,6 @@ const NavUserDashboard = () => {
             text="Search"
             callBack={() => {
               setDashboardContent('decks/deck');
-              param == null && setParam(paramReforce);
               setSwitcher(!switcher);
             }}
           />
