@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 
 import DecksSuperContainer from '../../components/DecksContainer/DecksSuperContainer';
 import NavUserDashboard from '../../components/NavUserDashboard/NavUserDashboard';
@@ -11,7 +11,8 @@ const Dashboard = () => {
     useContext(GlobalContext);
   // eslint-disable-next-line no-unsafe-optional-chaining
   const allUserDecks = [...user?.downloadedDecks, ...user?.createdDecks];
-  const [arrayDecks, setArrayDecks] = useState(allUserDecks);
+  const ref = useRef(allUserDecks);
+  const [arrayDecks, setArrayDecks] = useState(ref);
   const [textDecks, setTextDecks] = useState('My Decks');
 
   useEffect(() => {

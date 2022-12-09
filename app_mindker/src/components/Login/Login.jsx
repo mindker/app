@@ -11,8 +11,7 @@ import {
   InputRightElement,
   useDisclosure,
 } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiFillContacts } from 'react-icons/ai';
 import { AiFillApi } from 'react-icons/ai';
