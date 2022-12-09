@@ -13,7 +13,11 @@ export const patchUser = async (id, token, updatedObject) => {
       method: 'patch',
       url: `http://localhost:8080/api/v1/users/${id}`,
       headers: {
-        Authorization: `bearer ${token}`,
+        Authorization: {
+          toString() {
+            return `Bearer ${token}`;
+          },
+        },
         'Content-Type':
           'multipart/form-data; boundary=AaB03x' +
           '--AaB03x' +
