@@ -20,12 +20,12 @@ const HeaderHome = ({ text, image }) => {
         <ImageComponent
           src={image}
           alt={text}
-          boxSize="100px"
+          boxSize="70px"
           ml="4rem"
           objectFit="cover"
           title="imagen de mindker"
         />
-        <Text fontSize="50px" width="100%" textAlign="center">
+        <Text fontSize="35px" width="100%" textAlign="center">
           {text}
         </Text>
       </Flex>
