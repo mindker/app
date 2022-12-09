@@ -11,7 +11,7 @@ const DecksSuperContainer = ({ array, text }) => {
       flexDirection="column"
       h="100vh"
       w="85vw"
-      bg="pink"
+      bg="inherit"
     >
       <Flex justifyContent="flex-start">
         <TextComponet text={text} fontSize="4x1" color="black" as="b" />

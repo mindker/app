@@ -15,12 +15,13 @@ import { useForm } from 'react-hook-form';
 
 import GlobalContext from '../../context/GlobalContext';
 import { patchUser } from '../../services/patchService';
+import { loginUser } from '../../services/postsFunctionsApiUser.js';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const EditProfileModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [avatar, setAvatar] = useState('');
-  const { user, setSwitcher, switcher } = useContext(GlobalContext);
+  const { user, switcher, setSwitcher, setUser, setLocal } = useContext(GlobalContext);
   const {
     handleSubmit,
     register,
@@ -32,12 +33,15 @@ const EditProfileModal = () => {
       const token = localStorage.getItem(user.nickname);
       values = { ...values, avatar: avatar };
       await patchUser(user._id, token, values);
+      const res = await loginUser('login', values);
+      await setUser(res.info.data.user);
+      await setLocal(res.info.data.token);
       await setSwitcher(!switcher);
     })();
   };
   return (
     <>
-      <AgnosticButton leftIcon="⚙" callBack={onOpen} />
+      <AgnosticButton leftIcon="⚙" callBack={onOpen} variant="outline" />
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -67,6 +71,7 @@ const EditProfileModal = () => {
                 })}
                 name="nickname"
                 type="text"
+                defaultValue={user.nickname}
               />
               {errors.nickname ? (
                 <Text>This field should have at least 2 characters</Text>
@@ -80,15 +85,17 @@ const EditProfileModal = () => {
                 })}
                 name="email"
                 type="text"
+                defaultValue={user.email}
               />
               {errors.email ? <Text>This field is required</Text> : null}
               <FormLabel>Password</FormLabel>
               <Input
                 {...register('password', {
                   minLength: 2,
+                  required: true,
                 })}
                 name="password"
-                type="text"
+                type="password"
               />
               {errors.password ? <Text>This field is required</Text> : null}
               <FormLabel>Avatar</FormLabel>

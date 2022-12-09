@@ -11,7 +11,7 @@ import {
   InputRightElement,
   useDisclosure,
 } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiFillContacts } from 'react-icons/ai';
@@ -26,6 +26,8 @@ const Login = () => {
   const navigate = useNavigate();
   const { setNickname, setUser, setLocal } = useContext(GlobalContext);
   const [passwordError, setPasswordError] = useState(false);
+  const [nicknameError, setNicknameError] = useState(false);
+
   const {
     handleSubmit,
     register,
@@ -41,8 +43,11 @@ const Login = () => {
         navigate('dashboard');
       } catch (error) {
         console.log(error);
-        if (error.response.data.info.message == 'Incorrect password') {
+        if (error.response.data.info.message == 'Incorrect Password') {
           setPasswordError(true);
+        }
+        if (error.response.data.info.message == 'Invalid nickname') {
+          setNicknameError(true);
         }
       }
     })();
@@ -51,6 +56,11 @@ const Login = () => {
   const btnRef = React.useRef();
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+
+  const setErrorsInFalse = () => {
+    setPasswordError(false);
+    setNicknameError(false);
+  };
 
   return (
     <>
@@ -74,33 +84,31 @@ const Login = () => {
           <DrawerBody>
             <form onSubmit={handleSubmit(onFormSubmit)}>
               <FormLabel>Nickname</FormLabel>
-
               <Input
                 {...register('nickname', {
                   required: true,
-                  minLength: 2,
                 })}
                 onChange={(e) => setNickname(e.target.value)}
                 type="text"
               />
-
-              {errors.nickname ? <Text color="red">This field is required</Text> : null}
-
+              {/*  {errors.nickname ? <Text color="red">This field is required</Text> : null} */}
+              {nicknameError ? (
+                <Text color="red">This nickname does not exist</Text>
+              ) : errors.nickname ? (
+                <Text color="red">This field is required</Text>
+              ) : null}
               <FormLabel>Password</FormLabel>
-
               <InputGroup>
                 <Input
                   {...register('password', {
                     required: true,
-
                     validate: {
                       format: (password) => {
-                        return /[a-z]/g.test(password) && /[0-9]/g.test(password);
+                        return /[a-zA-Z]/g.test(password);
                       },
                     },
                   })}
                   type={show ? 'text' : 'password'}
-                  mb="1rem"
                 />
                 <InputRightElement width="4.5rem">
                   <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -113,14 +121,13 @@ const Login = () => {
               ) : errors.password ? (
                 <Text color="red">This field is required</Text>
               ) : null}
-
               <AgnosticButton
                 text="Login"
                 type="submit"
                 variant="outline"
                 leftIcon={<AiFillApi />}
                 colorScheme="facebook"
-                callBack={() => setPasswordError(false)}
+                callBack={() => setErrorsInFalse()}
               />
             </form>
           </DrawerBody>

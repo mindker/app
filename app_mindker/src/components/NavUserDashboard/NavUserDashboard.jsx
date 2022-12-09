@@ -1,5 +1,6 @@
 import { Avatar, Box, Input, Text } from '@chakra-ui/react';
 import React, { useContext } from 'react';
+import { FaSignOutAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 import GlobalContext from '../../context/GlobalContext';
@@ -27,7 +28,7 @@ const NavUserDashboard = () => {
 
   return (
     <Box
-      bg="gray"
+      bg="#DDD"
       w="20rem"
       h="100vh"
       p="1rem"
@@ -38,8 +39,19 @@ const NavUserDashboard = () => {
       gap="2.5rem"
     >
       <Box>
-        <Box justifyItems="right" display="flex">
-          <EditProfileModal />
+        <Box display="flex" justifyContent="space-between" mb="2rem">
+          <Box bg="white" borderRadius="10px">
+            <EditProfileModal />
+          </Box>
+          <Box bg="white" borderRadius="10px">
+            <AgnosticButton
+              colorScheme="gray"
+              leftIcon={<FaSignOutAlt />}
+              text=""
+              callBack={() => logout()}
+              variant="outline"
+            />
+          </Box>
         </Box>
         <Box
           bg="white"
@@ -64,6 +76,7 @@ const NavUserDashboard = () => {
         >
           <AgnosticButton
             colorScheme="gray"
+            variant="outline"
             width="13rem"
             text="My Decks"
             callBack={() => {
@@ -74,6 +87,8 @@ const NavUserDashboard = () => {
           />
           <AgnosticButton
             width="13rem"
+            colorScheme="gray"
+            variant="outline"
             text="Popular decks"
             callBack={() => {
               setDashboardContent('decks');
@@ -85,6 +100,7 @@ const NavUserDashboard = () => {
           <AgnosticButton
             colorScheme="gray"
             width="13rem"
+            variant="outline"
             text="Search"
             callBack={() => {
               setDashboardContent('decks/deck');
@@ -103,13 +119,11 @@ const NavUserDashboard = () => {
           <AgnosticButton
             colorScheme="gray"
             width="13rem"
+            variant="outline"
             text="Create Deck"
             callBack={() => navigate('/createDeck')}
           />
         </Box>
-      </Box>
-      <Box display="flex" justifyContent="flex-end">
-        <AgnosticButton colorScheme="gray" text="Log out" callBack={() => logout()} />
       </Box>
     </Box>
   );
