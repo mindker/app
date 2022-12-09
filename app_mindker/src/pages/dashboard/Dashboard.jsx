@@ -9,7 +9,8 @@ import { getAgnostic } from '../../services/getServices';
 const Dashboard = () => {
   const { user, dashboardContent, switcher, param, setParam, paramReforce } =
     useContext(GlobalContext);
-  const allUserDecks = [...user.downloadedDecks, ...user.createdDecks];
+  // eslint-disable-next-line no-unsafe-optional-chaining
+  const allUserDecks = [...user?.downloadedDecks, ...user?.createdDecks];
   const [arrayDecks, setArrayDecks] = useState(allUserDecks);
   const [textDecks, setTextDecks] = useState('My Decks');
 

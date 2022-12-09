@@ -3,8 +3,8 @@ import * as React from 'react';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 export const Footer = () => (
-  <Container as="footer" py={{ base: '12', md: '16' }}>
-    <Stack spacing={{ base: '4', md: '5' }}>
+  <Container as="footer">
+    <Stack>
       <Stack justify="center" direction="row" align="center">
         <ButtonGroup variant="ghost">
           <IconButton
