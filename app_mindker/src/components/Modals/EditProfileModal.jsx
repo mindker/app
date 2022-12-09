@@ -20,7 +20,7 @@ import AgnosticButton from '../AgnosticButton/AgnosticButton';
 const EditProfileModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [avatar, setAvatar] = useState('');
-  const { setUser, user, setSwitcher, switcher } = useContext(GlobalContext);
+  const { user, setSwitcher, switcher } = useContext(GlobalContext);
   const {
     handleSubmit,
     register,
@@ -54,6 +54,7 @@ const EditProfileModal = () => {
                 })}
                 name="name"
                 type="text"
+                defaultValue={user.name}
               />
               {errors.name ? (
                 <Text>This field should have at least 2 characters</Text>
