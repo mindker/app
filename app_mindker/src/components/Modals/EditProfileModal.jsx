@@ -12,12 +12,14 @@ import { FormLabel } from '@chakra-ui/react';
 import { Input, Text } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import GlobalContext from '../../context/GlobalContext';
 import { loginUser, patchUser } from '../../services/APIService';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const EditProfileModal = () => {
+  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [avatar, setAvatar] = useState('');
   const { user, switcher, setSwitcher, setUser, setLocal } = useContext(GlobalContext);
