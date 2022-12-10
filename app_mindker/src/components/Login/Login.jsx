@@ -19,7 +19,7 @@ import { AiFillApi } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
 import GlobalContext from '../../context/GlobalContext';
-import { loginUser } from '../../services/postsFunctionsApiUser';
+import { loginUser } from '../../services/APIservice';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const Login = () => {
