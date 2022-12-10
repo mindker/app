@@ -14,8 +14,7 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import GlobalContext from '../../context/GlobalContext';
-import { patchUser } from '../../services/patchService';
-import { loginUser } from '../../services/postsFunctionsApiUser.js';
+import { loginUser, patchUser } from '../../services/APIService';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const EditProfileModal = () => {
@@ -27,11 +26,14 @@ const EditProfileModal = () => {
     register,
     formState: { errors },
   } = useForm();
-
   const onFormSubmit = (values) => {
     (async () => {
       const token = localStorage.getItem(user.nickname);
-      values = { ...values, avatar: avatar };
+      values = {
+        ...values,
+        avatar: avatar,
+      };
+      console.log(values);
       await patchUser(user._id, token, values);
       const res = await loginUser('login', values);
       await setUser(res.info.data.user);
