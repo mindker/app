@@ -1,5 +1,14 @@
+import React from "react";
+import { Box } from "@chakra-ui/react";
+
+
+
 const PlayPage = () => {
-  return <div>PlayPage</div>;
+  return (
+    <Box>
+      
+    </Box>
+  );
 };
 
 export default PlayPage;
