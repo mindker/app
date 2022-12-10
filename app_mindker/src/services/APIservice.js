@@ -77,3 +77,32 @@ export const patchUser = async (id, token, updatedObject) => {
     console.log(error);
   }
 };
+
+export const CreateNewDeck = async (newDeck, token) => {
+  try {
+    return axios({
+      method: 'post',
+      url: `http://localhost:8080/api/v1/decks`,
+      headers: {
+        Authorization: {
+          toString() {
+            return `Bearer ${token}`;
+          },
+        },
+        'Content-Type':
+          'multipart/form-data; boundary=AaB03x' +
+          '--AaB03x' +
+          'Content-Disposition: file' +
+          'Content-Type: png' +
+          'Content-Transfer-Encoding: binary' +
+          '...data... ' +
+          '--AaB03x--',
+        Accept: 'application/json',
+        type: 'formData',
+      },
+      data: newDeck,
+    }).then((res) => res.data.info.data);
+  } catch (error) {
+    return error;
+  }
+};
