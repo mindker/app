@@ -46,7 +46,7 @@ const Login = () => {
         if (error.response.data.info.message == 'Incorrect Password') {
           setPasswordError(true);
         }
-        if (error.response.data.info.message == 'Invalid nickname') {
+        if (error.response.data.info.message == 'Incorrect Nickname') {
           setNicknameError(true);
         }
       }
@@ -98,7 +98,7 @@ const Login = () => {
                 <Text color="red">This field is required</Text>
               ) : null}
               <FormLabel>Password</FormLabel>
-              <InputGroup>
+              <InputGroup mb="1rem">
                 <Input
                   {...register('password', {
                     required: true,
