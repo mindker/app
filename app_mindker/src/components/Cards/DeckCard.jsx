@@ -1,10 +1,20 @@
 import { Card, CardBody, Flex } from '@chakra-ui/react';
-import { FaArchive, FaDraftingCompass } from 'react-icons/fa';
+import { useContext } from 'react';
 
+import GlobalContext from '../../context/GlobalContext';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
 import TextComponent from '../TextComponent/TextComponent';
 
-const DeckCard = ({ object, callBack, callBack2 }) => {
+const DeckCard = ({
+  object,
+  callBack,
+  callBack2,
+  textUp,
+  textBottom,
+  leftIconUp,
+  leftIconDown,
+}) => {
+  const { dashboardContent } = useContext(GlobalContext);
   return (
     <Card height="130">
       <CardBody>
@@ -20,20 +30,31 @@ const DeckCard = ({ object, callBack, callBack2 }) => {
           </Flex>
           <Flex flexDirection="column" justifyContent="center" gap="2rem">
             <AgnosticButton
-              text="Play"
+              text={textUp}
               type="button"
               variant="outline"
-              leftIcon={<FaArchive />}
+              leftIcon={leftIconUp}
               colorScheme="twitter"
               size="xs"
               callBack={callBack}
             />
             {!object.isOpen && (
               <AgnosticButton
-                text="Edit"
+                text={textBottom}
                 type="button"
                 variant="outline"
-                leftIcon={<FaDraftingCompass />}
+                leftIcon={leftIconDown}
+                colorScheme="twitter"
+                size="xs"
+                callBack={callBack2}
+              />
+            )}
+            {dashboardContent && (
+              <AgnosticButton
+                text={textBottom}
+                type="button"
+                variant="outline"
+                leftIcon={leftIconDown}
                 colorScheme="twitter"
                 size="xs"
                 callBack={callBack2}
