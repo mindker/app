@@ -14,7 +14,7 @@ export const loginUser = async (endpoint, credentials) => {
       data: credentials,
     }).then((res) => res.data);
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
@@ -38,7 +38,7 @@ export const RegisterUser = async (newUser) => {
       data: newUser,
     }).then((res) => console.log(res));
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
