@@ -26,6 +26,9 @@ const Register = () => {
   const navigate = useNavigate();
   const [avatar, setAvatar] = useState('');
   const { setLocal, setUser } = useContext(GlobalContext);
+  const [nicknameDuplicatedError, setNicknameDuplicatedError] = useState(false);
+  const [emailDuplicatedError, setEmailDuplicatedError] = useState(false);
+
   const {
     handleSubmit,
     register,
@@ -33,26 +36,50 @@ const Register = () => {
   } = useForm();
 
   const onFormSubmit = (values) => {
-    (async () => {
+    try {
       values = { ...values, avatar: avatar };
-      await RegisterUser(values);
-      setTimeout(() => {
-        loginUser('login', {
-          nickname: values.nickname,
-          password: values.password,
-        }).then((res) => {
-          setUser(res.info.data.user);
-          setLocal(res.info.data.token);
-          res && navigate('dashboard');
-        });
-      }, 1500);
-    })();
+      const resReg = RegisterUser(values).then((res) => console.log(res));
+      console.log(resReg);
+      resReg &&
+        setTimeout(() => {
+          loginUser('login', {
+            nickname: values.nickname,
+            password: values.password,
+          }).then((res) => {
+            setUser(res.info.data.user);
+            setLocal(res.info.data.token);
+            res && navigate('dashboard');
+          });
+        }, 1500);
+    } catch (error) {
+      console.log('el error' + error);
+      if (error.response.data.info.message == 'nickname already exist') {
+        setNicknameDuplicatedError(true);
+      }
+      if (error.response.data.info.message == 'email already exist') {
+        setEmailDuplicatedError(true);
+      }
+      if (error.response.data.info.message == 'nickname and email already exist') {
+        setErrorsInTrue();
+      }
+    }
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+
+  const setErrorsInFalse = () => {
+    setNicknameDuplicatedError(false);
+    setEmailDuplicatedError(false);
+  };
+
+  const setErrorsInTrue = () => {
+    setNicknameDuplicatedError(true);
+    setEmailDuplicatedError(true);
+  };
+
   return (
     <>
       <Button
@@ -94,7 +121,11 @@ const Register = () => {
                   name="nickname"
                   type="text"
                 />
-                {errors.nickname ? <Text color="red">This field is required</Text> : null}
+                {nicknameDuplicatedError ? (
+                  <Text color="red">This nickname already exist</Text>
+                ) : errors.nickname ? (
+                  <Text color="red">This field is required</Text>
+                ) : null}
                 <FormLabel>Email</FormLabel>
                 <Input
                   {...register('email', {
@@ -105,8 +136,10 @@ const Register = () => {
                   name="email"
                   type="text"
                 />
-                {errors.email ? (
-                  <Text color="red">Please enter a correct email</Text>
+                {emailDuplicatedError ? (
+                  <Text color="red">This email already exist</Text>
+                ) : errors.email ? (
+                  <Text color="red">This field is required</Text>
                 ) : null}
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
@@ -143,6 +176,7 @@ const Register = () => {
                   variant="outline"
                   colorScheme="facebook"
                   leftIcon={<AiFillContacts />}
+                  callBack={() => setErrorsInFalse()}
                 />
               </form>
             </Stack>
