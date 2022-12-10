@@ -46,7 +46,7 @@ const Login = () => {
         if (error.response.data.info.message == 'Incorrect Password') {
           setPasswordError(true);
         }
-        if (error.response.data.info.message == 'Invalid nickname') {
+        if (error.response.data.info.message == 'Incorrect Nickname') {
           setNicknameError(true);
         }
       }
