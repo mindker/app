@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { useContext } from 'react';
-import { FaArchive, FaSearchengin, FaSith, FaStudiovinari } from 'react-icons/fa';
+import { FaSearchengin, FaSith, FaStudiovinari, FaWrench } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 import GlobalContext from '../../context/GlobalContext';
@@ -14,8 +14,8 @@ const DecksContainer = ({ array }) => {
         {array.length ? (
           array.map((deck) => (
             <DeckCard
-              leftIconDown={<FaStudiovinari />}
-              leftIconUp={<FaArchive />}
+              leftIconDown={<FaWrench />}
+              leftIconUp={<FaStudiovinari />}
               textUp="Play"
               textBottom="Edit"
               key={deck._id}
