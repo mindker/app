@@ -10,6 +10,7 @@ import { GlobalContextProvider } from './context/GlobalContext';
 import CreateDeck from './pages/createDeck/CreateDeck';
 import Dashboard from './pages/dashboard/Dashboard';
 import Demo from './pages/demo/Demo';
+import DetailDeck from './pages/detailDeck/DetailDeck';
 import EditDeck from './pages/editDeckPage/EditDeck';
 import Home from './pages/home/Home';
 import NotFound from './pages/notFound/NotFound';
@@ -28,6 +29,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path="/createDeck" element={<CreateDeck />} />
               <Route path="/playPage" element={<PlayPage />} />
               <Route path="/editDeckPage" element={<EditDeck />} />
+              <Route path="/dashboard/:id" element={<DetailDeck />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>

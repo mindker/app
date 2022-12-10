@@ -98,7 +98,7 @@ const Login = () => {
                 <Text color="red">This field is required</Text>
               ) : null}
               <FormLabel>Password</FormLabel>
-              <InputGroup>
+              <InputGroup mb="1rem">
                 <Input
                   {...register('password', {
                     required: true,
