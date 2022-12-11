@@ -106,3 +106,32 @@ export const CreateNewDeck = async (newDeck, token) => {
     return error;
   }
 };
+
+export const CreateNewCard = async (newCard, token) => {
+  try {
+    return axios({
+      method: 'post',
+      url: `http://localhost:8080/api/v1/cards`,
+      headers: {
+        Authorization: {
+          toString() {
+            return `Bearer ${token}`;
+          },
+        },
+        'Content-Type':
+          'multipart/form-data; boundary=AaB03x' +
+          '--AaB03x' +
+          'Content-Disposition: file' +
+          'Content-Type: png' +
+          'Content-Transfer-Encoding: binary' +
+          '...data... ' +
+          '--AaB03x--',
+        Accept: 'application/json',
+        type: 'formData',
+      },
+      data: newCard,
+    }).then((res) => res.data.info.data);
+  } catch (error) {
+    return error;
+  }
+};
