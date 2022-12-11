@@ -12,22 +12,24 @@ import { FormLabel } from '@chakra-ui/react';
 import { Input, Text } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 
+/* import { useNavigate } from 'react-router-dom'; */
 import GlobalContext from '../../context/GlobalContext';
 import { loginUser, patchUser } from '../../services/APIService';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const EditProfileModal = () => {
-  const navigate = useNavigate();
+  /* const navigate = useNavigate(); */
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [avatar, setAvatar] = useState('');
   const { user, switcher, setSwitcher, setUser, setLocal } = useContext(GlobalContext);
+
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
+
   const onFormSubmit = (values) => {
     (async () => {
       const token = localStorage.getItem(user.nickname);
@@ -37,12 +39,19 @@ const EditProfileModal = () => {
       };
       console.log(values);
       await patchUser(user._id, token, values);
-      const res = await loginUser('login', values);
-      await setUser(res.info.data.user);
-      await setLocal(res.info.data.token);
-      await setSwitcher(!switcher);
+      setTimeout(() => {
+        loginUser('login', {
+          nickname: values.nickname,
+          password: values.password,
+        }).then((res) => {
+          setUser(res.info.data.user);
+          setLocal(res.info.data.token);
+          setSwitcher(!switcher);
+        });
+      }, 1500);
     })();
   };
+
   return (
     <>
       <AgnosticButton leftIcon="⚙" callBack={onOpen} variant="outline" />

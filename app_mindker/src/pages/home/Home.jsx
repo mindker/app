@@ -1,6 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { AiFillHome } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import Content from '../../components/ContentHome/Content';
@@ -27,15 +28,17 @@ const Home = () => {
       <Flex gap="1rem">
         <Register />
         <Login />
-        <AgnosticButton
-          text="MindKer"
-          type="button"
-          variant="outline"
-          leftIcon={<AiFillHome />}
-          colorScheme="twitter"
-          size="lg"
-          callBack={() => setHomeContent('content')}
-        />
+        <Link to="/demo">
+          <AgnosticButton
+            text="MindKer"
+            type="button"
+            variant="outline"
+            leftIcon={<AiFillHome />}
+            colorScheme="twitter"
+            size="lg"
+            //callBack={() => setHomeContent('content')}
+          />
+        </Link>
       </Flex>
       <Footer />
     </HomeLayout>
