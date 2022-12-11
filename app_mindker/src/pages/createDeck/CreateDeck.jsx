@@ -1,5 +1,4 @@
 import {
-  Button,
   Flex,
   FormControl,
   FormHelperText,
@@ -11,6 +10,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Select,
   Text,
   Textarea,
   useDisclosure,
@@ -20,19 +20,17 @@ import { useForm } from 'react-hook-form';
 
 import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import GlobalContext from '../../context/GlobalContext';
-import { CreateNewDeck } from '../../services/APIservice';
+import { CreateNewCard, CreateNewDeck } from '../../services/APIservice';
 
 const CreateDeck = () => {
   const [question, setQuestion] = useState('');
+  const [imageQuestion, setImageQuestion] = useState('');
   const [answer, setAnswer] = useState('');
+  const [newDeckID, setNewDeckID] = useState('');
+
   const { user, local } = useContext(GlobalContext);
   const [image, setDeckImage] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const handleAnswer = (e) => {
-    e.preventDefault();
-    setAnswer(e.target.value);
-  };
 
   const {
     handleSubmit,
@@ -45,9 +43,29 @@ const CreateDeck = () => {
       try {
         values = { ...values, image: image, author: user._id };
         const newDeck = await CreateNewDeck(values, local);
-        console.log(newDeck);
+        console.log(newDeck._id);
+        setNewDeckID(newDeck._id);
         onOpen();
         return newDeck;
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  };
+
+  const onFormSubmitCard = () => {
+    const newCardToPost = {
+      question: question,
+      questionFile: imageQuestion,
+      answer: answer,
+      idDeck: newDeckID,
+    };
+
+    (async () => {
+      try {
+        const newCardCreated = await CreateNewCard(newCardToPost, local);
+        console.log(newCardCreated);
+        return newCardCreated;
       } catch (error) {
         console.log(error);
       }
@@ -96,13 +114,16 @@ const CreateDeck = () => {
               })}
             />
             <FormLabel>State</FormLabel>
-            <Input
+            <Select
               {...register('isOpen', {
                 required: true,
               })}
               name="isOpen"
               type="text"
-            ></Input>
+            >
+              <option value="true">Public</option>
+              <option value="false">Private</option>
+            </Select>
             {errors.isOpen ? <Text color="red">This field is required</Text> : null}
             <FormHelperText>
               advertencia: se tiene que escoger entre publico o privado
@@ -118,7 +139,7 @@ const CreateDeck = () => {
           <ModalHeader>Create a new card</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <FormControl onSubmit={handleSubmit}>
+            <FormControl>
               <FormLabel>Insert the question *</FormLabel>
               <Textarea
                 placeholder="Type the question in here"
@@ -126,16 +147,17 @@ const CreateDeck = () => {
                 onChange={(e) => setQuestion(e.target.value)}
               />
               <FormLabel>You can add a picture for this question if you wish</FormLabel>
-              <Input type="file" />
+              <Input type="file" onChange={(e) => setImageQuestion(e.target.value)} />
               <FormLabel>Type the answer *</FormLabel>
               <Textarea
                 placeholder="Type the answer in here"
                 value={answer}
-                onChange={handleAnswer}
+                onChange={(e) => setAnswer(e.target.value)}
               />
-              <Button mt={4} type="submit">
-                Save & Next
-              </Button>
+              <AgnosticButton
+                text="Save and Next"
+                callBack={() => onFormSubmitCard()}
+              ></AgnosticButton>
             </FormControl>
           </ModalBody>
         </ModalContent>
