@@ -1,24 +1,34 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import TextComponent from '../../components/TextComponent/TextComponent';
 import GlobalContext from '../../context/GlobalContext';
 import { getAgnostic } from '../../services/APIservice';
+
 const PlayPage = () => {
+  const navigate = useNavigate();
   const { idDeck } = useContext(GlobalContext);
   const [deck, setDeck] = useState([]);
   const [cards, setCards] = useState([]);
+  const [card, setCard] = useState([]);
   let [counter, setCounter] = useState(0);
   const [next, setNext] = useState(true);
 
   useEffect(() => {
-    getAgnostic('decks', idDeck).then((res) => {
-      setDeck(res.info.data);
-      setCards(res.info.data.cards);
-    });
+    getAgnostic('decks', idDeck)
+      .then((res) => {
+        setDeck(res.info.data);
+        setCards(res.info.data.cards);
+      })
+      .then(
+        () =>
+          cards &&
+          getAgnostic('cards', cards[counter]._id).then((res) => setCard(res.info.data)),
+      );
   }, [counter]);
-
+  console.log(card);
   return (
     <Box>
       {cards[counter] ? (
@@ -31,8 +41,12 @@ const PlayPage = () => {
           gap="2rem"
         >
           <TextComponent text={cards[counter].question} />
-          {cards[counter].image ? (
-            <img src={cards[counter].image} alt={cards[counter].question} />
+          {cards[counter].questionFile ? (
+            <img
+              src={cards[counter].questionFile}
+              alt={cards[counter].question}
+              width="350px"
+            />
           ) : null}
           {next ? (
             <AgnosticButton
@@ -91,7 +105,13 @@ const PlayPage = () => {
           )}
         </Flex>
       ) : (
-        <p>NO WAY</p>
+        <AgnosticButton
+          variant="outline"
+          text="Back"
+          callBack={() => {
+            navigate('/dashboard');
+          }}
+        />
       )}
     </Box>
   );
