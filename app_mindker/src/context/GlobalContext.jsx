@@ -14,6 +14,7 @@ const GlobalContextProvider = ({ children }) => {
   const [param, setParam] = useState('');
   const [idDeck, setIdDeck] = useState('');
   const [paramReforce, setParamReforce] = useState('');
+
   const value = {
     homeContent,
     setHomeContent,
