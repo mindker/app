@@ -65,12 +65,17 @@ const CreateDeck = () => {
       try {
         const newCardCreated = await CreateNewCard(newCardToPost, local);
         console.log(newCardCreated);
+        /* question.clear();
+        answer.clear(); */
         return newCardCreated;
       } catch (error) {
         console.log(error);
       }
     })();
   };
+
+  const isErrorQ = question === '';
+  const isErrorA = answer === '';
 
   return (
     <>
@@ -145,15 +150,22 @@ const CreateDeck = () => {
                 placeholder="Type the question in here"
                 value={question}
                 onChange={(e) => setQuestion(e.target.value)}
+                isRequired={true}
               />
+              {isErrorQ ? <Text color="red">This field is required</Text> : null}
               <FormLabel>You can add a picture for this question if you wish</FormLabel>
-              <Input type="file" onChange={(e) => setImageQuestion(e.target.value)} />
+              <Input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImageQuestion(e.target.files[0])}
+              />
               <FormLabel>Type the answer *</FormLabel>
               <Textarea
                 placeholder="Type the answer in here"
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
               />
+              {isErrorA ? <Text color="red">This field is required</Text> : null}
               <AgnosticButton
                 text="Save and Next"
                 callBack={() => onFormSubmitCard()}
