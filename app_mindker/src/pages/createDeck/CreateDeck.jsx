@@ -6,8 +6,14 @@ import {
   FormLabel,
   Input,
   Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
   Text,
   Textarea,
+  useDisclosure,
 } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -17,14 +23,11 @@ import GlobalContext from '../../context/GlobalContext';
 import { CreateNewDeck } from '../../services/APIservice';
 
 const CreateDeck = () => {
-  const [show, setShow] = useState(false);
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
   const { user, local } = useContext(GlobalContext);
   const [image, setDeckImage] = useState('');
-  /* const handleSubmit = (e) => {
-    e.preventDefault();
-  }; */
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleAnswer = (e) => {
     e.preventDefault();
@@ -40,13 +43,13 @@ const CreateDeck = () => {
   const onFormSubmit = (values) => {
     (async () => {
       try {
-        console.log('submitting');
         values = { ...values, image: image, author: user._id };
         const newDeck = await CreateNewDeck(values, local);
-        console.log(newDeck._id);
+        console.log(newDeck);
+        onOpen();
         return newDeck;
       } catch (error) {
-        console.log('el hipotetico error');
+        console.log(error);
       }
     })();
   };
@@ -83,8 +86,7 @@ const CreateDeck = () => {
               type="file"
               onChange={(e) => setDeckImage(e.target.files[0])}
               accept="image/*"
-            ></Input>
-
+            />
             <FormLabel>tags</FormLabel>
             <Input
               name="tags"
@@ -101,36 +103,42 @@ const CreateDeck = () => {
               name="isOpen"
               type="text"
             ></Input>
-            {errors.state ? <Text color="red">This field is required</Text> : null}
+            {errors.isOpen ? <Text color="red">This field is required</Text> : null}
             <FormHelperText>
               advertencia: se tiene que escoger entre publico o privado
             </FormHelperText>
-            <AgnosticButton text="Guardar" />
-            <Button onClick={() => setShow(true)} type="submit">
-              Crear pregunta
-            </Button>
+            <AgnosticButton text="Save deck" />
+            <AgnosticButton type="submit" text="Add cards" />
           </form>
         </FormControl>
       </Flex>
-
-      <Modal isOpen={show} onClose={() => setShow(false)}>
-        <FormControl onSubmit={handleSubmit}>
-          <FormLabel>Crea tu pregunta</FormLabel>
-          <Textarea
-            placeholder="Escribe tu pregunta aqui"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-          />
-          <FormLabel>Escribe la respuesta</FormLabel>
-          <Textarea
-            placeholder="Escribe tu respuesta aqui"
-            value={answer}
-            onChange={handleAnswer}
-          />
-          <Button mt={4} type="submit">
-            Guardar
-          </Button>
-        </FormControl>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Create a new card</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <FormControl onSubmit={handleSubmit}>
+              <FormLabel>Insert the question *</FormLabel>
+              <Textarea
+                placeholder="Type the question in here"
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+              />
+              <FormLabel>You can add a picture for this question if you wish</FormLabel>
+              <Input type="file" />
+              <FormLabel>Type the answer *</FormLabel>
+              <Textarea
+                placeholder="Type the answer in here"
+                value={answer}
+                onChange={handleAnswer}
+              />
+              <Button mt={4} type="submit">
+                Save & Next
+              </Button>
+            </FormControl>
+          </ModalBody>
+        </ModalContent>
       </Modal>
     </>
   );
