@@ -14,10 +14,11 @@ import {
   Text,
   Textarea,
   useDisclosure,
-  
+  useToast,
 } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+
 import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import GlobalContext from '../../context/GlobalContext';
 import { CreateAgnosticItem } from '../../services/APIservice';
@@ -57,6 +58,10 @@ const CreateDeck = () => {
     document.getElementById('deckForm').reset();
   };
 
+  const clearCardForm = () => {
+    document.getElementById('cardForm').reset();
+  };
+
   const onFormSubmitCard = () => {
     const newCardToPost = {
       question: question,
@@ -67,10 +72,7 @@ const CreateDeck = () => {
     (async () => {
       try {
         const newCardCreated = await CreateAgnosticItem('cards', newCardToPost, local);
-
         console.log(newCardCreated);
-        setAnswer('');
-        setQuestion('');
         return newCardCreated;
       } catch (error) {
         console.log(error);
@@ -80,7 +82,7 @@ const CreateDeck = () => {
 
   const isErrorQ = question === '';
   const isErrorA = answer === '';
-
+  const toast = useToast();
   return (
     <>
       <Flex>
@@ -173,8 +175,18 @@ const CreateDeck = () => {
                 <AgnosticButton
                   text="Save and Next"
                   type="submit"
-                >
-                </AgnosticButton>
+                  callBack={() => {
+                    toast({
+                      title: 'Card created.',
+                      description: "We've created your card for you.",
+                      status: 'success',
+                      duration: 9000,
+                      isClosable: true,
+                    });
+                    //onFormSubmitCard();
+                    clearCardForm();
+                  }}
+                ></AgnosticButton>
                 <AgnosticButton
                   text="Finish deck"
                   callBack={() => {
