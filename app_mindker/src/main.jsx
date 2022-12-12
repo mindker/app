@@ -29,7 +29,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path="/createDeck" element={<CreateDeck />} />
               <Route path="/playPage" element={<PlayPage />} />
               <Route path="/editDeckPage" element={<EditDeck />} />
-              <Route path="/dashboard/:id" element={<DetailDeck />} />
+              <Route path="/detailDeck" element={<DetailDeck />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
