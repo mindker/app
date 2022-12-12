@@ -6,7 +6,6 @@ import {
   Input,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,
@@ -18,6 +17,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+
 import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import GlobalContext from '../../context/GlobalContext';
 import { CreateAgnosticItem } from '../../services/APIservice';
@@ -116,14 +116,6 @@ const CreateDeck = () => {
               onChange={(e) => setDeckImage(e.target.files[0])}
               accept="image/*"
             />
-            {/* <FormLabel>tags</FormLabel>
-            <Input
-              name="tags"
-              type="text"
-              {...register('tags', {
-                required: false,
-              })}
-            /> */}
             <FormLabel>State</FormLabel>
             <Select
               {...register('isOpen', {
@@ -172,21 +164,19 @@ const CreateDeck = () => {
                   onChange={(e) => setAnswer(e.target.value)}
                 />
                 {isErrorA ? <Text color="red">This field is required</Text> : null}
-                <AgnosticButton 
-                text="Save and Next" 
-                type="submit"
-                callBack={() => {
-                      toast({
-                        title: 'Card created.',
-                        description: "We've created your card for you.",
-                        status: 'success',
-                        duration: 9000,
-                        isClosable: true,
-                      });
-                    }}
-                >
-
-                </AgnosticButton>
+                <AgnosticButton
+                  text="Save and Next"
+                  type="submit"
+                  callBack={() => {
+                    toast({
+                      title: 'Card created.',
+                      description: "We've created your card for you.",
+                      status: 'success',
+                      duration: 9000,
+                      isClosable: true,
+                    });
+                  }}
+                ></AgnosticButton>
 
                 <AgnosticButton
                   text="Finish deck"
