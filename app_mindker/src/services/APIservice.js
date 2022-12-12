@@ -42,13 +42,30 @@ export const RegisterUser = async (newUser) => {
   }
 };
 
-export const updateService = async (endpoint, param, object) => {
+export const postAgnostic = async (endpoint, object) => {
   try {
-    return await axios.patch(`http://localhost:8080/${endpoint}/${param}`, object);
+    axios({
+      method: 'post',
+      url: `http://localhost:8080/api/v1/${endpoint}`,
+      headers: {
+        'Content-Type':
+          'multipart/form-data; boundary=AaB03x' +
+          '--AaB03x' +
+          'Content-Disposition: file' +
+          'Content-Type: png' +
+          'Content-Transfer-Encoding: binary' +
+          '...data... ' +
+          '--AaB03x--',
+        Accept: 'application/json',
+        type: 'formData',
+      },
+      data: object,
+    }).then((res) => console.log(res));
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
+
 export const patchAgnostic = async (id, endpoint, token, updatedObject) => {
   try {
     axios({
