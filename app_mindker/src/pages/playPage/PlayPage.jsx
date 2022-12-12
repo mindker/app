@@ -35,11 +35,19 @@ const PlayPage = () => {
       level: level,
     };
     const token = localStorage.getItem(user.nickname);
-    card.difficulty.length
-      ? patchAgnostic(id, 'difficulties', token, difficultyUpdated).then((res) => res)
-      : postAgnostic('difficulties', { idCard: idCard, idUser: idUser, level: level });
+    if (card.difficulty.length) {
+      for (const difficulty of card.difficulty) {
+        if (user._id == difficulty.idUser) {
+          patchAgnostic(id, 'difficulties', token, difficultyUpdated).then((res) => res);
+        } else {
+          postAgnostic('difficulties', { idCard: idCard, idUser: idUser, level: level });
+        }
+      }
+    } else {
+      postAgnostic('difficulties', { idCard: idCard, idUser: idUser, level: level });
+    }
   };
-
+  console.log(card);
   return (
     <Box>
       {cards[counter] ? (
