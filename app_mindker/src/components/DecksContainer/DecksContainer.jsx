@@ -4,7 +4,7 @@ import { FaSearchengin, FaSith, FaStudiovinari, FaWrench } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom';
 
 import GlobalContext from '../../context/GlobalContext';
-import { getAgnostic, patchUser } from '../../services/APIservice.js';
+import { getAgnostic, patchAgnostic } from '../../services/APIservice.js';
 import DeckCard from '../Cards/DeckCard';
 
 const DecksContainer = ({ array }) => {
@@ -15,7 +15,7 @@ const DecksContainer = ({ array }) => {
     const token = window.localStorage.getItem(user.nickname);
     getAgnostic('decks', id).then((res) => {
       user.downloadedDecks.push(res.info.data);
-      patchUser(user._id, token, user);
+      patchAgnostic(user._id, 'users', token, user);
     });
   };
 
