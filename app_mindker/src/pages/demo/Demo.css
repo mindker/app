@@ -3,7 +3,11 @@
   height: 100%;
 }
 .container {
-  display: grid;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
   width: 100%;
   font-family: Inconsolata, monospace;
 }

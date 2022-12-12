@@ -60,7 +60,7 @@ const DecksContainer = ({ array }) => {
               object={deck}
               callBack={() => {
                 setIdDeck(deck._id);
-                navigate(`/dashboard/${deck._id}`);
+                navigate('/detailDeck');
               }}
               callBack2={async () => {
                 await downloadedDeckUser(deck._id);
