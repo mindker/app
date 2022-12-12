@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { AiFillHome } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import Content from '../../components/ContentHome/Content';
@@ -13,8 +13,8 @@ import GlobalContext from '../../context/GlobalContext';
 import HomeLayout from '../../layouts/HomeLayout/HomeLayout';
 
 const Home = () => {
-  const { homeContent, setHomeContent } = useContext(GlobalContext);
-
+  const { homeContent } = useContext(GlobalContext);
+  const navigate = useNavigate();
   //también se puede hacer con useEffect --> probar
 
   return (
@@ -28,17 +28,16 @@ const Home = () => {
       <Flex gap="1rem">
         <Register />
         <Login />
-        <Link to="/demo">
-          <AgnosticButton
-            text="MindKer"
-            type="button"
-            variant="outline"
-            leftIcon={<AiFillHome />}
-            colorScheme="twitter"
-            size="lg"
-            //callBack={() => setHomeContent('content')}
-          />
-        </Link>
+
+        <AgnosticButton
+          text="MindKer"
+          type="button"
+          variant="outline"
+          leftIcon={<AiFillHome />}
+          colorScheme="twitter"
+          size="lg"
+          callBack={() => navigate('demo')}
+        />
       </Flex>
       <Footer />
     </HomeLayout>
