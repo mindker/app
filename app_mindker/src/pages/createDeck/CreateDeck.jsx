@@ -43,7 +43,7 @@ const CreateDeck = () => {
       try {
         values = { ...values, image: image, author: user._id };
         const newDeck = await CreateAgnosticItem('decks', values, local);
-        console.log(newDeck._id);
+        console.log(newDeck);
         setNewDeckID(newDeck._id);
         onOpen();
         return newDeck;
@@ -53,6 +53,14 @@ const CreateDeck = () => {
     })();
   };
 
+  const clearDeckForm = () => {
+    document.getElementById('deckForm').reset();
+  };
+
+  const clearCardForm = () => {
+    document.getElementById('cardForm').reset();
+  };
+
   const onFormSubmitCard = () => {
     const newCardToPost = {
       question: question,
@@ -60,13 +68,10 @@ const CreateDeck = () => {
       answer: answer,
       idDeck: newDeckID,
     };
-
     (async () => {
       try {
         const newCardCreated = await CreateAgnosticItem('cards', newCardToPost, local);
         console.log(newCardCreated);
-        /* question.clear();
-        answer.clear(); */
         return newCardCreated;
       } catch (error) {
         console.log(error);
@@ -81,7 +86,7 @@ const CreateDeck = () => {
     <>
       <Flex>
         <FormControl>
-          <form onSubmit={handleSubmit(onFormSubmit)}>
+          <form onSubmit={handleSubmit(onFormSubmit)} id="deckForm">
             <FormLabel>Title</FormLabel>
             <Input
               {...register('title', {
@@ -134,43 +139,54 @@ const CreateDeck = () => {
               Warning! If you choose Public you cannot edit the deck later as it belongs
               to the community
             </FormHelperText>
-            <AgnosticButton text="Save deck" />
             <AgnosticButton type="submit" text="Add cards" />
           </form>
         </FormControl>
       </Flex>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Create a new card</ModalHeader>
-          <ModalCloseButton />
           <ModalBody>
             <FormControl>
-              <FormLabel>Insert the question *</FormLabel>
-              <Textarea
-                placeholder="Type the question in here"
-                value={question}
-                onChange={(e) => setQuestion(e.target.value)}
-                isRequired={true}
-              />
-              {isErrorQ ? <Text color="red">This field is required</Text> : null}
-              <FormLabel>You can add a picture for this question if you wish</FormLabel>
-              <Input
-                type="file"
-                accept="image/*"
-                onChange={(e) => setImageQuestion(e.target.files[0])}
-              />
-              <FormLabel>Type the answer *</FormLabel>
-              <Textarea
-                placeholder="Type the answer in here"
-                value={answer}
-                onChange={(e) => setAnswer(e.target.value)}
-              />
-              {isErrorA ? <Text color="red">This field is required</Text> : null}
-              <AgnosticButton
-                text="Save and Next"
-                callBack={() => onFormSubmitCard()}
-              ></AgnosticButton>
+              <form id="cardForm" onSubmit={handleSubmit(onFormSubmitCard)}>
+                <FormLabel>Insert the question *</FormLabel>
+                <Textarea
+                  placeholder="Type the question in here"
+                  value={question}
+                  onChange={(e) => setQuestion(e.target.value)}
+                  isRequired={true}
+                />
+                {isErrorQ ? <Text color="red">This field is required</Text> : null}
+                <FormLabel>You can add a picture for this question if you wish</FormLabel>
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setImageQuestion(e.target.files[0])}
+                />
+                <FormLabel>Type the answer *</FormLabel>
+                <Textarea
+                  placeholder="Type the answer in here"
+                  value={answer}
+                  onChange={(e) => setAnswer(e.target.value)}
+                />
+                {isErrorA ? <Text color="red">This field is required</Text> : null}
+                <AgnosticButton
+                  text="Save and Next"
+                  type="submit"
+                  callBack={() => {
+                    //onFormSubmitCard();
+                    clearCardForm();
+                  }}
+                ></AgnosticButton>
+                <AgnosticButton
+                  text="Finish deck"
+                  callBack={() => {
+                    onClose();
+                    clearDeckForm();
+                  }}
+                />
+              </form>
             </FormControl>
           </ModalBody>
         </ModalContent>
