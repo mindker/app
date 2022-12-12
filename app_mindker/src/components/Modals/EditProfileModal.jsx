@@ -7,6 +7,10 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
+  useToast,
+  InputRightElement,
+  Button,
+  InputGroup,
 } from '@chakra-ui/react';
 import { FormLabel } from '@chakra-ui/react';
 import { Input, Text } from '@chakra-ui/react';
@@ -23,7 +27,10 @@ const EditProfileModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [avatar, setAvatar] = useState('');
   const { user, switcher, setSwitcher, setUser, setLocal } = useContext(GlobalContext);
+  const [show, setShow] = React.useState(false);
+  const handleClick = () => setShow(!show);
 
+  const toast = useToast();
   const {
     handleSubmit,
     register,
@@ -103,14 +110,27 @@ const EditProfileModal = () => {
               />
               {errors.email ? <Text>This field is required</Text> : null}
               <FormLabel>Password</FormLabel>
+              <InputGroup mb="1rem">
               <Input
                 {...register('password', {
                   minLength: 2,
                   required: true,
+                  validate: {
+                    format: (password) => {
+                      return /[a-zA-Z]/g.test(password);
+                    },
+                  },
                 })}
                 name="password"
-                type="password"
+                type={show ? 'text' : 'password'}
+                
               />
+              <InputRightElement width="4.5rem">
+                  <Button h="1.75rem" size="sm" onClick={handleClick}>
+                    {show ? 'Hide' : 'Show'}
+                  </Button>
+                </InputRightElement>
+                </InputGroup>
               {errors.password ? <Text>This field is required</Text> : null}
               <FormLabel>Avatar</FormLabel>
               <Input
@@ -133,7 +153,17 @@ const EditProfileModal = () => {
                   colorScheme="facebook"
                   variant="outline"
                   type="submit"
-                  callBack={onClose}
+                  callBack={() => {
+                    onClose();
+
+                    toast({
+                      title: 'profile updated.',
+                      description: 'updated succesfull.',
+                      status: 'success',
+                      duration: 9000,
+                      isClosable: true,
+                    });
+                  }}
                   text="Edit"
                 />
               </Flex>
