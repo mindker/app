@@ -6,7 +6,6 @@ import {
   Input,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,
@@ -14,6 +13,7 @@ import {
   Text,
   Textarea,
   useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -81,7 +81,7 @@ const CreateDeck = () => {
 
   const isErrorQ = question === '';
   const isErrorA = answer === '';
-
+  const toast = useToast();
   return (
     <>
       <Flex>
@@ -175,6 +175,13 @@ const CreateDeck = () => {
                   text="Save and Next"
                   type="submit"
                   callBack={() => {
+                    toast({
+                      title: 'Card created.',
+                      description: "We've created your card for you.",
+                      status: 'success',
+                      duration: 9000,
+                      isClosable: true,
+                    });
                     //onFormSubmitCard();
                     clearCardForm();
                   }}
