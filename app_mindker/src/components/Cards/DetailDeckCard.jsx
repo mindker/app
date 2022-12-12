@@ -67,7 +67,9 @@ const DetailDeckCard = () => {
             </Text>
             <Text py="2">
               <strong>Author: </strong>
-              {deckDetail.info.data.author.nickname}
+              {!deckDetail.info.data.author
+                ? 'Anónimo'
+                : deckDetail.info.data.author.nickname}
             </Text>
           </CardBody>
 
