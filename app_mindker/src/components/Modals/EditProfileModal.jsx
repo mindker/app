@@ -34,6 +34,7 @@ const EditProfileModal = () => {
     (async () => {
       const token = localStorage.getItem(user.nickname);
       values = {
+        ...user,
         ...values,
         avatar: avatar,
       };

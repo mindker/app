@@ -5,12 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import TextComponent from '../../components/TextComponent/TextComponent';
 import GlobalContext from '../../context/GlobalContext';
-import { getAgnostic } from '../../services/APIservice';
+import { getAgnostic, patchAgnostic, postAgnostic } from '../../services/APIservice';
 
 const PlayPage = () => {
   const navigate = useNavigate();
-  const { idDeck } = useContext(GlobalContext);
-  const [deck, setDeck] = useState([]);
+  const { idDeck, user } = useContext(GlobalContext);
   const [cards, setCards] = useState([]);
   const [card, setCard] = useState([]);
   let [counter, setCounter] = useState(0);
@@ -19,7 +18,6 @@ const PlayPage = () => {
   useEffect(() => {
     getAgnostic('decks', idDeck)
       .then((res) => {
-        setDeck(res.info.data);
         setCards(res.info.data.cards);
       })
       .then(
@@ -29,8 +27,19 @@ const PlayPage = () => {
       );
   }, [counter]);
 
-  console.log(card.difficulty);
-  const updateDifficulty = (id, idCard, idUser, level) => {}
+  const updateDifficulty = (id, idCard, idUser, level) => {
+    const difficultyUpdated = {
+      _id: id,
+      idCard: idCard,
+      idUser: idUser,
+      level: level,
+    };
+    const token = localStorage.getItem(user.nickname);
+    card.difficulty.length
+      ? patchAgnostic(id, 'difficulties', token, difficultyUpdated).then((res) => res)
+      : postAgnostic('difficulties', { idCard: idCard, idUser: idUser, level: level });
+  };
+
   return (
     <Box>
       {cards[counter] ? (
@@ -99,7 +108,7 @@ const PlayPage = () => {
                 />
                 <AgnosticButton
                   variant="outline"
-                  callBack={() => {
+                  callBack={async () => {
                     setNext(!next);
                     setCounter(++counter);
                     updateDifficulty(card._id, card.idCard, card.idUser, card.level);
