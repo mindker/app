@@ -49,11 +49,11 @@ export const updateService = async (endpoint, param, object) => {
     console.log(error);
   }
 };
-export const patchUser = async (id, token, updatedObject) => {
+export const patchAgnostic = async (id, endpoint, token, updatedObject) => {
   try {
     axios({
       method: 'patch',
-      url: `http://localhost:8080/api/v1/users/${id}`,
+      url: `http://localhost:8080/api/v1/${endpoint}/${id}`,
       headers: {
         Authorization: {
           toString() {

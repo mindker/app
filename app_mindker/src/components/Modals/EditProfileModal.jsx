@@ -15,7 +15,7 @@ import { useForm } from 'react-hook-form';
 
 /* import { useNavigate } from 'react-router-dom'; */
 import GlobalContext from '../../context/GlobalContext';
-import { loginUser, patchUser } from '../../services/APIService';
+import { loginUser, patchAgnostic } from '../../services/APIService';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const EditProfileModal = () => {
@@ -38,7 +38,7 @@ const EditProfileModal = () => {
         avatar: avatar,
       };
       console.log(values);
-      await patchUser(user._id, token, values);
+      await patchAgnostic(user._id, 'users', token, values);
       setTimeout(() => {
         loginUser('login', {
           nickname: values.nickname,
@@ -48,7 +48,7 @@ const EditProfileModal = () => {
           setLocal(res.info.data.token);
           setSwitcher(!switcher);
         });
-      }, 1800);
+      }, 2000);
     })();
   };
 
