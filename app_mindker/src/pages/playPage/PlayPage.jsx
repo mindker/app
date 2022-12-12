@@ -28,7 +28,9 @@ const PlayPage = () => {
           getAgnostic('cards', cards[counter]._id).then((res) => setCard(res.info.data)),
       );
   }, [counter]);
-  console.log(card);
+
+  console.log(card.difficulty);
+  const updateDifficulty = (id, idCard, idUser, level) => {}
   return (
     <Box>
       {cards[counter] ? (
@@ -73,6 +75,7 @@ const PlayPage = () => {
                   callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
+                    updateDifficulty(card._id, card.idCard, card.idUser, card.level);
                   }}
                   text="Very easy"
                 />
@@ -81,6 +84,7 @@ const PlayPage = () => {
                   callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
+                    updateDifficulty(card._id, card.idCard, card.idUser, card.level);
                   }}
                   text="Easy"
                 />
@@ -89,6 +93,7 @@ const PlayPage = () => {
                   callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
+                    updateDifficulty(card._id, card.idCard, card.idUser, card.level);
                   }}
                   text="Hard"
                 />
@@ -97,6 +102,7 @@ const PlayPage = () => {
                   callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
+                    updateDifficulty(card._id, card.idCard, card.idUser, card.level);
                   }}
                   text="Very Hard"
                 />
