@@ -48,7 +48,7 @@ const EditProfileModal = () => {
           setLocal(res.info.data.token);
           setSwitcher(!switcher);
         });
-      }, 1500);
+      }, 1800);
     })();
   };
 

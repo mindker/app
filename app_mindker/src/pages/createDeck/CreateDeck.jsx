@@ -20,7 +20,7 @@ import { useForm } from 'react-hook-form';
 
 import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import GlobalContext from '../../context/GlobalContext';
-import { CreateNewCard, CreateNewDeck } from '../../services/APIservice';
+import { CreateAgnosticItem } from '../../services/APIservice';
 
 const CreateDeck = () => {
   const [question, setQuestion] = useState('');
@@ -42,7 +42,7 @@ const CreateDeck = () => {
     (async () => {
       try {
         values = { ...values, image: image, author: user._id };
-        const newDeck = await CreateNewDeck(values, local);
+        const newDeck = await CreateAgnosticItem('decks', values, local);
         console.log(newDeck._id);
         setNewDeckID(newDeck._id);
         onOpen();
@@ -63,7 +63,7 @@ const CreateDeck = () => {
 
     (async () => {
       try {
-        const newCardCreated = await CreateNewCard(newCardToPost, local);
+        const newCardCreated = await CreateAgnosticItem('cards', newCardToPost, local);
         console.log(newCardCreated);
         /* question.clear();
         answer.clear(); */
@@ -100,7 +100,7 @@ const CreateDeck = () => {
               type="text"
             ></Input>
             {errors.description ? <Text color="red">This field is required</Text> : null}
-            <FormLabel>image</FormLabel>
+            <FormLabel>Image</FormLabel>
             <Input
               {...register('image', {
                 required: false,
@@ -110,14 +110,14 @@ const CreateDeck = () => {
               onChange={(e) => setDeckImage(e.target.files[0])}
               accept="image/*"
             />
-            <FormLabel>tags</FormLabel>
+            {/* <FormLabel>tags</FormLabel>
             <Input
               name="tags"
               type="text"
               {...register('tags', {
                 required: false,
               })}
-            />
+            /> */}
             <FormLabel>State</FormLabel>
             <Select
               {...register('isOpen', {
@@ -131,7 +131,8 @@ const CreateDeck = () => {
             </Select>
             {errors.isOpen ? <Text color="red">This field is required</Text> : null}
             <FormHelperText>
-              advertencia: se tiene que escoger entre publico o privado
+              Warning! If you choose Public you cannot edit the deck later as it belongs
+              to the community
             </FormHelperText>
             <AgnosticButton text="Save deck" />
             <AgnosticButton type="submit" text="Add cards" />
