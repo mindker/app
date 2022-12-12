@@ -183,6 +183,13 @@ const CreateDeck = () => {
                   callBack={() => {
                     onClose();
                     clearDeckForm();
+                    toast({
+                      title: 'Deck created.',
+                      description: "We've created your deck for you.",
+                      status: 'success',
+                      duration: 9000,
+                      isClosable: true,
+                    });
                   }}
                 />
               </form>

@@ -25,7 +25,7 @@ import AgnosticButton from '../AgnosticButton/AgnosticButton';
 const Register = () => {
   const navigate = useNavigate();
   const [avatar, setAvatar] = useState('');
-  const { setLocal, setUser } = useContext(GlobalContext);
+  const { setLocal, setUser, setNickname, user } = useContext(GlobalContext);
   const [nicknameDuplicatedError, setNicknameDuplicatedError] = useState(false);
   const [emailDuplicatedError, setEmailDuplicatedError] = useState(false);
 
@@ -38,19 +38,13 @@ const Register = () => {
   const onFormSubmit = (values) => {
     try {
       values = { ...values, avatar: avatar };
-      const resReg = RegisterUser(values).then((res) => console.log(res));
-      console.log(resReg);
-      resReg &&
-        setTimeout(() => {
-          loginUser('login', {
-            nickname: values.nickname,
-            password: values.password,
-          }).then((res) => {
-            setUser(res.info.data.user);
-            setLocal(res.info.data.token);
-            res && navigate('dashboard');
-          });
-        }, 1500);
+      console.log(values)
+      RegisterUser(values).then((res) => {
+        console.log(res)
+        setUser(res.data.info.data.user);
+        setLocal(res.data.info.data.token);
+        res && navigate('/dashboard');
+      });
     } catch (error) {
       console.log('el error' + error);
       if (error.response.data.info.message == 'nickname already exist') {
@@ -117,7 +111,7 @@ const Register = () => {
                     required: true,
                     minLength: 2,
                   })}
-                  onChange={(e) => setUser(e.target.value)}
+                  onChange={(e) => setNickname(e.target.value)}
                   name="nickname"
                   type="text"
                 />
