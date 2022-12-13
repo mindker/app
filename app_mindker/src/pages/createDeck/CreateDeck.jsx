@@ -78,8 +78,6 @@ const CreateDeck = () => {
     })();
   };
 
-  const toast = useToast();
-
   const isErrorQ = question === '';
   const isErrorA = answer === '';
 
