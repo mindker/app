@@ -174,7 +174,6 @@ const CreateDeck = () => {
                       status: 'success',
                       duration: 9000,
                       isClosable: true,
-                     });
                   }}
                 />
                 <AgnosticButton
