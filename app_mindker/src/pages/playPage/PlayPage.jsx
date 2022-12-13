@@ -16,7 +16,6 @@ const PlayPage = () => {
   const [cardDifficulties, setCardDifficulties] = useState([]);
   let [counter, setCounter] = useState(0);
   const [next, setNext] = useState(true);
-  //let sortedCards;
 
   useEffect(() => {
     getAgnostic('decks', idDeck)
@@ -46,11 +45,12 @@ const PlayPage = () => {
       };
 
       const token = localStorage.getItem(user.nickname);
-      console.log('Longitud del array de Dificultades : ', diff.length);
+
       console.log('Array de dificultades : ', cardDifficulties);
       console.log('User._id : ', user._id);
       console.log('Dificultad filtrada : ', diff[0]);
       console.log('Nueva difficultad : ', difficultyUpdated);
+
       patchAgnostic(diff[0]._id, 'difficulties', token, difficultyUpdated).then((res) =>
         console.log(res),
       );
@@ -58,8 +58,9 @@ const PlayPage = () => {
       console.log(cards[counter]);
       console.log(
         `Difficultad a crear -> 
-         idCard: ${cards[counter]._id}, idUser: ${user._id}, level: ${level} `,
+       idCard: ${cards[counter]._id}, idUser: ${user._id}, level: ${level} `,
       );
+
       postDifficulty({
         idCard: cards[counter]._id,
         idUser: user._id,
@@ -67,7 +68,7 @@ const PlayPage = () => {
       }).then((res) => console.log(res));
     }
   };
-  // sorter(cards, user);
+  //sorter(cards, user);
   return (
     <Box>
       {cards[counter] ? (
