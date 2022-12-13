@@ -16,6 +16,7 @@ const PlayPage = () => {
   const [cardDifficulties, setCardDifficulties] = useState([]);
   let [counter, setCounter] = useState(0);
   const [next, setNext] = useState(true);
+  //let sortedCards;
 
   useEffect(() => {
     getAgnostic('decks', idDeck)
@@ -61,14 +62,16 @@ const PlayPage = () => {
        idCard: ${cards[counter]._id}, idUser: ${user._id}, level: ${level} `,
       );
 
-      postDifficulty({
+     postDifficulty({
         idCard: cards[counter]._id,
         idUser: user._id,
         level: level,
       }).then((res) => console.log(res));
     }
   };
+
   //sorter(cards, user);
+
   return (
     <Box>
       {cards[counter] ? (
