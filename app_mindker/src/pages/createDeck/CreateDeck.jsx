@@ -80,7 +80,7 @@ const CreateDeck = () => {
 
   const isErrorQ = question === '';
   const isErrorA = answer === '';
-  const toast = useToast();
+
   return (
     <>
       <Flex>

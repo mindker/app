@@ -19,13 +19,13 @@ import { AiFillContacts } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
 import GlobalContext from '../../context/GlobalContext';
-import { loginUser, RegisterUser } from '../../services/APIservice.js';
+import { RegisterUser } from '../../services/APIservice.js';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const Register = () => {
   const navigate = useNavigate();
   const [avatar, setAvatar] = useState('');
-  const { setLocal, setUser, setNickname, user } = useContext(GlobalContext);
+  const { setLocal, setUser, setNickname } = useContext(GlobalContext);
   const [nicknameDuplicatedError, setNicknameDuplicatedError] = useState(false);
   const [emailDuplicatedError, setEmailDuplicatedError] = useState(false);
 
@@ -38,9 +38,9 @@ const Register = () => {
   const onFormSubmit = (values) => {
     try {
       values = { ...values, avatar: avatar };
-      console.log(values)
+      console.log(values);
       RegisterUser(values).then((res) => {
-        console.log(res)
+        console.log(res);
         setUser(res.data.info.data.user);
         setLocal(res.data.info.data.token);
         res && navigate('/dashboard');
