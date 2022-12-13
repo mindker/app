@@ -7,18 +7,22 @@ import {
   Image,
   Stack,
   Text,
+  useToast,
 } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import GlobalContext from '../../context/GlobalContext';
+import { patchAgnostic } from '../../services/APIservice.js';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const DetailDeckCard = () => {
   const [deckDetail, setDeckDetail] = useState('');
   const navigate = useNavigate();
   const { idDeck } = useContext(GlobalContext);
+  const { user } = useContext(GlobalContext);
+  const toast = useToast();
 
   useEffect(() => {
     const getDeckDetail = async () => {
@@ -28,6 +32,12 @@ const DetailDeckCard = () => {
     };
     getDeckDetail();
   }, []);
+  console.log(deckDetail);
+  const adoptDeck = async () => {
+    const token = window.localStorage.getItem(user.nickname);
+    user.downloadedDecks.push(deckDetail.info.data);
+    patchAgnostic(user._id, 'users', token, user);
+  };
 
   return deckDetail != '' ? (
     <Flex
@@ -73,7 +83,7 @@ const DetailDeckCard = () => {
             </Text>
           </CardBody>
 
-          <CardFooter>
+          <CardFooter gap="2rem">
             <AgnosticButton
               text="Back"
               type="button"
@@ -82,6 +92,25 @@ const DetailDeckCard = () => {
               colorScheme="twitter"
               size="md"
               callBack={() => navigate('/dashboard')}
+            />
+            <AgnosticButton
+              text="Adopt"
+              type="button"
+              variant="outline"
+              //leftIcon={<AiFillHome />}
+              colorScheme="twitter"
+              size="md"
+              callBack={async () => {
+                await adoptDeck(deckDetail.info.data._id);
+
+                toast({
+                  title: 'Deck adopted.',
+                  description: 'you adopted the deck.',
+                  status: 'success',
+                  duration: 9000,
+                  isClosable: true,
+                });
+              }}
             />
           </CardFooter>
         </Stack>
