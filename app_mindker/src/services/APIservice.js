@@ -44,7 +44,7 @@ export const RegisterUser = async (newUser) => {
 
 export const postDifficulty = async (difficulty) => {
   try {
-    axios({
+    return axios({
       method: 'post',
       url: `http://localhost:8080/api/v1/difficulties`,
       data: difficulty,
@@ -56,7 +56,7 @@ export const postDifficulty = async (difficulty) => {
 
 export const patchAgnostic = async (id, endpoint, token, updatedObject) => {
   try {
-    axios({
+    return axios({
       method: 'patch',
       url: `http://localhost:8080/api/v1/${endpoint}/${id}`,
       headers: {
