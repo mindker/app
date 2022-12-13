@@ -59,10 +59,12 @@ const PlayPage = () => {
       console.log(cards[counter]);
       console.log(
         `Difficultad a crear -> 
+
        idCard: ${cards[counter]._id}, idUser: ${user._id}, level: ${level} `,
       );
 
      postDifficulty({
+
         idCard: cards[counter]._id,
         idUser: user._id,
         level: level,
@@ -72,7 +74,7 @@ const PlayPage = () => {
 
   //sorter(cards, user);
 
-  return (
+ return (
     <Box>
       {cards[counter] ? (
         <Flex
