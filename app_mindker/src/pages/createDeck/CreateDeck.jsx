@@ -78,8 +78,6 @@ const CreateDeck = () => {
     })();
   };
 
-  const toast = useToast();
-
   const isErrorQ = question === '';
   const isErrorA = answer === '';
   const toast = useToast();
@@ -174,7 +172,7 @@ const CreateDeck = () => {
                       status: 'success',
                       duration: 9000,
                       isClosable: true,
-                     });
+                    });
                   }}
                 />
                 <AgnosticButton
