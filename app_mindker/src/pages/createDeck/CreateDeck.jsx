@@ -6,7 +6,6 @@ import {
   Input,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,
@@ -58,10 +57,6 @@ const CreateDeck = () => {
     document.getElementById('deckForm').reset();
   };
 
-  const clearCardForm = () => {
-    document.getElementById('cardForm').reset();
-  };
-
   const onFormSubmitCard = () => {
     const newCardToPost = {
       question: question,
@@ -72,13 +67,18 @@ const CreateDeck = () => {
     (async () => {
       try {
         const newCardCreated = await CreateAgnosticItem('cards', newCardToPost, local);
+
         console.log(newCardCreated);
+        setAnswer('');
+        setQuestion('');
         return newCardCreated;
       } catch (error) {
         console.log(error);
       }
     })();
   };
+
+  const toast = useToast();
 
   const isErrorQ = question === '';
   const isErrorA = answer === '';
@@ -116,14 +116,6 @@ const CreateDeck = () => {
               onChange={(e) => setDeckImage(e.target.files[0])}
               accept="image/*"
             />
-            {/* <FormLabel>tags</FormLabel>
-            <Input
-              name="tags"
-              type="text"
-              {...register('tags', {
-                required: false,
-              })}
-            /> */}
             <FormLabel>State</FormLabel>
             <Select
               {...register('isOpen', {
@@ -182,16 +174,20 @@ const CreateDeck = () => {
                       status: 'success',
                       duration: 9000,
                       isClosable: true,
-                    });
-                    //onFormSubmitCard();
-                    clearCardForm();
                   }}
-                ></AgnosticButton>
+                />
                 <AgnosticButton
                   text="Finish deck"
                   callBack={() => {
                     onClose();
                     clearDeckForm();
+                    toast({
+                      title: 'Deck created.',
+                      description: "We've created your deck for you.",
+                      status: 'success',
+                      duration: 9000,
+                      isClosable: true,
+                    });
                   }}
                 />
               </form>
