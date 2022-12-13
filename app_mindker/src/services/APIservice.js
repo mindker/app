@@ -20,7 +20,7 @@ export const loginUser = async (endpoint, credentials) => {
 
 export const RegisterUser = async (newUser) => {
   try {
-    axios({
+    return axios({
       method: 'post',
       url: `http://localhost:8080/api/v1/users`,
       headers: {
@@ -36,7 +36,7 @@ export const RegisterUser = async (newUser) => {
         type: 'formData',
       },
       data: newUser,
-    }).then((res) => console.log(res));
+    })
   } catch (error) {
     return error;
   }
