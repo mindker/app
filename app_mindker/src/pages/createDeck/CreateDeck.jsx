@@ -78,11 +78,9 @@ const CreateDeck = () => {
     })();
   };
 
-  const toast = useToast();
-
   const isErrorQ = question === '';
   const isErrorA = answer === '';
-  const toast = useToast();
+
   return (
     <>
       <Flex>
@@ -174,6 +172,7 @@ const CreateDeck = () => {
                       status: 'success',
                       duration: 9000,
                       isClosable: true,
+                    });
                   }}
                 />
                 <AgnosticButton
