@@ -10,7 +10,7 @@ import { getAgnostic, patchAgnostic, postDifficulty } from '../../services/APIse
 
 const PlayPage = () => {
   const navigate = useNavigate();
-  const { idDeck, user } = useContext(GlobalContext);
+  const { deck, user } = useContext(GlobalContext);
   const [cards, setCards] = useState([]);
   //const [cardDifficulty, setCardDifficulty] = useState({});
   const [cardDifficulties, setCardDifficulties] = useState([]);
@@ -19,7 +19,7 @@ const PlayPage = () => {
   //let sortedCards;
 
   useEffect(() => {
-    getAgnostic('decks', idDeck)
+    getAgnostic('decks', deck._id)
       .then((res) => {
         setCards(res.info.data.cards);
       })
@@ -31,50 +31,8 @@ const PlayPage = () => {
           ),
       );
   }, [counter]);
-
-  console.log(cards);
-
-  const updateDifficulty = (level) => {
-    const diff = cardDifficulties.filter((difficulty) => difficulty.idUser == user._id);
-
-    if (diff.length) {
-      const difficultyUpdated = {
-        _id: diff[0]._id,
-        idCard: diff[0].idCard,
-        idUser: diff[0].idUser,
-        level: level,
-      };
-
-      const token = localStorage.getItem(user.nickname);
-
-      console.log('Array de dificultades : ', cardDifficulties);
-      console.log('User._id : ', user._id);
-      console.log('Dificultad filtrada : ', diff[0]);
-      console.log('Nueva difficultad : ', difficultyUpdated);
-
-      patchAgnostic(diff[0]._id, 'difficulties', token, difficultyUpdated).then((res) =>
-        console.log(res),
-      );
-    } else {
-      console.log(cards[counter]);
-      console.log(
-        `Difficultad a crear -> 
-
-       idCard: ${cards[counter]._id}, idUser: ${user._id}, level: ${level} `,
-      );
-
-     postDifficulty({
-
-        idCard: cards[counter]._id,
-        idUser: user._id,
-        level: level,
-      }).then((res) => console.log(res));
-    }
-  };
-
-  //sorter(cards, user);
-
- return (
+  
+  return (
     <Box>
       {cards[counter] ? (
         <Flex
@@ -118,7 +76,6 @@ const PlayPage = () => {
                   callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
-                    updateDifficulty('Very Easy');
                   }}
                   text="Very Easy"
                 />
@@ -127,7 +84,6 @@ const PlayPage = () => {
                   callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
-                    updateDifficulty('Easy');
                   }}
                   text="Easy"
                 />
@@ -136,7 +92,6 @@ const PlayPage = () => {
                   callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
-                    updateDifficulty('Hard');
                   }}
                   text="Hard"
                 />
@@ -145,7 +100,6 @@ const PlayPage = () => {
                   callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
-                    updateDifficulty('Very Hard');
                   }}
                   text="Very Hard"
                 />

@@ -8,24 +8,24 @@ import { getAgnostic } from '../../services/APIservice';
 import { filterDecks } from '../../utils/filterDecks';
 
 const Dashboard = () => {
-  const { user, dashboardContent, switcher, param, setParam, paramReforce } =
+  const { user, dashboardContent, switcher, param, setParam, paramReforce, deck } =
     useContext(GlobalContext);
   let arr = [];
-  // eslint-disable-next-line no-unsafe-optional-chaining
-  const allUserDecks = [...user?.downloadedDecks, ...user?.createdDecks];
-  const [arrayDecks, setArrayDecks] = useState(allUserDecks);
+
+  const [arrayDecks, setArrayDecks] = useState([]);
   const [textDecks, setTextDecks] = useState('My Decks');
+
   useEffect(() => {
     dashboardContent == 'decks'
       ? setTextDecks('Popular Decks')
       : dashboardContent === false
-      ? (setArrayDecks(allUserDecks), setTextDecks('My Decks'))
+      ? (setArrayDecks(user.decks), setTextDecks('My Decks'))
       : param == '' && setParam(paramReforce),
       setTextDecks(param);
     if (dashboardContent) {
       getAgnostic(dashboardContent, param)
         .then((res) => {
-          arr = filterDecks(allUserDecks, res.info.data);
+          arr = filterDecks(user.decks, res.info.data);
         })
         .then(() => setArrayDecks(arr));
     }

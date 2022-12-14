@@ -8,13 +8,14 @@ import { getAgnostic, patchAgnostic } from '../../services/APIservice.js';
 import DeckCard from '../Cards/DeckCard';
 
 const DecksContainer = ({ array }) => {
-  const { setIdDeck, dashboardContent, user } = useContext(GlobalContext);
+  const { setDeck, dashboardContent, user, deck } = useContext(GlobalContext);
   const navigate = useNavigate();
   const toast = useToast();
-  const downloadedDeckUser = async (id) => {
-    const token = window.localStorage.getItem(user.nickname);
-    getAgnostic('decks', id).then((res) => {
-      user.downloadedDecks.push(res.info.data);
+
+  const adoptDeckUser = async (deck) => {
+    const token = window.localStorage.getItem('user');
+    getAgnostic('decks', deck._id).then((res) => {
+      user.decks.push(res.info.data);
       patchAgnostic(user._id, 'users', token, user);
     });
   };
@@ -32,11 +33,11 @@ const DecksContainer = ({ array }) => {
               key={deck._id}
               object={deck}
               callBack={() => {
-                setIdDeck(deck._id);
+                setDeck(deck);
                 navigate('/playPage');
               }}
               callBack2={() => {
-                setIdDeck(deck._id);
+                setDeck(deck);
                 navigate('/editDeckPage');
               }}
             />
@@ -59,20 +60,19 @@ const DecksContainer = ({ array }) => {
               key={deck._id}
               object={deck}
               callBack={() => {
-                setIdDeck(deck._id);
+                setDeck(deck);
                 navigate('/detailDeck');
-                
               }}
               callBack2={async () => {
-                await downloadedDeckUser(deck._id);
-                await array.splice(array.indexOf(deck), 1);
+                console.log('deck de la callback2: ', deck);
+                await adoptDeckUser(deck);
                 toast({
-                      title: 'Deck adopted.',
-                      description: "you adopted the deck.",
-                      status: 'success',
-                      duration: 9000,
-                      isClosable: true,
-                    });
+                  title: 'Deck adopted.',
+                  description: 'you adopted the deck.',
+                  status: 'success',
+                  duration: 9000,
+                  isClosable: true,
+                });
               }}
             />
           ))
