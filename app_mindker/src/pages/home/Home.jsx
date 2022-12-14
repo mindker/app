@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AiFillHome } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +15,6 @@ import HomeLayout from '../../layouts/HomeLayout/HomeLayout';
 const Home = () => {
   const { homeContent } = useContext(GlobalContext);
   const navigate = useNavigate();
-  //también se puede hacer con useEffect --> probar
 
   return (
     <HomeLayout direction="column">

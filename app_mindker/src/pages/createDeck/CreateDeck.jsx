@@ -26,7 +26,6 @@ const CreateDeck = () => {
   const [question, setQuestion] = useState('');
   const [imageQuestion, setImageQuestion] = useState('');
   const [answer, setAnswer] = useState('');
-  const [newDeckID, setNewDeckID] = useState('');
 
   const { user, local } = useContext(GlobalContext);
   const [image, setDeckImage] = useState('');

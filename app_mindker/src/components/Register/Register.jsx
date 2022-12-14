@@ -25,7 +25,7 @@ import AgnosticButton from '../AgnosticButton/AgnosticButton';
 const Register = () => {
   const navigate = useNavigate();
   const [avatar, setAvatar] = useState('');
-  const { setLocal, setUser, setNickname, user } = useContext(GlobalContext);
+  const { setLocal, setUser } = useContext(GlobalContext);
   const [nicknameDuplicatedError, setNicknameDuplicatedError] = useState(false);
   const [emailDuplicatedError, setEmailDuplicatedError] = useState(false);
 
@@ -38,9 +38,9 @@ const Register = () => {
   const onFormSubmit = (values) => {
     try {
       values = { ...values, avatar: avatar };
-      console.log(values)
+      console.log(values);
       RegisterUser(values).then((res) => {
-        console.log(res)
+        console.log(res);
         setUser(res.data.info.data.user);
         setLocal(res.data.info.data.token);
         res && navigate('/dashboard');
@@ -111,7 +111,6 @@ const Register = () => {
                     required: true,
                     minLength: 2,
                   })}
-                  onChange={(e) => setNickname(e.target.value)}
                   name="nickname"
                   type="text"
                 />

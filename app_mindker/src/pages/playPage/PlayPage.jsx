@@ -27,27 +27,6 @@ const PlayPage = () => {
       );
   }, [counter]);
 
-  const updateDifficulty = (id, idCard, idUser, level) => {
-    const difficultyUpdated = {
-      _id: id,
-      idCard: idCard,
-      idUser: idUser,
-      level: level,
-    };
-    const token = localStorage.getItem(user.nickname);
-    if (card.difficulty.length) {
-      for (const difficulty of card.difficulty) {
-        if (user._id == difficulty.idUser) {
-          patchAgnostic(id, 'difficulties', token, difficultyUpdated).then((res) => res);
-        } else {
-          postAgnostic('difficulties', { idCard: idCard, idUser: idUser, level: level });
-        }
-      }
-    } else {
-      postAgnostic('difficulties', { idCard: idCard, idUser: idUser, level: level });
-    }
-  };
-  console.log(card);
   return (
     <Box>
       {cards[counter] ? (
@@ -92,7 +71,6 @@ const PlayPage = () => {
                   callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
-                    updateDifficulty(card._id, card.idCard, card.idUser, card.level);
                   }}
                   text="Very easy"
                 />
@@ -101,7 +79,6 @@ const PlayPage = () => {
                   callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
-                    updateDifficulty(card._id, card.idCard, card.idUser, card.level);
                   }}
                   text="Easy"
                 />
@@ -110,7 +87,6 @@ const PlayPage = () => {
                   callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
-                    updateDifficulty(card._id, card.idCard, card.idUser, card.level);
                   }}
                   text="Hard"
                 />
@@ -119,7 +95,6 @@ const PlayPage = () => {
                   callBack={async () => {
                     setNext(!next);
                     setCounter(++counter);
-                    updateDifficulty(card._id, card.idCard, card.idUser, card.level);
                   }}
                   text="Very Hard"
                 />

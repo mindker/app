@@ -24,7 +24,7 @@ import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setNickname, setUser, setLocal } = useContext(GlobalContext);
+  const { setUser, setLocal } = useContext(GlobalContext);
   const [passwordError, setPasswordError] = useState(false);
   const [nicknameError, setNicknameError] = useState(false);
 
@@ -88,7 +88,6 @@ const Login = () => {
                 {...register('nickname', {
                   required: true,
                 })}
-                onChange={(e) => setNickname(e.target.value)}
                 type="text"
               />
               {/*  {errors.nickname ? <Text color="red">This field is required</Text> : null} */}
