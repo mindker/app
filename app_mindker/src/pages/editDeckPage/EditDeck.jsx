@@ -23,7 +23,7 @@ import GlobalContext from '../../context/GlobalContext';
 import { getAgnostic } from '../../services/APIservice.js';
 
 const EditDeck = () => {
-  const { idDeck, user } = useContext(GlobalContext);
+  const { deck, user } = useContext(GlobalContext);
   const [deckInEdition, setDeckInEdition] = useState();
   const [deckImage, setDeckImage] = useState();
 
@@ -35,7 +35,7 @@ const EditDeck = () => {
 
   useEffect(() => {
     const getDeck = async () => {
-      const data = await fetch(`http://localhost:8080/api/v1/decks/${idDeck}`);
+      const data = await fetch(`http://localhost:8080/api/v1/decks/${deck._id}`);
       const res = await data.json();
       setDeckInEdition(res.info.data);
     };

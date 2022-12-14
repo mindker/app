@@ -10,7 +10,7 @@ import { getAgnostic, patchAgnostic, postDifficulty } from '../../services/APIse
 
 const PlayPage = () => {
   const navigate = useNavigate();
-  const { idDeck, user } = useContext(GlobalContext);
+  const { deck, user } = useContext(GlobalContext);
   const [cards, setCards] = useState([]);
   //const [cardDifficulty, setCardDifficulty] = useState({});
   const [cardDifficulties, setCardDifficulties] = useState([]);
@@ -19,7 +19,7 @@ const PlayPage = () => {
   //let sortedCards;
 
   useEffect(() => {
-    getAgnostic('decks', idDeck)
+    getAgnostic('decks', deck._id)
       .then((res) => {
         setCards(res.info.data.cards);
       })
