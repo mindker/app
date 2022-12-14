@@ -42,25 +42,13 @@ export const RegisterUser = async (newUser) => {
   }
 };
 
-export const postAgnostic = async (endpoint, object) => {
+export const postDifficulty = async (difficulty) => {
   try {
-    axios({
+    return axios({
       method: 'post',
-      url: `http://localhost:8080/api/v1/${endpoint}`,
-      headers: {
-        'Content-Type':
-          'multipart/form-data; boundary=AaB03x' +
-          '--AaB03x' +
-          'Content-Disposition: file' +
-          'Content-Type: png' +
-          'Content-Transfer-Encoding: binary' +
-          '...data... ' +
-          '--AaB03x--',
-        Accept: 'application/json',
-        type: 'formData',
-      },
-      data: object,
-    }).then((res) => console.log(res));
+      url: `http://localhost:8080/api/v1/difficulties`,
+      data: difficulty,
+    });
   } catch (error) {
     return error;
   }
