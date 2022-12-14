@@ -6,7 +6,7 @@ import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import TextComponent from '../../components/TextComponent/TextComponent';
 import GlobalContext from '../../context/GlobalContext';
 import { getAgnostic, patchAgnostic, postDifficulty } from '../../services/APIservice';
-//import { sorter } from '../../utils/difficultyFinder';
+import { sorter } from '../../utils/difficultyFinder';
 
 const PlayPage = () => {
   const navigate = useNavigate();
@@ -16,6 +16,7 @@ const PlayPage = () => {
   const [cardDifficulties, setCardDifficulties] = useState([]);
   let [counter, setCounter] = useState(0);
   const [next, setNext] = useState(true);
+  let orderedCards;
 
   useEffect(() => {
     getAgnostic('decks', idDeck)
@@ -28,7 +29,12 @@ const PlayPage = () => {
           getAgnostic('cards', cards[counter]._id).then((res) =>
             setCardDifficulties(res.info.data.difficulty),
           ),
-      );
+      )
+      .then(() => {
+        orderedCards = sorter(cards, user);
+        console.log('orderedCards : ', orderedCards);
+      })
+      .then(()=> setCards(orderedCards));
   }, [counter]);
 
   console.log(cards);
@@ -68,7 +74,7 @@ const PlayPage = () => {
       }).then((res) => console.log(res));
     }
   };
-  //sorter(cards, user);
+  
   return (
     <Box>
       {cards[counter] ? (
