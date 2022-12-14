@@ -19,7 +19,7 @@ import { AiFillContacts } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
 import GlobalContext from '../../context/GlobalContext';
-import { loginUser, RegisterUser } from '../../services/APIservice.js';
+import { RegisterUser } from '../../services/APIservice.js';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const Register = () => {

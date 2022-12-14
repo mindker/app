@@ -5,15 +5,18 @@ import { useNavigate } from 'react-router-dom';
 import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import TextComponent from '../../components/TextComponent/TextComponent';
 import GlobalContext from '../../context/GlobalContext';
-import { getAgnostic, patchAgnostic, postAgnostic } from '../../services/APIservice';
+import { getAgnostic, patchAgnostic, postDifficulty } from '../../services/APIservice';
+//import { sorter } from '../../utils/difficultyFinder';
 
 const PlayPage = () => {
   const navigate = useNavigate();
   const { idDeck, user } = useContext(GlobalContext);
   const [cards, setCards] = useState([]);
-  const [card, setCard] = useState([]);
+  //const [cardDifficulty, setCardDifficulty] = useState({});
+  const [cardDifficulties, setCardDifficulties] = useState([]);
   let [counter, setCounter] = useState(0);
   const [next, setNext] = useState(true);
+  //let sortedCards;
 
   useEffect(() => {
     getAgnostic('decks', idDeck)
@@ -23,10 +26,12 @@ const PlayPage = () => {
       .then(
         () =>
           cards &&
-          getAgnostic('cards', cards[counter]._id).then((res) => setCard(res.info.data)),
+          getAgnostic('cards', cards[counter]._id).then((res) =>
+            setCardDifficulties(res.info.data.difficulty),
+          ),
       );
   }, [counter]);
-
+  
   return (
     <Box>
       {cards[counter] ? (
@@ -72,7 +77,7 @@ const PlayPage = () => {
                     setNext(!next);
                     setCounter(++counter);
                   }}
-                  text="Very easy"
+                  text="Very Easy"
                 />
                 <AgnosticButton
                   variant="outline"
@@ -92,7 +97,7 @@ const PlayPage = () => {
                 />
                 <AgnosticButton
                   variant="outline"
-                  callBack={async () => {
+                  callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
                   }}
