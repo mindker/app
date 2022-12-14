@@ -35,7 +35,7 @@ const DetailDeckCard = () => {
   console.log(deckDetail);
   const adoptDeck = async () => {
     const token = window.localStorage.getItem(user.nickname);
-    user.downloadedDecks.push(deckDetail.info.data);
+    user.decks.push(deckDetail.info.data);
     patchAgnostic(user._id, 'users', token, user);
   };
 
@@ -74,12 +74,6 @@ const DetailDeckCard = () => {
             </Text>
             <Text py="2">
               <strong>Number of cards:</strong> {deckDetail.info.data.cards.length}
-            </Text>
-            <Text py="2">
-              <strong>Author: </strong>
-              {!deckDetail.info.data.author
-                ? 'Anónimo'
-                : deckDetail.info.data.author.nickname}
             </Text>
           </CardBody>
 
