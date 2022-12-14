@@ -5,15 +5,18 @@ import { useNavigate } from 'react-router-dom';
 import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import TextComponent from '../../components/TextComponent/TextComponent';
 import GlobalContext from '../../context/GlobalContext';
-import { getAgnostic, patchAgnostic, postAgnostic } from '../../services/APIservice';
+import { getAgnostic, patchAgnostic, postDifficulty } from '../../services/APIservice';
+//import { sorter } from '../../utils/difficultyFinder';
 
 const PlayPage = () => {
   const navigate = useNavigate();
   const { idDeck, user } = useContext(GlobalContext);
   const [cards, setCards] = useState([]);
-  const [card, setCard] = useState([]);
+  //const [cardDifficulty, setCardDifficulty] = useState({});
+  const [cardDifficulties, setCardDifficulties] = useState([]);
   let [counter, setCounter] = useState(0);
   const [next, setNext] = useState(true);
+  //let sortedCards;
 
   useEffect(() => {
     getAgnostic('decks', idDeck)
@@ -23,31 +26,52 @@ const PlayPage = () => {
       .then(
         () =>
           cards &&
-          getAgnostic('cards', cards[counter]._id).then((res) => setCard(res.info.data)),
+          getAgnostic('cards', cards[counter]._id).then((res) =>
+            setCardDifficulties(res.info.data.difficulty),
+          ),
       );
   }, [counter]);
 
-  const updateDifficulty = (id, idCard, idUser, level) => {
-    const difficultyUpdated = {
-      _id: id,
-      idCard: idCard,
-      idUser: idUser,
-      level: level,
-    };
-    const token = localStorage.getItem(user.nickname);
-    if (card.difficulty.length) {
-      for (const difficulty of card.difficulty) {
-        if (user._id == difficulty.idUser) {
-          patchAgnostic(id, 'difficulties', token, difficultyUpdated).then((res) => res);
-        } else {
-          postAgnostic('difficulties', { idCard: idCard, idUser: idUser, level: level });
-        }
-      }
+  console.log(cards);
+
+  const updateDifficulty = (level) => {
+    const diff = cardDifficulties.filter((difficulty) => difficulty.idUser == user._id);
+
+    if (diff.length) {
+      const difficultyUpdated = {
+        _id: diff[0]._id,
+        idCard: diff[0].idCard,
+        idUser: diff[0].idUser,
+        level: level,
+      };
+
+      const token = localStorage.getItem(user.nickname);
+
+      console.log('Array de dificultades : ', cardDifficulties);
+      console.log('User._id : ', user._id);
+      console.log('Dificultad filtrada : ', diff[0]);
+      console.log('Nueva difficultad : ', difficultyUpdated);
+
+      patchAgnostic(diff[0]._id, 'difficulties', token, difficultyUpdated).then((res) =>
+        console.log(res),
+      );
     } else {
-      postAgnostic('difficulties', { idCard: idCard, idUser: idUser, level: level });
+      console.log(cards[counter]);
+      console.log(
+        `Difficultad a crear -> 
+       idCard: ${cards[counter]._id}, idUser: ${user._id}, level: ${level} `,
+      );
+
+     postDifficulty({
+        idCard: cards[counter]._id,
+        idUser: user._id,
+        level: level,
+      }).then((res) => console.log(res));
     }
   };
-  console.log(card);
+
+  //sorter(cards, user);
+
   return (
     <Box>
       {cards[counter] ? (
@@ -92,16 +116,16 @@ const PlayPage = () => {
                   callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
-                    updateDifficulty(card._id, card.idCard, card.idUser, card.level);
+                    updateDifficulty('Very Easy');
                   }}
-                  text="Very easy"
+                  text="Very Easy"
                 />
                 <AgnosticButton
                   variant="outline"
                   callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
-                    updateDifficulty(card._id, card.idCard, card.idUser, card.level);
+                    updateDifficulty('Easy');
                   }}
                   text="Easy"
                 />
@@ -110,16 +134,16 @@ const PlayPage = () => {
                   callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
-                    updateDifficulty(card._id, card.idCard, card.idUser, card.level);
+                    updateDifficulty('Hard');
                   }}
                   text="Hard"
                 />
                 <AgnosticButton
                   variant="outline"
-                  callBack={async () => {
+                  callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
-                    updateDifficulty(card._id, card.idCard, card.idUser, card.level);
+                    updateDifficulty('Very Hard');
                   }}
                   text="Very Hard"
                 />
