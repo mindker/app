@@ -5,33 +5,30 @@ import { useNavigate } from 'react-router-dom';
 import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import TextComponent from '../../components/TextComponent/TextComponent';
 import GlobalContext from '../../context/GlobalContext';
-import { getAgnostic, patchAgnostic, postDifficulty } from '../../services/APIservice';
-//import { sorter } from '../../utils/difficultyFinder';
+import { getAgnostic, patchAgnostic } from '../../services/APIservice';
 
 const PlayPage = () => {
   const navigate = useNavigate();
   const { deck, user } = useContext(GlobalContext);
   const [cards, setCards] = useState([]);
-  //const [cardDifficulty, setCardDifficulty] = useState({});
-  const [cardDifficulties, setCardDifficulties] = useState([]);
   let [counter, setCounter] = useState(0);
   const [next, setNext] = useState(true);
-  //let sortedCards;
+  const token = window.localStorage.getItem('user');
 
   useEffect(() => {
-    getAgnostic('decks', deck._id)
-      .then((res) => {
-        setCards(res.info.data.cards);
-      })
-      .then(
-        () =>
-          cards &&
-          getAgnostic('cards', cards[counter]._id).then((res) =>
-            setCardDifficulties(res.info.data.difficulty),
-          ),
-      );
+    getAgnostic('decks', deck._id).then((res) => {
+      setCards(res.info.data.cards);
+    });
   }, [counter]);
-  
+
+  const updateDifficulty = (level) => {
+    console.log(cards[counter]);
+    cards[counter].level = level;
+    patchAgnostic(cards[counter]._id, 'cards', token, cards[counter]).then((res) =>
+      console.log(res),
+    );
+  };
+
   return (
     <Box>
       {cards[counter] ? (
@@ -76,14 +73,7 @@ const PlayPage = () => {
                   callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
-                  }}
-                  text="Very Easy"
-                />
-                <AgnosticButton
-                  variant="outline"
-                  callBack={() => {
-                    setNext(!next);
-                    setCounter(++counter);
+                    updateDifficulty('Easy');
                   }}
                   text="Easy"
                 />
@@ -92,16 +82,18 @@ const PlayPage = () => {
                   callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
+                    updateDifficulty('Medium');
                   }}
-                  text="Hard"
+                  text="Medium"
                 />
                 <AgnosticButton
                   variant="outline"
                   callBack={() => {
                     setNext(!next);
                     setCounter(++counter);
+                    updateDifficulty('Hard');
                   }}
-                  text="Very Hard"
+                  text="Hard"
                 />
               </Flex>
             </Flex>
