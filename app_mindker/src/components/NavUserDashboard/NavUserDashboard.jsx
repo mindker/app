@@ -18,9 +18,9 @@ const NavUserDashboard = () => {
     setParamReforce,
   } = useContext(GlobalContext);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     console.log(user);
-  }, []);
+  }, []); */
 
   const navigate = useNavigate();
 

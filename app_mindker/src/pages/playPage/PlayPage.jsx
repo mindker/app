@@ -9,14 +9,14 @@ import { getAgnostic, patchAgnostic, postAgnostic } from '../../services/APIserv
 
 const PlayPage = () => {
   const navigate = useNavigate();
-  const { idDeck, user } = useContext(GlobalContext);
+  const { deck, user } = useContext(GlobalContext);
   const [cards, setCards] = useState([]);
   const [card, setCard] = useState([]);
   let [counter, setCounter] = useState(0);
   const [next, setNext] = useState(true);
 
   useEffect(() => {
-    getAgnostic('decks', idDeck)
+    getAgnostic('decks', deck._id)
       .then((res) => {
         setCards(res.info.data.cards);
       })

@@ -36,7 +36,7 @@ export const RegisterUser = async (newUser) => {
         type: 'formData',
       },
       data: newUser,
-    })
+    });
   } catch (error) {
     return error;
   }
@@ -68,7 +68,7 @@ export const postAgnostic = async (endpoint, object) => {
 
 export const patchAgnostic = async (id, endpoint, token, updatedObject) => {
   try {
-    axios({
+    return axios({
       method: 'patch',
       url: `http://localhost:8080/api/v1/${endpoint}/${id}`,
       headers: {

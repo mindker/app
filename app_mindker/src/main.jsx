@@ -15,6 +15,7 @@ import EditDeck from './pages/editDeckPage/EditDeck';
 import Home from './pages/home/Home';
 import NotFound from './pages/notFound/NotFound';
 import PlayPage from './pages/playPage/PlayPage';
+import CreateCard from './pages/createCard/createCard';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path="/playPage" element={<PlayPage />} />
               <Route path="/editDeckPage" element={<EditDeck />} />
               <Route path="/detailDeck" element={<DetailDeck />} />
+              <Route path="/createCard" element={<CreateCard />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>

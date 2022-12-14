@@ -20,13 +20,13 @@ import AgnosticButton from '../AgnosticButton/AgnosticButton';
 const DetailDeckCard = () => {
   const [deckDetail, setDeckDetail] = useState('');
   const navigate = useNavigate();
-  const { idDeck } = useContext(GlobalContext);
+  const { deck } = useContext(GlobalContext);
   const { user } = useContext(GlobalContext);
   const toast = useToast();
 
   useEffect(() => {
     const getDeckDetail = async () => {
-      const data = await fetch(`http://localhost:8080/api/v1/decks/${idDeck}`);
+      const data = await fetch(`http://localhost:8080/api/v1/decks/${deck._id}`);
       const res = await data.json();
       setDeckDetail(res);
     };

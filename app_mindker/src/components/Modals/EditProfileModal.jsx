@@ -17,13 +17,11 @@ import { Input, Text } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-/* import { useNavigate } from 'react-router-dom'; */
 import GlobalContext from '../../context/GlobalContext';
 import { loginUser, patchAgnostic } from '../../services/APIService';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const EditProfileModal = () => {
-  /* const navigate = useNavigate(); */
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [avatar, setAvatar] = useState('');
   const { user, switcher, setSwitcher, setUser, setLocal } = useContext(GlobalContext);
@@ -39,7 +37,7 @@ const EditProfileModal = () => {
 
   const onFormSubmit = (values) => {
     (async () => {
-      const token = localStorage.getItem(user.nickname);
+      const token = localStorage.getItem('user');
       values = {
         ...user,
         ...values,
@@ -63,7 +61,6 @@ const EditProfileModal = () => {
   return (
     <>
       <AgnosticButton leftIcon="⚙" callBack={onOpen} variant="outline" />
-
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -111,26 +108,25 @@ const EditProfileModal = () => {
               {errors.email ? <Text>This field is required</Text> : null}
               <FormLabel>Password</FormLabel>
               <InputGroup mb="1rem">
-              <Input
-                {...register('password', {
-                  minLength: 2,
-                  required: true,
-                  validate: {
-                    format: (password) => {
-                      return /[a-zA-Z]/g.test(password);
+                <Input
+                  {...register('password', {
+                    minLength: 2,
+                    required: true,
+                    validate: {
+                      format: (password) => {
+                        return /[a-zA-Z]/g.test(password);
+                      },
                     },
-                  },
-                })}
-                name="password"
-                type={show ? 'text' : 'password'}
-                
-              />
-              <InputRightElement width="4.5rem">
+                  })}
+                  name="password"
+                  type={show ? 'text' : 'password'}
+                />
+                <InputRightElement width="4.5rem">
                   <Button h="1.75rem" size="sm" onClick={handleClick}>
                     {show ? 'Hide' : 'Show'}
                   </Button>
                 </InputRightElement>
-                </InputGroup>
+              </InputGroup>
               {errors.password ? <Text>This field is required</Text> : null}
               <FormLabel>Avatar</FormLabel>
               <Input

@@ -8,7 +8,7 @@ import { getAgnostic } from '../../services/APIservice';
 import { filterDecks } from '../../utils/filterDecks';
 
 const Dashboard = () => {
-  const { user, dashboardContent, switcher, param, setParam, paramReforce } =
+  const { user, dashboardContent, switcher, param, setParam, paramReforce, deck } =
     useContext(GlobalContext);
   let arr = [];
 
@@ -29,8 +29,6 @@ const Dashboard = () => {
         })
         .then(() => setArrayDecks(arr));
     }
-    console.log(user);
-    //comprobar si hay usuario y si no que lleve a la Home
   }, [switcher]);
 
   return (
