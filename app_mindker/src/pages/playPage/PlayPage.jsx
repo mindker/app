@@ -31,7 +31,7 @@ const PlayPage = () => {
           ),
       );
   }, [counter]);
-  
+
   return (
     <Box>
       {cards[counter] ? (
