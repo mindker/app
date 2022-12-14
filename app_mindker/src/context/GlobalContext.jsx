@@ -11,7 +11,7 @@ const GlobalContextProvider = ({ children }) => {
   const [dashboardContent, setDashboardContent] = useState('decks');
   const [switcher, setSwitcher] = useState(false);
   const [param, setParam] = useState('');
-  const [idDeck, setIdDeck] = useState('');
+  const [deck, setDeck] = useState({});
   const [paramReforce, setParamReforce] = useState('');
 
   const value = {
@@ -29,8 +29,8 @@ const GlobalContextProvider = ({ children }) => {
     setParam,
     paramReforce,
     setParamReforce,
-    idDeck,
-    setIdDeck,
+    deck,
+    setDeck,
   };
   return <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>;
 };
