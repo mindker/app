@@ -5,49 +5,42 @@ import { useNavigate } from 'react-router-dom';
 import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import TextComponent from '../../components/TextComponent/TextComponent';
 import GlobalContext from '../../context/GlobalContext';
-import { getAgnostic, patchAgnostic, postDifficulty } from '../../services/APIservice';
-//import { sorter } from '../../utils/difficultyFinder';
+import { patchAgnostic } from '../../services/APIservice';
+import { sorted } from '../../utils/difficultySorted';
 
 const PlayPage = () => {
   const navigate = useNavigate();
   const { deck, user } = useContext(GlobalContext);
-  const [cards, setCards] = useState([]);
-  //const [cardDifficulty, setCardDifficulty] = useState({});
-  const [cardDifficulties, setCardDifficulties] = useState([]);
+  const [Cards, setCards] = useState([]);
   let [counter, setCounter] = useState(0);
   const [next, setNext] = useState(true);
-  //let sortedCards;
+  const token = window.localStorage.getItem('user');
+  const [position, setPosition] = useState(0);
 
   useEffect(() => {
-    getAgnostic('decks', deck._id)
-      .then((res) => {
-        setCards(res.info.data.cards);
-      })
-      .then(
-        () =>
-          cards &&
-          getAgnostic('cards', cards[counter]._id).then((res) =>
-            setCardDifficulties(res.info.data.difficulty),
-          ),
-      );
+    const playDeck = user.decks.filter((deckUser) => deckUser._id == deck._id);
+    setCards(playDeck[0].cards);
+    setPosition(user.decks.indexOf(playDeck[0]));
   }, [counter]);
-
+  const updateDifficulty = (level) => {
+    user.decks[position].cards[counter].difficulty = level;
+  };
   return (
     <Box>
-      {cards[counter] ? (
+      {Cards[counter] ? (
         <Flex
-          key={cards[counter]._id}
+          key={Cards[counter]._id}
           mt="2rem"
           justifyContent="center"
           flexDirection="column"
           alignItems="center"
           gap="2rem"
         >
-          <TextComponent text={cards[counter].question} />
-          {cards[counter].questionFile ? (
+          <TextComponent text={Cards[counter].question} />
+          {Cards[counter].questionFile ? (
             <img
-              src={cards[counter].questionFile}
-              alt={cards[counter].question}
+              src={Cards[counter].questionFile}
+              alt={Cards[counter].question}
               width="350px"
             />
           ) : null}
@@ -64,7 +57,7 @@ const PlayPage = () => {
               alignItems="center"
               gap="2rem"
             >
-              <TextComponent text={cards[counter].answer} />
+              <TextComponent text={Cards[counter].answer} />
               <Flex
                 justifyContent="space-between"
                 flexDirection="row"
@@ -75,14 +68,7 @@ const PlayPage = () => {
                   variant="outline"
                   callBack={() => {
                     setNext(!next);
-                    setCounter(++counter);
-                  }}
-                  text="Very Easy"
-                />
-                <AgnosticButton
-                  variant="outline"
-                  callBack={() => {
-                    setNext(!next);
+                    updateDifficulty('Easy');
                     setCounter(++counter);
                   }}
                   text="Easy"
@@ -91,17 +77,19 @@ const PlayPage = () => {
                   variant="outline"
                   callBack={() => {
                     setNext(!next);
+                    updateDifficulty('Medium');
                     setCounter(++counter);
                   }}
-                  text="Hard"
+                  text="Medium"
                 />
                 <AgnosticButton
                   variant="outline"
                   callBack={() => {
                     setNext(!next);
+                    updateDifficulty('Hard');
                     setCounter(++counter);
                   }}
-                  text="Very Hard"
+                  text="Hard"
                 />
               </Flex>
             </Flex>
@@ -112,6 +100,8 @@ const PlayPage = () => {
           variant="outline"
           text="Back"
           callBack={() => {
+            sorted(Cards, user, position);
+            patchAgnostic(user._id, 'users', token, user).then((res) => console.log(res));
             navigate('/dashboard');
           }}
         />

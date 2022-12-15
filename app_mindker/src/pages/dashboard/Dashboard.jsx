@@ -8,7 +8,7 @@ import { getAgnostic } from '../../services/APIservice';
 import { filterDecks } from '../../utils/filterDecks';
 
 const Dashboard = () => {
-  const { user, dashboardContent, switcher, param, setParam, paramReforce, deck } =
+  const { user, dashboardContent, switcher, param, setParam, paramReforce } =
     useContext(GlobalContext);
   let arr = [];
 
