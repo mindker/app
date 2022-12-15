@@ -1,12 +1,4 @@
-import {
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  Select,
-  Text,
-  useToast,
-} from '@chakra-ui/react';
+import { Flex, FormControl, FormLabel, Input, Text, useToast } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,6 +12,7 @@ const CreateDeck = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const navigate = useNavigate();
+  const token = window.localStorage.getItem('user');
 
   const toast = useToast();
 
@@ -31,7 +24,6 @@ const CreateDeck = () => {
     (async () => {
       try {
         const values = { title: title, description: description, image: image };
-        const token = window.localStorage.getItem('user');
         CreateAgnosticItem('decks', values, token).then((res) => {
           user.decks.push(res);
           setDeck(res);
