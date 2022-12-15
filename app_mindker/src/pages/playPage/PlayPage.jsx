@@ -15,6 +15,7 @@ const PlayPage = () => {
   const [next, setNext] = useState(true);
   const token = window.localStorage.getItem('user');
 
+  console.log(user);
   useEffect(() => {
     getAgnostic('decks', deck._id).then((res) => {
       setCards(res.info.data.cards);
