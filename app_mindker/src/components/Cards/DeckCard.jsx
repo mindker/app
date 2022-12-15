@@ -38,7 +38,7 @@ const DeckCard = ({
               size="xs"
               callBack={callBack}
             />
-            {!object.isOpen && (
+            {dashboardContent == false && (
               <AgnosticButton
                 text={textBottom}
                 type="button"

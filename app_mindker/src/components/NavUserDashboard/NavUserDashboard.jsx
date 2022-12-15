@@ -1,5 +1,5 @@
 import { Avatar, Box, Input, Text } from '@chakra-ui/react';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,6 +17,10 @@ const NavUserDashboard = () => {
     setParam,
     setParamReforce,
   } = useContext(GlobalContext);
+
+  /*   useEffect(() => {
+    console.log(user);
+  }, []); */
 
   const navigate = useNavigate();
 

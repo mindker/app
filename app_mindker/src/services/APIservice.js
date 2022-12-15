@@ -1,9 +1,13 @@
 import axios from 'axios';
 
 export const getAgnostic = async (endpoint, param) => {
-  return fetch(`http://localhost:8080/api/v1/${endpoint}/${param}`)
-    .then((res) => res.json())
-    .then((res) => res);
+  try {
+    const data = await fetch(`http://localhost:8080/api/v1/${endpoint}/${param}`);
+    const res = await data.json();
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const loginUser = async (endpoint, credentials) => {
