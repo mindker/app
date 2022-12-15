@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, position } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,42 +10,52 @@ import { getAgnostic, patchAgnostic } from '../../services/APIservice';
 const PlayPage = () => {
   const navigate = useNavigate();
   const { deck, user } = useContext(GlobalContext);
-  const [cards, setCards] = useState([]);
+  const [Cards, setCards] = useState([]);
   let [counter, setCounter] = useState(0);
   const [next, setNext] = useState(true);
   const token = window.localStorage.getItem('user');
-
-  console.log(user);
+  const [position, setPosition] = useState(0);
+ /*  console.log(user) */
+  
   useEffect(() => {
-    getAgnostic('decks', deck._id).then((res) => {
+    
+   const playDeck = user.decks.filter((deckUser) => deckUser._id == deck._id);
+    
+   setCards(playDeck[0].cards);
+    setPosition(user.decks.indexOf(playDeck[0]));
+    /* console.log(position) */
+    /* console.log(playDeck[0]); */
+    /*  getAgnostic('decks', deck._id).then((res) => {
       setCards(res.info.data.cards);
-    });
+    });  */
   }, [counter]);
 
   const updateDifficulty = (level) => {
-    console.log(cards[counter]);
-    cards[counter].level = level;
-    patchAgnostic(cards[counter]._id, 'cards', token, cards[counter]).then((res) =>
+    /* console.log(Cards[counter]); */
+    /* cards[counter].difficulty = level; */
+    console.log(position);
+    user.decks[position].cards[counter].difficulty = level;
+     patchAgnostic(user._id, 'users', token, user).then((res) =>
       console.log(res),
-    );
+     ); 
   };
 
   return (
     <Box>
-      {cards[counter] ? (
+      {Cards[counter] ? (
         <Flex
-          key={cards[counter]._id}
+          key={Cards[counter]._id}
           mt="2rem"
           justifyContent="center"
           flexDirection="column"
           alignItems="center"
           gap="2rem"
         >
-          <TextComponent text={cards[counter].question} />
-          {cards[counter].questionFile ? (
+          <TextComponent text={Cards[counter].question} />
+          {Cards[counter].questionFile ? (
             <img
-              src={cards[counter].questionFile}
-              alt={cards[counter].question}
+              src={Cards[counter].questionFile}
+              alt={Cards[counter].question}
               width="350px"
             />
           ) : null}
@@ -62,7 +72,7 @@ const PlayPage = () => {
               alignItems="center"
               gap="2rem"
             >
-              <TextComponent text={cards[counter].answer} />
+              <TextComponent text={Cards[counter].answer} />
               <Flex
                 justifyContent="space-between"
                 flexDirection="row"
@@ -72,27 +82,27 @@ const PlayPage = () => {
                 <AgnosticButton
                   variant="outline"
                   callBack={() => {
-                    setNext(!next);
-                    setCounter(++counter);
+                    setNext(!next);                    
                     updateDifficulty('Easy');
+                    setCounter(++counter);
                   }}
                   text="Easy"
                 />
                 <AgnosticButton
                   variant="outline"
                   callBack={() => {
-                    setNext(!next);
-                    setCounter(++counter);
+                    setNext(!next);                    
                     updateDifficulty('Medium');
+                    setCounter(++counter);
                   }}
                   text="Medium"
                 />
                 <AgnosticButton
                   variant="outline"
                   callBack={() => {
-                    setNext(!next);
-                    setCounter(++counter);
+                    setNext(!next);                    
                     updateDifficulty('Hard');
+                    setCounter(++counter);
                   }}
                   text="Hard"
                 />
