@@ -102,7 +102,7 @@ const PlayPage = () => {
           variant="outline"
           text="Back"
           callBack={() => {
-            sorted(Cards);
+            sorted(Cards, user, position);
             patchAgnostic(user._id, 'users', token, user).then((res) => console.log(res));
             navigate('/dashboard');
           }}
