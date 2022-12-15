@@ -1,11 +1,12 @@
-import { Box, Flex, position } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import TextComponent from '../../components/TextComponent/TextComponent';
 import GlobalContext from '../../context/GlobalContext';
-import { getAgnostic, patchAgnostic } from '../../services/APIservice';
+import { patchAgnostic } from '../../services/APIservice';
+import { sorted } from '../../utils/difficultySorted';
 
 const PlayPage = () => {
   const navigate = useNavigate();
@@ -15,29 +16,15 @@ const PlayPage = () => {
   const [next, setNext] = useState(true);
   const token = window.localStorage.getItem('user');
   const [position, setPosition] = useState(0);
- /*  console.log(user) */
-  
+
   useEffect(() => {
-    
-   const playDeck = user.decks.filter((deckUser) => deckUser._id == deck._id);
-    
-   setCards(playDeck[0].cards);
+    const playDeck = user.decks.filter((deckUser) => deckUser._id == deck._id);
+    setCards(playDeck[0].cards);
     setPosition(user.decks.indexOf(playDeck[0]));
-    /* console.log(position) */
-    /* console.log(playDeck[0]); */
-    /*  getAgnostic('decks', deck._id).then((res) => {
-      setCards(res.info.data.cards);
-    });  */
   }, [counter]);
 
   const updateDifficulty = (level) => {
-    /* console.log(Cards[counter]); */
-    /* cards[counter].difficulty = level; */
-    console.log(position);
     user.decks[position].cards[counter].difficulty = level;
-     patchAgnostic(user._id, 'users', token, user).then((res) =>
-      console.log(res),
-     ); 
   };
 
   return (
@@ -82,7 +69,7 @@ const PlayPage = () => {
                 <AgnosticButton
                   variant="outline"
                   callBack={() => {
-                    setNext(!next);                    
+                    setNext(!next);
                     updateDifficulty('Easy');
                     setCounter(++counter);
                   }}
@@ -91,7 +78,7 @@ const PlayPage = () => {
                 <AgnosticButton
                   variant="outline"
                   callBack={() => {
-                    setNext(!next);                    
+                    setNext(!next);
                     updateDifficulty('Medium');
                     setCounter(++counter);
                   }}
@@ -100,7 +87,7 @@ const PlayPage = () => {
                 <AgnosticButton
                   variant="outline"
                   callBack={() => {
-                    setNext(!next);                    
+                    setNext(!next);
                     updateDifficulty('Hard');
                     setCounter(++counter);
                   }}
@@ -115,6 +102,8 @@ const PlayPage = () => {
           variant="outline"
           text="Back"
           callBack={() => {
+            sorted(Cards);
+            patchAgnostic(user._id, 'users', token, user).then((res) => console.log(res));
             navigate('/dashboard');
           }}
         />
