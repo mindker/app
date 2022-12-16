@@ -15,12 +15,14 @@ const Dashboard = () => {
   const [textDecks, setTextDecks] = useState('My Decks');
 
   useEffect(() => {
-    dashboardContent == 'decks'
-      ? setTextDecks('Popular Decks')
-      : dashboardContent === false
-      ? (setArrayDecks(user.decks), setTextDecks('My Decks'))
-      : param == '' && setParam(paramReforce),
-      setTextDecks(param);
+    if (dashboardContent == 'decks') {
+      setTextDecks('Popular Decks');
+    } else if (dashboardContent === false) {
+      setArrayDecks(user.decks), setTextDecks('My Decks');
+    } else if (param == '') {
+      setTextDecks('');
+      setParam(paramReforce);
+    }
     if (dashboardContent) {
       getAgnostic(dashboardContent, param)
         .then((res) => {

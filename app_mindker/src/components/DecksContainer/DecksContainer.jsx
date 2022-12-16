@@ -15,6 +15,7 @@ const DecksContainer = ({ array }) => {
   const adoptDeckUser = async (deck) => {
     const token = window.localStorage.getItem('user');
     getAgnostic('decks', deck._id).then((res) => {
+      console.log(res.info.data);
       user.decks.push(res.info.data);
       patchAgnostic(user._id, 'users', token, user);
     });

@@ -22,6 +22,7 @@ const PlayPage = () => {
     setCards(playDeck[0].cards);
     setPosition(user.decks.indexOf(playDeck[0]));
   }, [counter]);
+
   const updateDifficulty = (level) => {
     user.decks[position].cards[counter].difficulty = level;
   };

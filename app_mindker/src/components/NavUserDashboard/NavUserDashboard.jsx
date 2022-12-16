@@ -132,7 +132,6 @@ const NavUserDashboard = ({ user }) => {
               />
               <Input
                 border="1px white"
-                placeholder="categoty or title"
                 textAlign="center"
                 w="13rem"
                 onInput={(e) => {
