@@ -18,7 +18,6 @@ const DeckCard = ({
   return (
     <Card height="200" width="200" borderRadius="4px" bg="#E9B5F7">
       <CardBody overflowX="hidden">
-        <Flex
           flexDirection="column"
           justifyContent="space-around"
           background="9271ac"
