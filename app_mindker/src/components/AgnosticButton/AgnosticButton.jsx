@@ -9,6 +9,11 @@ const AgnosticButton = ({
   colorScheme,
   leftIcon,
   width,
+  bg,
+  borderRadius,
+  color,
+  _hover,
+  border,
 }) => {
   return (
     <Button
@@ -19,6 +24,11 @@ const AgnosticButton = ({
       colorScheme={colorScheme}
       leftIcon={leftIcon}
       w={width}
+      bg={bg}
+      borderRadius={borderRadius}
+      color={color}
+      _hover={_hover}
+      border={border}
     >
       {text}
     </Button>

@@ -12,9 +12,11 @@ const DecksSuperContainer = ({ array, text }) => {
       h="100vh"
       w="85vw"
       bg="inherit"
+      alignItems="center"
+      px="2rem"
     >
-      <Flex justifyContent="flex-start">
-        <TextComponet text={text} fontSize="4x1" color="black" as="b" />
+      <Flex justifyContent="flex-start" p="1.5rem">
+        <TextComponet text={text} fontSize="2rem" color="black" as="b" />
       </Flex>
       <DecksContainer array={array} />
     </Flex>
