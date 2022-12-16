@@ -20,7 +20,6 @@ const DecksContainer = ({ array }) => {
       patchAgnostic(user._id, 'users', token, user);
     });
   };
-  
 
   if (dashboardContent === false) {
     return (
