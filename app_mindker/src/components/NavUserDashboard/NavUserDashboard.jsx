@@ -1,3 +1,5 @@
+import './nav.css';
+
 import { Avatar, Box, Flex, Input, Text } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import {
@@ -132,7 +134,7 @@ const NavUserDashboard = ({ user }) => {
               />
               <Input
                 border="1px white"
-                placeholder="categoty or title"
+                placeholder="Search by title"
                 textAlign="center"
                 w="13rem"
                 onInput={(e) => {

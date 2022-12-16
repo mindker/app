@@ -17,7 +17,7 @@ const DeckCard = ({
   const { dashboardContent } = useContext(GlobalContext);
   return (
     <Card height="200" width="200" borderRadius="4px" bg="#E9B5F7">
-      <CardBody>
+      <CardBody overflowX="hidden">
         <Flex
           flexDirection="column"
           justifyContent="space-around"
@@ -77,7 +77,7 @@ const DeckCard = ({
             mt="3rem"
             fontWeight="bold"
           >
-            <TextComponent text={object.title} fontSize="3x1" color="black" />
+            <TextComponent text={object.title} fontSize="1rem" color="black" />
             <TextComponent
               text={`Numero de preguntas ${object.cards.length}`}
               fontSize="sm"
