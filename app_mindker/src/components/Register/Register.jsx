@@ -82,9 +82,11 @@ const Register = () => {
         text="Register"
         type="button"
         variant="outline"
-        leftIcon={<AiFillContacts />}
-        colorScheme="yellow"
-        size="lg"
+        color="purple"
+        bg="white"
+        size="md"
+        borderRadius="1.5rem"
+        w="6rem"
       >
         Register
       </Button>

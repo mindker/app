@@ -19,17 +19,13 @@ const Home = () => {
   return (
     <HomeLayout direction="column">
       <HeaderHome
-        text="Mindker Game"
-        image="https://res.cloudinary.com/di5oqdvwa/image/upload/v1670257782/imagenes/Logo-hecho-porIris-que-es-una-crack_u48ufi.png"
+        text="mindker"
+        image="https://res.cloudinary.com/drprserzu/image/upload/v1671204804/image_loxdyy.png"
       />
-
       {homeContent == 'content' ? <Content /> : null}
       <Flex gap="1rem">
-        <Register />
-        <Login />
-
         <AgnosticButton
-          text="MindKer"
+          text="Demo"
           type="button"
           variant="outline"
           leftIcon={<AiFillHome />}

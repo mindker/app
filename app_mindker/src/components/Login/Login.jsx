@@ -70,9 +70,11 @@ const Login = () => {
         text="Login"
         type="button"
         variant="outline"
-        leftIcon={<AiFillContacts />}
-        colorScheme="facebook"
-        size="lg"
+        bg="white"
+        color="purple"
+        size="md"
+        borderRadius="1.5rem"
+        w="6rem"
       >
         Login
       </Button>
