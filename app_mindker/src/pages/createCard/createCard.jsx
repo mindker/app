@@ -64,7 +64,7 @@ const CreateCard = () => {
   return (
     <div>
       <FormControl>
-        <form>
+        <form className="createDesk">
           <FormLabel>Insert the question *</FormLabel>
           <Textarea
             placeholder="Type the question in here"

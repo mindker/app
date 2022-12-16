@@ -1,4 +1,12 @@
-import { Flex, FormControl, FormLabel, Input, Text, useToast } from '@chakra-ui/react';
+import {
+  Card,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  Text,
+  useToast,
+} from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -36,35 +44,67 @@ const CreateDeck = () => {
   };
 
   return (
-    <>
-      <Flex>
-        <FormControl>
+    <Flex bg="#e9b5f7" w="100vw" h="100vh" alignItems="center" justifyContent="center">
+      <Flex m="400px" justifyContent="center" marginBlockStart="350px" display="flex">
+        <FormControl bg="white" padding="50px" borderRadius="20px">
           <form>
-            <FormLabel>Title</FormLabel>
+            <Text fontSize="4xl" as="b">
+              Create new deck
+            </Text>
+            <FormLabel as="b" marginTop="20px">
+              Deck title*
+            </FormLabel>
             <Input
+              bg="white"
+              textColor="black"
               onChange={(e) => setTitle(e.target.value)}
               name="title"
               type="text"
+              placeholder="Add a title for your deck"
+              borderRadius="10px"
             ></Input>
-            {isErrorTitle ? <Text color="red">This field is required</Text> : null}
-            <FormLabel>Description</FormLabel>
+            {isErrorTitle ? (
+              <Text margin="10px" color="#5f1590" as="b">
+                This field is required
+              </Text>
+            ) : null}
+            <FormLabel as="b" marginTop="20px">
+              Description
+            </FormLabel>
             <Input
+              bg="white"
+              textColor="black"
               onChange={(e) => setDescription(e.target.value)}
               name="description"
               type="text"
+              placeholder="Include a description"
+              h="120px"
+              borderRadius="10px"
             ></Input>
-            {isErrorDescription ? <Text color="red">This field is required</Text> : null}
-            <FormLabel>Image</FormLabel>
+            {isErrorDescription ? (
+              <Text color="#5f1590">This field is required</Text>
+            ) : null}
+            <FormLabel as="b" marginTop="20px">
+              Add a background photo
+            </FormLabel>
             <Input
+              textColor="black"
               name="image"
               type="file"
               onChange={(e) => setDeckImage(e.target.files[0])}
               accept="image/*"
+              placeholder="Upload background image"
+              borderRadius="15px"
             />
-            <Flex justifyContent="space-around" mt="3rem">
+
+            <Flex gap="2rem" mt="3rem" justifyContent="center">
               <AgnosticButton
+                _hover={{ bg: '#5f1590', color: 'white' }}
                 text="Add cards"
                 type="button"
+                color="white"
+                borderRadius="10px"
+                bg="#af63dd"
                 callBack={(e) => {
                   onFormSubmit(e);
                   toast({
@@ -80,8 +120,12 @@ const CreateDeck = () => {
                 colorScheme="twitter"
               />
               <AgnosticButton
+                _hover={{ bg: '#5f1590', color: 'white' }}
                 text="Save deck"
                 type="button"
+                color="white"
+                borderRadius="20px"
+                bg="#af63dd"
                 callBack={(e) => {
                   onFormSubmit(e);
                   toast({
@@ -101,7 +145,7 @@ const CreateDeck = () => {
           </form>
         </FormControl>
       </Flex>
-    </>
+    </Flex>
   );
 };
 
