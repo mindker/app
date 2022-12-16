@@ -11,7 +11,6 @@ const Dashboard = () => {
   const { user, dashboardContent, switcher, param, setParam, paramReforce } =
     useContext(GlobalContext);
   let arr = [];
-
   const [arrayDecks, setArrayDecks] = useState([]);
   const [textDecks, setTextDecks] = useState('My Decks');
 
@@ -33,7 +32,7 @@ const Dashboard = () => {
 
   return (
     <DashboardLayout direction="row">
-      <NavUserDashboard />
+      <NavUserDashboard user={user} />
       <DecksSuperContainer array={arrayDecks} text={textDecks} />
     </DashboardLayout>
   );

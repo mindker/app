@@ -16,27 +16,27 @@ const DeckCard = ({
 }) => {
   const { dashboardContent } = useContext(GlobalContext);
   return (
-    <Card height="130">
+    <Card height="200" width="200" borderRadius="4px" bg="#E9B5F7">
       <CardBody>
-        <Flex flexDirection="row" justifyContent="space-around" gap="1rem">
-          <Flex flexDirection="column" justifyContent="center" gap="2rem">
-            <TextComponent text={object.title} fontSize="4x1" color="black" />
-            <TextComponent
-              text={`Numero de preguntas ${object.cards.length}`}
-              fontSize="sm"
-              color="black"
-              as="sub"
-            />
-          </Flex>
-          <Flex flexDirection="column" justifyContent="center" gap="2rem">
+        <Flex
+          flexDirection="column"
+          justifyContent="space-around"
+          background="9271ac"
+          w="180px"
+        >
+          <Flex flexDirection="row" justifyContent="space-between">
             <AgnosticButton
               text={textUp}
               type="button"
               variant="outline"
               leftIcon={leftIconUp}
-              colorScheme="twitter"
+              color="white"
+              borderRadius="20px"
               size="xs"
               callBack={callBack}
+              bg="#AC67D6"
+              border="1px #AC67D6"
+              _hover={{ bg: '#5b168d' }}
             />
             {dashboardContent == false && (
               <AgnosticButton
@@ -44,9 +44,13 @@ const DeckCard = ({
                 type="button"
                 variant="outline"
                 leftIcon={leftIconDown}
-                colorScheme="twitter"
+                color="white"
+                borderRadius="20px"
                 size="xs"
                 callBack={callBack2}
+                bg="#5b168d"
+                border="1px #5b168d"
+                _hover={{ bg: '#AC67D6' }}
               />
             )}
             {dashboardContent && (
@@ -55,11 +59,31 @@ const DeckCard = ({
                 type="button"
                 variant="outline"
                 leftIcon={leftIconDown}
-                colorScheme="twitter"
+                color="white"
+                borderRadius="20px"
                 size="xs"
                 callBack={callBack2}
+                bg="#5b168d"
+                border="1px #5b168d"
+                _hover={{ bg: '#AC67D6' }}
               />
             )}
+          </Flex>
+          <Flex
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            gap="2rem"
+            mt="3rem"
+            fontWeight="bold"
+          >
+            <TextComponent text={object.title} fontSize="3x1" color="black" />
+            <TextComponent
+              text={`Numero de preguntas ${object.cards.length}`}
+              fontSize="sm"
+              color="black"
+              as="sub"
+            />
           </Flex>
         </Flex>
       </CardBody>
