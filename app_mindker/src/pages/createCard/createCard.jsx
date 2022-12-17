@@ -63,61 +63,72 @@ const CreateCard = () => {
 
   return (
     <div>
-      <FormControl>
-        <form className="createDesk">
-          <FormLabel>Insert the question *</FormLabel>
-          <Textarea
-            placeholder="Type the question in here"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            isRequired={true}
-          />
-          {isErrorQ ? <Text color="red">This field is required</Text> : null}
-          <FormLabel>You can add a picture for this question if you wish</FormLabel>
-          <Input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImageQuestion(e.target.files[0])}
-          />
-          <FormLabel>Type the answer *</FormLabel>
-          <Textarea
-            placeholder="Type the answer in here"
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
-          />
-          {isErrorA ? <Text color="red">This field is required</Text> : null}
-          <AgnosticButton
-            text="Save card & exit"
-            type="button"
-            callBack={(e) => {
-              boolean = false;
-              onFormSubmitCard(e);
-              toast({
-                title: 'Card created.',
-                description: "We've created your card for you.",
-                status: 'success',
-                duration: 9000,
-                isClosable: true,
-              });
-              setDashboardContent(false);
-              navigate('/dashboard');
-            }}
-          />
-          <AgnosticButton
-            text="Save & continue"
-            callBack={(e) => {
-              onFormSubmitCard(e);
-              toast({
-                title: 'Deck created.',
-                description: "We've created your deck for you.",
-                status: 'success',
-                duration: 9000,
-                isClosable: true,
-              });
-            }}
-          />
-        </form>
-      </FormControl>
+      <Flex bg="#5f1590" w="100vw" h="100vh" alignItems="center" justifyContent="center">
+        <Flex
+          m="400px"
+          justifyContent="center"
+          marginBlockStart="400px"
+          display="flex"
+        ></Flex>
+        <FormControl bg="white" padding="50px" borderRadius="20px">
+          <form className="createDesk">
+            <Text fontSize="4xl" as="b">
+              Create new card
+            </Text>
+            <FormLabel>Insert the question *</FormLabel>
+            <Textarea
+              placeholder="Type the question in here"
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              isRequired={true}
+            />
+            {isErrorQ ? <Text color="red">This field is required</Text> : null}
+            <FormLabel>You can add a picture for this question if you wish</FormLabel>
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setImageQuestion(e.target.files[0])}
+            />
+            <FormLabel>Type the answer *</FormLabel>
+            <Textarea
+              placeholder="Type the answer in here"
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
+            />
+            {isErrorA ? <Text color="red">This field is required</Text> : null}
+            <AgnosticButton
+              text="Save & continue"
+              callBack={(e) => {
+                onFormSubmitCard(e);
+                toast({
+                  title: 'Deck created.',
+                  description: "We've created your deck for you.",
+                  status: 'success',
+                  duration: 9000,
+                  isClosable: true,
+                });
+              }}
+            />
+            <AgnosticButton
+              text="Save card & exit"
+              type="button"
+              callBack={(e) => {
+                boolean = false;
+                onFormSubmitCard(e);
+                toast({
+                  title: 'Card created.',
+                  description: "We've created your card for you.",
+                  status: 'success',
+                  duration: 9000,
+                  isClosable: true,
+                });
+                setDashboardContent(false);
+                navigate('/dashboard');
+              }}
+            />
+          </form>
+        </FormControl>
+      </Flex>
     </div>
   );
 };

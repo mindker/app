@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AddIcon, CheckIcon } from '@chakra-ui/icons';
 
 import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import GlobalContext from '../../context/GlobalContext';
@@ -44,14 +45,14 @@ const CreateDeck = () => {
   };
 
   return (
-    <Flex bg="#e9b5f7" w="100vw" h="100vh" alignItems="center" justifyContent="center">
-      <Flex m="400px" justifyContent="center" marginBlockStart="350px" display="flex">
+    <Flex bg="#5f1590" w="100vw" h="100vh" alignItems="center" justifyContent="center">
+      <Flex m="400px" justifyContent="center" marginBlockStart="400px" display="flex">
         <FormControl bg="white" padding="50px" borderRadius="20px">
           <form>
             <Text fontSize="4xl" as="b">
               Create new deck
             </Text>
-            <FormLabel as="b" marginTop="20px">
+            <FormLabel as="b" marginTop="30px">
               Deck title*
             </FormLabel>
             <Input
@@ -63,12 +64,8 @@ const CreateDeck = () => {
               placeholder="Add a title for your deck"
               borderRadius="10px"
             ></Input>
-            {isErrorTitle ? (
-              <Text margin="10px" color="#5f1590" as="b">
-                This field is required
-              </Text>
-            ) : null}
-            <FormLabel as="b" marginTop="20px">
+            {isErrorTitle ? <Text color="black">This field is required</Text> : null}
+            <FormLabel as="b" marginTop="25px">
               Description
             </FormLabel>
             <Input
@@ -82,7 +79,7 @@ const CreateDeck = () => {
               borderRadius="10px"
             ></Input>
             {isErrorDescription ? (
-              <Text color="#5f1590">This field is required</Text>
+              <Text color="black">This field is required</Text>
             ) : null}
             <FormLabel as="b" marginTop="20px">
               Add a background photo
@@ -103,8 +100,9 @@ const CreateDeck = () => {
                 text="Add cards"
                 type="button"
                 color="white"
-                borderRadius="10px"
+                borderRadius="20px"
                 bg="#af63dd"
+                leftIcon={<AddIcon />}
                 callBack={(e) => {
                   onFormSubmit(e);
                   toast({
@@ -126,6 +124,7 @@ const CreateDeck = () => {
                 color="white"
                 borderRadius="20px"
                 bg="#af63dd"
+                leftIcon={<CheckIcon />}
                 callBack={(e) => {
                   onFormSubmit(e);
                   toast({
