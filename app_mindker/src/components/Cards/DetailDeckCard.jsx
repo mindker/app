@@ -1,7 +1,6 @@
 import {
   Card,
   CardBody,
-  CardFooter,
   Flex,
   Heading,
   Image,
@@ -9,13 +8,14 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react';
+import { useMediaQuery } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import GlobalContext from '../../context/GlobalContext';
 import { patchAgnostic } from '../../services/APIservice.js';
-import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const DetailDeckCard = () => {
   const [deckDetail, setDeckDetail] = useState('');
@@ -23,7 +23,7 @@ const DetailDeckCard = () => {
   const { deck } = useContext(GlobalContext);
   const { user } = useContext(GlobalContext);
   const toast = useToast();
-
+  const [responsive] = useMediaQuery('(max-width: 768px)');
   useEffect(() => {
     const getDeckDetail = async () => {
       const data = await fetch(`http://localhost:8080/api/v1/decks/${deck._id}`);
@@ -41,58 +41,56 @@ const DetailDeckCard = () => {
 
   return deckDetail != '' ? (
     <Flex
+      flex="4"
       height="100vh"
       flexWrap="wrap"
-      flexDirection="column"
       justifyContent="center"
       alignContent="center"
+      bg="#5f1590"
     >
+      {responsive}
       <Card
         border="1px"
         direction={{ base: 'column', sm: 'row' }}
         overflow="hidden"
         variant="outline"
-        height="290px"
-        width="650px"
+        height="500px"
+        width="70vw"
+        bg="#E9B5F7"
+        p="3rem"
       >
         <Image
           objectFit="cover"
-          maxW={{ base: '100%', sm: '200px' }}
+          maxW={{ base: '100%', sm: '700px' }}
           src={deckDetail.info.data.image}
           alt="deck image"
         />
 
         <Stack>
-          <CardBody>
-            <Heading size="md" p="1rem">
+          <CardBody w="440px">
+            <Heading size="xl" p="1rem">
               {deckDetail.info.data.title}
             </Heading>
 
-            <Text py="2">
+            <Text px="1rem" fontSize={['sm', 'md', 'lg', 'xl']}>
               <strong>Description: </strong>
               {deckDetail.info.data.description}
             </Text>
-            <Text py="2">
+            <Text px="1rem" fontSize={['sm', 'md', 'lg', 'xl']}>
               <strong>Number of cards:</strong> {deckDetail.info.data.cards.length}
             </Text>
           </CardBody>
 
-          <CardFooter gap="2rem">
-            <AgnosticButton
-              text="Back"
-              type="button"
-              variant="outline"
-              //leftIcon={<AiFillHome />}
-              colorScheme="twitter"
-              size="md"
-              callBack={() => navigate('/dashboard')}
-            />
+          <Flex gap="2rem" p="1rem" justifyContent="space-around">
             <AgnosticButton
               text="Adopt"
+              color="white"
               type="button"
-              variant="outline"
+              variant="solid"
+              borderRadius="20px"
               //leftIcon={<AiFillHome />}
-              colorScheme="twitter"
+              //colorScheme="purple"
+              bg="#5f1590"
               size="md"
               callBack={async () => {
                 await adoptDeck(deckDetail.info.data._id);
@@ -106,7 +104,19 @@ const DetailDeckCard = () => {
                 });
               }}
             />
-          </CardFooter>
+            <AgnosticButton
+              text="Back"
+              color="white"
+              type="button"
+              variant="solid"
+              //colorScheme="purple"
+              bg="#5f1590"
+              size="md"
+              //leftIcon={<AiFillHome />}
+              borderRadius="20px"
+              callBack={() => navigate('/dashboard')}
+            />
+          </Flex>
         </Stack>
       </Card>
     </Flex>
