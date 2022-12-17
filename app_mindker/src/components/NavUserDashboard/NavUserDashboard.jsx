@@ -131,7 +131,8 @@ const NavUserDashboard = ({ user }) => {
                 leftIcon={<FaSearchPlus />}
               />
               <Input
-                border="1px white"
+                border="2px"
+                borderColor="#5F1592"
                 textAlign="center"
                 w="13rem"
                 onInput={(e) => {

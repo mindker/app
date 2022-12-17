@@ -1,19 +1,11 @@
+import { AddIcon, CheckIcon } from '@chakra-ui/icons';
+import { Flex, FormControl, FormLabel, Input, Text, useToast } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
-
-import {
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  Select,
-  Text,
-  Textarea,
-  useToast,
-} from '@chakra-ui/react';
-import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
-import { CreateAgnosticItem, patchAgnostic } from '../../services/APIservice';
-import GlobalContext from '../../context/GlobalContext';
 import { useNavigate } from 'react-router-dom';
+
+import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
+import GlobalContext from '../../context/GlobalContext';
+import { CreateAgnosticItem, patchAgnostic } from '../../services/APIservice';
 
 const CreateCard = () => {
   const [question, setQuestion] = useState('');
@@ -64,70 +56,100 @@ const CreateCard = () => {
   return (
     <div>
       <Flex bg="#5f1590" w="100vw" h="100vh" alignItems="center" justifyContent="center">
-        <Flex
-          m="400px"
-          justifyContent="center"
-          marginBlockStart="400px"
-          display="flex"
-        ></Flex>
-        <FormControl bg="white" padding="50px" borderRadius="20px">
-          <form className="createDesk">
-            <Text fontSize="4xl" as="b">
-              Create new card
-            </Text>
-            <FormLabel>Insert the question *</FormLabel>
-            <Textarea
-              placeholder="Type the question in here"
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-              isRequired={true}
-            />
-            {isErrorQ ? <Text color="red">This field is required</Text> : null}
-            <FormLabel>You can add a picture for this question if you wish</FormLabel>
-            <Input
-              type="file"
-              accept="image/*"
-              onChange={(e) => setImageQuestion(e.target.files[0])}
-            />
-            <FormLabel>Type the answer *</FormLabel>
-            <Textarea
-              placeholder="Type the answer in here"
-              value={answer}
-              onChange={(e) => setAnswer(e.target.value)}
-            />
-            {isErrorA ? <Text color="red">This field is required</Text> : null}
-            <AgnosticButton
-              text="Save & continue"
-              callBack={(e) => {
-                onFormSubmitCard(e);
-                toast({
-                  title: 'Deck created.',
-                  description: "We've created your deck for you.",
-                  status: 'success',
-                  duration: 9000,
-                  isClosable: true,
-                });
-              }}
-            />
-            <AgnosticButton
-              text="Save card & exit"
-              type="button"
-              callBack={(e) => {
-                boolean = false;
-                onFormSubmitCard(e);
-                toast({
-                  title: 'Card created.',
-                  description: "We've created your card for you.",
-                  status: 'success',
-                  duration: 9000,
-                  isClosable: true,
-                });
-                setDashboardContent(false);
-                navigate('/dashboard');
-              }}
-            />
-          </form>
-        </FormControl>
+        <Flex m="485px" justifyContent="center" marginBlockStart="475px" display="flex">
+          <FormControl bg="white" padding="25px" borderRadius="20px">
+            <form>
+              <Text fontSize="4xl" as="b">
+                New card
+              </Text>
+              <FormLabel as="b" marginTop="30px">
+                Insert the question *
+              </FormLabel>
+              <Input
+                bg="white"
+                textColor="black"
+                placeholder="Type the question in here"
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+                isRequired={true}
+                borderRadius="10px"
+                type="text"
+              ></Input>
+              {isErrorQ ? <Text color="black">This field is required</Text> : null}
+              <FormLabel as="b" marginTop="25px">
+                You can add a picture for this question if you wish
+              </FormLabel>
+              <Input
+                bg="white"
+                textColor="black"
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImageQuestion(e.target.files[0])}
+                borderRadius="10px"
+              />
+              <FormLabel as="b" marginTop="20px">
+                Type the answer *
+              </FormLabel>
+              <Input
+                bg="white"
+                textColor="black"
+                placeholder="Type the answer in here"
+                value={answer}
+                onChange={(e) => setAnswer(e.target.value)}
+                isRequired={true}
+                borderRadius="10px"
+                type="text"
+                h="90px"
+              ></Input>
+              {isErrorA ? <Text color="black">This field is required</Text> : null}
+
+              <Flex gap="2rem" mt="3rem" justifyContent="center" marginBottom="10px">
+                <AgnosticButton
+                  text="Save & next"
+                  _hover={{ bg: '#5f1590', color: 'white' }}
+                  type="button"
+                  color="white"
+                  borderRadius="20px"
+                  bg="#af63dd"
+                  leftIcon={<AddIcon />}
+                  callBack={(e) => {
+                    onFormSubmitCard(e);
+                    toast({
+                      title: 'Deck created.',
+                      description: "We've created your deck for you.",
+                      status: 'success',
+                      duration: 9000,
+                      isClosable: true,
+                    });
+                  }}
+                />
+                <AgnosticButton
+                  text="Save & exit"
+                  type="button"
+                  _hover={{ bg: '#5f1590', color: 'white' }}
+                  color="white"
+                  borderRadius="20px"
+                  bg="#af63dd"
+                  leftIcon={<CheckIcon />}
+                  // leftIcon={<AddIcon />}
+                  callBack={(e) => {
+                    boolean = false;
+                    onFormSubmitCard(e);
+                    toast({
+                      title: 'Card created.',
+                      description: "We've created your card for you.",
+                      status: 'success',
+                      duration: 9000,
+                      isClosable: true,
+                    });
+                    setDashboardContent(false);
+                    navigate('/dashboard');
+                  }}
+                />
+              </Flex>
+            </form>
+          </FormControl>
+        </Flex>
       </Flex>
     </div>
   );
