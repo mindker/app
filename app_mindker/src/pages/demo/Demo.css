@@ -58,7 +58,7 @@
 }
 .error h3:before,
 .error h3:after {
-  content: 'ERROR 500';
+  content: 'SORRY...';
   position: absolute;
   top: -1px;
   left: 0;

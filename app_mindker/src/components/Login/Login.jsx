@@ -24,7 +24,7 @@ import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setNickname, setUser, setLocal } = useContext(GlobalContext);
+  const { setUser, setLocal } = useContext(GlobalContext);
   const [passwordError, setPasswordError] = useState(false);
   const [nicknameError, setNicknameError] = useState(false);
 
@@ -70,9 +70,11 @@ const Login = () => {
         text="Login"
         type="button"
         variant="outline"
-        leftIcon={<AiFillContacts />}
-        colorScheme="facebook"
-        size="lg"
+        bg="white"
+        color="#5f1590"
+        size="md"
+        borderRadius="1.5rem"
+        w="6rem"
       >
         Login
       </Button>
@@ -88,7 +90,6 @@ const Login = () => {
                 {...register('nickname', {
                   required: true,
                 })}
-                onChange={(e) => setNickname(e.target.value)}
                 type="text"
               />
               {/*  {errors.nickname ? <Text color="red">This field is required</Text> : null} */}
@@ -125,8 +126,11 @@ const Login = () => {
                 text="Login"
                 type="submit"
                 variant="outline"
-                leftIcon={<AiFillApi />}
-                colorScheme="facebook"
+                bg="#5f1590"
+                color="white"
+                size="md"
+                borderRadius="1.5rem"
+                w="6rem"
                 callBack={() => setErrorsInFalse()}
               />
             </form>

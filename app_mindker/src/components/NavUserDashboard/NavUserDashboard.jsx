@@ -1,15 +1,20 @@
-import { Avatar, Box, Input, Text } from '@chakra-ui/react';
-import React, { useContext } from 'react';
-import { FaSignOutAlt } from 'react-icons/fa';
+import { Avatar, Box, Flex, Input, Text, useBreakpointValue } from '@chakra-ui/react';
+import React, { useContext, useState } from 'react';
+import {
+  FaBolt,
+  FaGlobeAfrica,
+  FaSearchPlus,
+  FaSignOutAlt,
+  FaTools,
+} from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 import GlobalContext from '../../context/GlobalContext';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
 import EditProfileModal from '../Modals/EditProfileModal';
 
-const NavUserDashboard = () => {
+const NavUserDashboard = ({ user }) => {
   const {
-    user,
     setHomeContent,
     setDashboardContent,
     switcher,
@@ -17,9 +22,9 @@ const NavUserDashboard = () => {
     setParam,
     setParamReforce,
   } = useContext(GlobalContext);
-
+  const isDesKtop = useBreakpointValue({ base: false, lg: true });
   const navigate = useNavigate();
-
+  const [deployer, setDeployer] = useState(false);
   const logout = () => {
     window.localStorage.clear();
     setHomeContent('content');
@@ -28,7 +33,7 @@ const NavUserDashboard = () => {
 
   return (
     <Box
-      bg="#DDD"
+      bg="#5F1592"
       w="20rem"
       h="100vh"
       p="1rem"
@@ -36,97 +41,121 @@ const NavUserDashboard = () => {
       flexWrap="wrap"
       flexDir="column"
       justifyContent="space-between"
-      gap="2.5rem"
     >
       <Box>
-        <Box display="flex" justifyContent="space-between" mb="2rem">
-          <Box bg="white" borderRadius="10px">
+        <Flex
+          justifyContent="space-around"
+          flexDirection="column"
+          bg="white"
+          borderRadius="10px"
+        >
+          <Flex justifyContent="space-between" mb="2rem">
             <EditProfileModal />
-          </Box>
-          <Box bg="white" borderRadius="10px">
             <AgnosticButton
-              colorScheme="gray"
+              color="black"
               leftIcon={<FaSignOutAlt />}
-              text=""
               callBack={() => logout()}
               variant="outline"
+              border="1px white"
             />
-          </Box>
-        </Box>
-        <Box
-          bg="white"
-          p="1rem"
-          display="flex"
-          flexWrap="wrap"
-          flexDirection="column"
-          alignItems="center"
-        >
-          <Avatar name={user.nickname} src={user.avatar} size="xl" />
-          <Text>{user.name}</Text>
-        </Box>
-        <Box
+          </Flex>
+          <Flex
+            bg="white"
+            p="1rem"
+            flexWrap="wrap"
+            flexDirection="column"
+            alignItems="center"
+            borderRadius="10px"
+          >
+            <Avatar
+              name={user.nickname}
+              src={user.avatar}
+              size="xl"
+              mt="-3.5rem"
+              bg="#AF63DD"
+              color="white"
+            />
+            <Text fontWeight="bold">{user.name}</Text>
+          </Flex>
+        </Flex>
+        <Flex
           bg="white"
           mt="1rem"
           p="1rem"
-          display="flex"
           flexWrap="wrap"
           flexDirection="column"
           alignItems="center"
           gap="1rem"
+          borderRadius="10px"
         >
           <AgnosticButton
-            colorScheme="gray"
+            border="1px white"
             variant="outline"
             width="13rem"
             text="My Decks"
             callBack={() => {
               setDashboardContent(false);
               setParam('');
+              setDeployer(false);
               setSwitcher(!switcher);
             }}
+            _hover={{ bg: '#AF63DD', color: ' white' }}
+            leftIcon={<FaBolt />}
           />
           <AgnosticButton
-            width="13rem"
-            colorScheme="gray"
+            width="100%"
+            border="1px white"
             variant="outline"
             text="Popular decks"
             callBack={() => {
               setDashboardContent('decks');
               setParam('');
               setSwitcher(!switcher);
+              setDeployer(true);
             }}
+            _hover={{ bg: '#AF63DD', color: ' white' }}
+            leftIcon={<FaGlobeAfrica />}
           />
-
+          {deployer ? (
+            <>
+              <AgnosticButton
+                border="1px white"
+                width="13rem"
+                variant="outline"
+                text="Search"
+                callBack={() => {
+                  setDashboardContent('decks/deck');
+                  setSwitcher(!switcher);
+                }}
+                _hover={{ bg: '#AF63DD', color: ' white' }}
+                leftIcon={<FaSearchPlus />}
+              />
+              <Input
+                border="1px white"
+                textAlign="center"
+                w="13rem"
+                onInput={(e) => {
+                  setParam(e.target.value);
+                  setParamReforce(e.target.value);
+                }}
+                _hover={{ bg: '#AF63DD', color: ' white' }}
+                leftIcon={<FaSignOutAlt />}
+              />
+            </>
+          ) : null}
           <AgnosticButton
-            colorScheme="gray"
-            width="13rem"
-            variant="outline"
-            text="Search"
-            callBack={() => {
-              setDashboardContent('decks/deck');
-              setSwitcher(!switcher);
-            }}
-          />
-          <Input
-            placeholder="categoty or title"
-            textAlign="center"
-            w="13rem"
-            onInput={(e) => {
-              setParam(e.target.value);
-              setParamReforce(e.target.value);
-            }}
-          />
-          <AgnosticButton
-            colorScheme="gray"
+            border="1px white"
             width="13rem"
             variant="outline"
             text="Create Deck"
             callBack={() => navigate('/createDeck')}
+            _hover={{ bg: '#AF63DD', color: ' white' }}
+            leftIcon={<FaTools />}
           />
-        </Box>
+        </Flex>
       </Box>
     </Box>
-  );
+  ) 
 };
 
 export default React.memo(NavUserDashboard);

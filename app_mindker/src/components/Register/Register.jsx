@@ -25,7 +25,7 @@ import AgnosticButton from '../AgnosticButton/AgnosticButton';
 const Register = () => {
   const navigate = useNavigate();
   const [avatar, setAvatar] = useState('');
-  const { setLocal, setUser, setNickname } = useContext(GlobalContext);
+  const { setLocal, setUser } = useContext(GlobalContext);
   const [nicknameDuplicatedError, setNicknameDuplicatedError] = useState(false);
   const [emailDuplicatedError, setEmailDuplicatedError] = useState(false);
 
@@ -82,45 +82,58 @@ const Register = () => {
         text="Register"
         type="button"
         variant="outline"
-        leftIcon={<AiFillContacts />}
-        colorScheme="yellow"
-        size="lg"
+        color="#5f1590"
+        bg="white"
+        size="md"
+        borderRadius="1.5rem"
+        w="6rem"
       >
         Register
       </Button>
       <Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={btnRef}>
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent bg="#5f1590" color="white">
           <DrawerCloseButton />
-          <DrawerHeader>Create your account</DrawerHeader>
+          <DrawerHeader fontSize="2xl">Create your account</DrawerHeader>
           <DrawerBody>
             <Stack spacing="40px">
               <form onSubmit={handleSubmit(onFormSubmit)}>
-                <FormLabel>Name</FormLabel>
+                <FormLabel fontSize="lg">Name</FormLabel>
                 <Input
                   {...register('name', {
                     required: true,
                   })}
                   name="name"
                   type="text"
+                  bg="white"
+                  color="#5f1590"
                 />
-                {errors.name ? <Text color="red">This field is required</Text> : null}
-                <FormLabel>Nickname</FormLabel>
+                {errors.name ? (
+                  <Text color="white" fontSize="xs" letterSpacing="1.1px">
+                    This field is required
+                  </Text>
+                ) : null}
+                <FormLabel paddingTop="0.6rem">Nickname</FormLabel>
                 <Input
                   {...register('nickname', {
                     required: true,
                     minLength: 2,
                   })}
-                  onChange={(e) => setNickname(e.target.value)}
                   name="nickname"
                   type="text"
+                  bg="white"
+                  color="#5f1590"
                 />
                 {nicknameDuplicatedError ? (
-                  <Text color="red">This nickname already exist</Text>
+                  <Text color="white" fontSize="xs" letterSpacing="1.1px">
+                    This nickname already exist
+                  </Text>
                 ) : errors.nickname ? (
-                  <Text color="red">This field is required</Text>
+                  <Text color="white" fontSize="xs" letterSpacing="1.1px">
+                    This field is required
+                  </Text>
                 ) : null}
-                <FormLabel>Email</FormLabel>
+                <FormLabel paddingTop="0.6rem">Email</FormLabel>
                 <Input
                   {...register('email', {
                     required: true,
@@ -129,13 +142,19 @@ const Register = () => {
                   })}
                   name="email"
                   type="text"
+                  bg="white"
+                  color="#5f1590"
                 />
                 {emailDuplicatedError ? (
-                  <Text color="red">This email already exist</Text>
+                  <Text color="white" fontSize="xs" letterSpacing="1.1px">
+                    This email already exist
+                  </Text>
                 ) : errors.email ? (
-                  <Text color="red">This field is required</Text>
+                  <Text color="white" fontSize="xs" letterSpacing="1.1px">
+                    This field is required
+                  </Text>
                 ) : null}
-                <FormLabel>Password</FormLabel>
+                <FormLabel paddingTop="0.6rem">Password</FormLabel>
                 <InputGroup>
                   <Input
                     {...register('password', {
@@ -144,15 +163,29 @@ const Register = () => {
                     })}
                     name="password"
                     type={show ? 'text' : 'password'}
+                    bg="white"
+                    color="#5f1590"
                   />
                   <InputRightElement width="4.5rem">
-                    <Button h="1.75rem" size="sm" onClick={handleClick}>
+                    <Button
+                      h="1.75rem"
+                      size="sm"
+                      color="white"
+                      borderRadius="1rem"
+                      onClick={handleClick}
+                      bg="#af63dd"
+                      _hover={{ bg: '#5f1590', color: 'white' }}
+                    >
                       {show ? 'Hide' : 'Show'}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
-                {errors.password ? <Text color="red">This field is required</Text> : null}
-                <FormLabel>Avatar</FormLabel>
+                {errors.password ? (
+                  <Text color="white" fontSize="xs" letterSpacing="1.1px">
+                    This field is required
+                  </Text>
+                ) : null}
+                <FormLabel paddingTop="0.6rem">Avatar</FormLabel>
                 <Input
                   {...register('avatar', {
                     required: false,
@@ -162,14 +195,18 @@ const Register = () => {
                   onChange={(e) => setAvatar(e.target.files[0])}
                   accept="image/*"
                   mb="1rem"
+                  bg="white"
                 />
 
                 <AgnosticButton
                   text="Register"
                   type="submit"
-                  variant="outline"
-                  colorScheme="facebook"
-                  leftIcon={<AiFillContacts />}
+                  bg="#af63dd"
+                  color="white"
+                  size="md"
+                  borderRadius="1.5rem"
+                  w="6rem"
+                  _hover={{ bg: 'white', color: '#5f1590' }}
                   callBack={() => setErrorsInFalse()}
                 />
               </form>

@@ -7,12 +7,11 @@ const GlobalContext = createContext();
 const GlobalContextProvider = ({ children }) => {
   const [homeContent, setHomeContent] = useState('content');
   const [user, setUser] = useState();
-  const [nickname, setNickname] = useState();
-  const [local, setLocal] = useLocalStorage(nickname);
-  const [dashboardContent, setDashboardContent] = useState(false);
+  const [local, setLocal] = useLocalStorage('user');
+  const [dashboardContent, setDashboardContent] = useState('decks');
   const [switcher, setSwitcher] = useState(false);
   const [param, setParam] = useState('');
-  const [idDeck, setIdDeck] = useState('');
+  const [deck, setDeck] = useState({});
   const [paramReforce, setParamReforce] = useState('');
 
   const value = {
@@ -22,7 +21,6 @@ const GlobalContextProvider = ({ children }) => {
     setUser,
     local,
     setLocal,
-    setNickname,
     dashboardContent,
     setDashboardContent,
     switcher,
@@ -31,8 +29,8 @@ const GlobalContextProvider = ({ children }) => {
     setParam,
     paramReforce,
     setParamReforce,
-    idDeck,
-    setIdDeck,
+    deck,
+    setDeck,
   };
   return <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>;
 };

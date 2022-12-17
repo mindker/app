@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import App from './App';
 import { GlobalContextProvider } from './context/GlobalContext';
+import CreateCard from './pages/createCard/createCard';
 import CreateDeck from './pages/createDeck/CreateDeck';
 import Dashboard from './pages/dashboard/Dashboard';
 import Demo from './pages/demo/Demo';
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path="/playPage" element={<PlayPage />} />
               <Route path="/editDeckPage" element={<EditDeck />} />
               <Route path="/detailDeck" element={<DetailDeck />} />
+              <Route path="/createCard" element={<CreateCard />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
