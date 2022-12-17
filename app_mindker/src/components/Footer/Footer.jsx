@@ -28,7 +28,7 @@ export const Footer = () => (
         </ButtonGroup>
       </Stack>
       <Text fontSize="sm" color="subtle" justify="center" direction="row" align="center">
-        &copy; {new Date().getFullYear()} Copyrght© 2022 Mindker. All Rights Reserved.
+        &copy; {new Date().getFullYear()} Copyright All Rights Reserved.
       </Text>
     </Stack>
   </Container>
