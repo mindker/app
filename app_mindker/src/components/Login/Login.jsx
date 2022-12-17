@@ -14,8 +14,6 @@ import {
 import React from 'react';
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { AiFillContacts } from 'react-icons/ai';
-import { AiFillApi } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
 import GlobalContext from '../../context/GlobalContext';
@@ -70,9 +68,11 @@ const Login = () => {
         text="Login"
         type="button"
         variant="outline"
-        leftIcon={<AiFillContacts />}
-        colorScheme="facebook"
-        size="lg"
+        bg="white"
+        color="#5f1590"
+        size="md"
+        borderRadius="1.5rem"
+        w="6rem"
       >
         Login
       </Button>
@@ -124,8 +124,11 @@ const Login = () => {
                 text="Login"
                 type="submit"
                 variant="outline"
-                leftIcon={<AiFillApi />}
-                colorScheme="facebook"
+                bg="#5f1590"
+                color="white"
+                size="md"
+                borderRadius="1.5rem"
+                w="6rem"
                 callBack={() => setErrorsInFalse()}
               />
             </form>
