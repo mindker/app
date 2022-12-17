@@ -6,7 +6,7 @@ const GlobalContext = createContext();
 
 const GlobalContextProvider = ({ children }) => {
   const [homeContent, setHomeContent] = useState('content');
-  const [user, setUser] = useState();
+  let [user, setUser] = useState();
   const [local, setLocal] = useLocalStorage('user');
   const [dashboardContent, setDashboardContent] = useState('decks');
   const [switcher, setSwitcher] = useState(false);
