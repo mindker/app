@@ -29,99 +29,136 @@ const PlayPage = () => {
   };
 
   return (
-    <Box bg="#5f1590" m="3rem" p="3.8rem">
-      {Cards[counter] ? (
-        <Flex
-          key={Cards[counter]._id}
-          justifyContent="center"
-          flexDirection="column"
-          alignItems="center"
-          gap="2rem"
-          color="white"
-        >
-          <TextComponent text={Cards[counter].question} />
-          {Cards[counter].questionFile ? (
-            <img
-              src={Cards[counter].questionFile}
-              alt={Cards[counter].question}
-              width="250px"
+    <Flex
+      display="flex"
+      flexDirection="column"
+      width="100vw"
+      height="100vh"
+      bg="#5f1590"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Box bg="white" p="25px" borderRadius="20px" w="30rem" h="29rem">
+        {Cards[counter] ? (
+          <Flex
+            key={Cards[counter]._id}
+            justifyContent="center"
+            flexDirection="column"
+            alignItems="center"
+            gap="2rem"
+            color="#af63dd"
+          >
+            <TextComponent
+              text={Cards[counter].question}
+              fontSize="xl"
+              as="b"
+              color="#5f1590"
             />
-          ) : null}
-          {next ? (
-            <AgnosticButton
-              variant="outline"
-              text="See Answer"
-              callBack={() => setNext(!next)}
-              _hover={{ bg: '#AF63DD', color: ' white' }}
-            />
-          ) : (
-            <Flex
-              justifyContent="center"
-              flexDirection="column"
-              alignItems="center"
-              gap="2rem"
-            >
-              <TextComponent text={Cards[counter].answer} />
+            {Cards[counter].questionFile ? (
+              <img
+                src={Cards[counter].questionFile}
+                alt={Cards[counter].question}
+                width="250px"
+              />
+            ) : null}
+            {next ? (
+              <AgnosticButton
+                variant="outline"
+                text="See Answer"
+                callBack={() => setNext(!next)}
+                bg="#5f1590"
+                color="white"
+                size="md"
+                borderRadius="1.5rem"
+                w="6rem"
+                _hover={{ bg: '#af63dd', color: 'white' }}
+              />
+            ) : (
               <Flex
-                justifyContent="space-between"
-                flexDirection="row"
+                justifyContent="center"
+                flexDirection="column"
                 alignItems="center"
                 gap="2rem"
               >
-                <AgnosticButton
-                  variant="outline"
-                  callBack={() => {
-                    setNext(!next);
-                    updateDifficulty('Easy');
-                    setCounter(++counter);
-                  }}
-                  _hover={{ bg: '#AF63DD', color: ' white' }}
-                  text="Easy"
-                />
-                <AgnosticButton
-                  variant="outline"
-                  callBack={() => {
-                    setNext(!next);
-                    updateDifficulty('Medium');
-                    setCounter(++counter);
-                  }}
-                  _hover={{ bg: '#AF63DD', color: ' white' }}
-                  text="Medium"
-                />
-                <AgnosticButton
-                  variant="outline"
-                  callBack={() => {
-                    setNext(!next);
-                    updateDifficulty('Hard');
-                    setCounter(++counter);
-                  }}
-                  _hover={{ bg: '#AF63DD', color: ' white' }}
-                  text="Hard"
-                />
+                <TextComponent text={Cards[counter].answer} color="#5f1590" as="b" />
+                <Flex
+                  justifyContent="space-between"
+                  flexDirection="row"
+                  alignItems="center"
+                  gap="2rem"
+                >
+                  <AgnosticButton
+                    variant="outline"
+                    callBack={() => {
+                      setNext(!next);
+                      updateDifficulty('Easy');
+                      setCounter(++counter);
+                    }}
+                    bg="#5f1590"
+                    color="white"
+                    size="md"
+                    borderRadius="1.5rem"
+                    w="6rem"
+                    _hover={{ bg: '#af63dd', color: 'white' }}
+                    text="Easy"
+                  />
+                  <AgnosticButton
+                    variant="outline"
+                    callBack={() => {
+                      setNext(!next);
+                      updateDifficulty('Medium');
+                      setCounter(++counter);
+                    }}
+                    bg="#5f1590"
+                    color="white"
+                    size="md"
+                    borderRadius="1.5rem"
+                    w="6rem"
+                    _hover={{ bg: '#af63dd', color: 'white' }}
+                    text="Medium"
+                  />
+                  <AgnosticButton
+                    variant="outline"
+                    callBack={() => {
+                      setNext(!next);
+                      updateDifficulty('Hard');
+                      setCounter(++counter);
+                    }}
+                    bg="#5f1590"
+                    color="white"
+                    size="md"
+                    borderRadius="1.5rem"
+                    w="6rem"
+                    _hover={{ bg: '#af63dd', color: 'white' }}
+                    text="Hard"
+                  />
+                </Flex>
               </Flex>
-            </Flex>
-          )}
-
-          <AgnosticButton
-            variant="outline"
-            text="Back"
-            callBack={() => {
-              sorted(Cards, user, position);
-              patchAgnostic(user._id, 'users', token, user).then((res) =>
-                console.log(res),
-              );
-              navigate('/dashboard');
-            }}
-            _hover={{ bg: '#AF63DD', color: ' white' }}
-          />
-        </Flex>
-      ) : (
-        <>
-          <p>There`s no cards in this deck</p>
-          <Spinner />
-        </>
-      )}
-    </Box>
+            )}
+          </Flex>
+        ) : (
+          <>
+            <p>There`s no cards in this deck</p>
+            <Spinner />
+          </>
+        )}
+      </Box>
+      <AgnosticButton
+        mt="2rem"
+        text="Back"
+        callBack={() => {
+          sorted(Cards, user, position);
+          patchAgnostic(user._id, 'users', token, user).then((res) => console.log(res));
+          navigate('/dashboard');
+        }}
+        bg="white"
+        color="#5f1590"
+        size="md"
+        borderRadius="1.5rem"
+        w="6rem"
+        _hover={{ bg: '#af63dd', color: 'white' }}
+      />
+    </Flex>
   );
 };
 

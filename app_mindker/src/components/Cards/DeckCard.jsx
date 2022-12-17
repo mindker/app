@@ -79,7 +79,7 @@ const DeckCard = ({
           >
             <TextComponent text={object.title} fontSize="1rem" color="black" />
             <TextComponent
-              text={`Numero de preguntas ${object.cards.length}`}
+              //text={`Numero de preguntas ${object.cards.length}`}
               fontSize="sm"
               color="black"
               as="sub"
