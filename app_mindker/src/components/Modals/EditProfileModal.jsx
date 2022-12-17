@@ -43,7 +43,7 @@ const EditProfileModal = () => {
         ...values,
         avatar: avatar,
       };
-      console.log(values);
+      console.log('el values de EditProfile', values);
       await patchAgnostic(user._id, 'users', token, values);
       setTimeout(() => {
         loginUser('login', {
@@ -53,6 +53,14 @@ const EditProfileModal = () => {
           setUser(res.info.data.user);
           setLocal(res.info.data.token);
           setSwitcher(!switcher);
+          onClose();
+          toast({
+            title: 'profile updated.',
+            description: 'updated succesfull.',
+            status: 'success',
+            duration: 9000,
+            isClosable: true,
+          });
         });
       }, 2000);
     })();
@@ -77,8 +85,7 @@ const EditProfileModal = () => {
               <FormLabel>Name</FormLabel>
               <Input
                 {...register('name', {
-                  required: false,
-                  minLength: 2,
+                  required: true,
                 })}
                 name="name"
                 type="text"
@@ -90,8 +97,7 @@ const EditProfileModal = () => {
               <FormLabel>Nickname</FormLabel>
               <Input
                 {...register('nickname', {
-                  required: false,
-                  minLength: 2,
+                  required: true,
                 })}
                 name="nickname"
                 type="text"
@@ -103,7 +109,7 @@ const EditProfileModal = () => {
               <FormLabel>Email</FormLabel>
               <Input
                 {...register('email', {
-                  required: false,
+                  required: true,
                   minLength: 2,
                   pattern: /^\S+@\S+$/i,
                 })}
@@ -116,16 +122,11 @@ const EditProfileModal = () => {
               <InputGroup mb="1rem">
                 <Input
                   {...register('password', {
-                    minLength: 2,
                     required: true,
-                    validate: {
-                      format: (password) => {
-                        return /[a-zA-Z]/g.test(password);
-                      },
-                    },
                   })}
                   name="password"
                   type={show ? 'text' : 'password'}
+                  color="#5f1590"
                 />
                 <InputRightElement width="4.5rem">
                   <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -148,25 +149,14 @@ const EditProfileModal = () => {
                 <AgnosticButton
                   colorScheme="facebook"
                   variant="outline"
-                  callBack={onClose}
-                  text="Close"
+                  type="submit"
+                  text="Edit"
                 />
                 <AgnosticButton
                   colorScheme="facebook"
                   variant="outline"
-                  type="submit"
-                  callBack={() => {
-                    onClose();
-
-                    toast({
-                      title: 'profile updated.',
-                      description: 'updated succesfull.',
-                      status: 'success',
-                      duration: 9000,
-                      isClosable: true,
-                    });
-                  }}
-                  text="Edit"
+                  callBack={onClose}
+                  text="Close"
                 />
               </Flex>
             </form>

@@ -8,18 +8,22 @@ import { getAgnostic, patchAgnostic } from '../../services/APIservice.js';
 import DeckCard from '../Cards/DeckCard';
 
 const DecksContainer = ({ array }) => {
-  const { setDeck, dashboardContent, user } = useContext(GlobalContext);
+  const { setDeck, dashboardContent, user, setUser } = useContext(GlobalContext);
   const navigate = useNavigate();
   const toast = useToast();
+  const token = window.localStorage.getItem('user');
 
   const adoptDeckUser = async (deck) => {
-    const token = window.localStorage.getItem('user');
     getAgnostic('decks', deck._id).then((res) => {
       user.decks.push(res.info.data);
-      patchAgnostic(user._id, 'users', token, user);
+      console.log('user1: ', user);
+      setUser({ ...user });
+      console.log('user2: ', user);
+      patchAgnostic(user._id, 'users', token, user).then((res) =>
+        console.log('laRes: ', res),
+      );
     });
   };
-  
 
   if (dashboardContent === false) {
     return (

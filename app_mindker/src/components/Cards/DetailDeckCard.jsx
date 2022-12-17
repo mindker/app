@@ -8,12 +8,11 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react';
-import { useMediaQuery } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
+import { useMediaQuery } from '@chakra-ui/react';
 import GlobalContext from '../../context/GlobalContext';
 import { patchAgnostic } from '../../services/APIservice.js';
 
@@ -56,7 +55,7 @@ const DetailDeckCard = () => {
         variant="outline"
         height="500px"
         width="70vw"
-        bg="#E9B5F7"
+        bg="white"
         p="3rem"
       >
         <Image
@@ -64,10 +63,11 @@ const DetailDeckCard = () => {
           maxW={{ base: '100%', sm: '700px' }}
           src={deckDetail.info.data.image}
           alt="deck image"
+          w="50%"
         />
 
         <Stack>
-          <CardBody w="440px">
+          <CardBody w="100%">
             <Heading size="xl" p="1rem">
               {deckDetail.info.data.title}
             </Heading>
@@ -81,7 +81,7 @@ const DetailDeckCard = () => {
             </Text>
           </CardBody>
 
-          <Flex gap="2rem" p="1rem" justifyContent="space-around">
+          <Flex gap="2rem" p="1rem" justifyContent="space-around" w="100%">
             <AgnosticButton
               text="Adopt"
               color="white"

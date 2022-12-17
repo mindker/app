@@ -37,7 +37,6 @@ const Register = () => {
   const onFormSubmit = (values) => {
     try {
       values = { ...values, avatar: avatar };
-      console.log(values);
       RegisterUser(values).then((res) => {
         console.log(res);
         setUser(res.data.info.data.user);
