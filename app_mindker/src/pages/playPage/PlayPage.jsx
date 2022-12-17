@@ -26,6 +26,7 @@ const PlayPage = () => {
   const updateDifficulty = (level) => {
     user.decks[position].cards[counter].difficulty = level;
   };
+
   return (
     <Box>
       {Cards[counter] ? (

@@ -19,8 +19,9 @@ const Home = () => {
   return (
     <HomeLayout direction="column">
       <HeaderHome
+        justifyContent="left"
         text="Mindker Game"
-        image="https://res.cloudinary.com/di5oqdvwa/image/upload/v1670257782/imagenes/Logo-hecho-porIris-que-es-una-crack_u48ufi.png"
+        image="https://res.cloudinary.com/dpq2gujpb/image/upload/v1671195487/logo2_b9vouy.png"
       />
 
       {homeContent == 'content' ? <Content /> : null}
