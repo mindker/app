@@ -1,12 +1,12 @@
-import { Flex, Text, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 
 import ImageComponent from '../ImageComponents/Image';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 
 const HeaderHome = ({ text, image }) => {
-  const bg = useColorModeValue('#FFF', '#000');
-  const color = useColorModeValue('#000', '#FFF');
+  //const bg = useColorModeValue('#FFF', '#000');
+  //const color = useColorModeValue('#000', '#FFF');
 
   return (
     <header>

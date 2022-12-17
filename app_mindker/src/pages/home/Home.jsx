@@ -1,9 +1,9 @@
-import { Flex } from '@chakra-ui/react';
-import { useContext, useEffect } from 'react';
-import { AiFillHome } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
+//import { Flex } from '@chakra-ui/react';
+import { useContext } from 'react';
 
-import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
+//import { AiFillHome } from 'react-icons/ai';
+//import { useNavigate } from 'react-router-dom';
+//import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import Content from '../../components/ContentHome/Content';
 import Footer from '../../components/Footer/Footer';
 import HeaderHome from '../../components/Headers/HeaderHome';
@@ -12,7 +12,7 @@ import HomeLayout from '../../layouts/HomeLayout/HomeLayout';
 
 const Home = () => {
   const { homeContent } = useContext(GlobalContext);
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   return (
     <HomeLayout direction="column" flexWrap="no-wrap">
