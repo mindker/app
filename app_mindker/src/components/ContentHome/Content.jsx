@@ -1,4 +1,5 @@
 import { Flex, Heading, Text, useColorModeValue } from '@chakra-ui/react';
+import ImageComponent from '../ImageComponents/Image';
 
 import ImageComponent from '../ImageComponents/Image';
 

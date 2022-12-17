@@ -3,7 +3,7 @@ import * as React from 'react';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 export const Footer = () => (
-  <Container as="footer">
+  <Container as="footer" bottom="0">
     <Stack>
       <Stack justify="center" direction="row" align="center">
         <ButtonGroup variant="ghost">
