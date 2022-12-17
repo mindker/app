@@ -1,5 +1,8 @@
 import {
+  Button,
   Flex,
+  InputGroup,
+  InputRightElement,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -8,9 +11,6 @@ import {
   ModalOverlay,
   useDisclosure,
   useToast,
-  InputRightElement,
-  Button,
-  InputGroup,
 } from '@chakra-ui/react';
 import { FormLabel } from '@chakra-ui/react';
 import { Input, Text } from '@chakra-ui/react';
@@ -60,7 +60,13 @@ const EditProfileModal = () => {
 
   return (
     <>
-      <AgnosticButton leftIcon="⚙" callBack={onOpen} variant="outline" />
+      <AgnosticButton
+        leftIcon="⚙"
+        callBack={onOpen}
+        variant="outline"
+        color="black"
+        border="1px white"
+      />
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

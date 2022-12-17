@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Spinner } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,6 +11,7 @@ import { sorted } from '../../utils/difficultySorted';
 const PlayPage = () => {
   const navigate = useNavigate();
   const { deck, user } = useContext(GlobalContext);
+
   const [Cards, setCards] = useState([]);
   let [counter, setCounter] = useState(0);
   const [next, setNext] = useState(true);
@@ -28,22 +29,22 @@ const PlayPage = () => {
   };
 
   return (
-    <Box>
+    <Box bg="#5f1590" m="3rem" p="3.8rem">
       {Cards[counter] ? (
         <Flex
           key={Cards[counter]._id}
-          mt="2rem"
           justifyContent="center"
           flexDirection="column"
           alignItems="center"
           gap="2rem"
+          color="white"
         >
           <TextComponent text={Cards[counter].question} />
           {Cards[counter].questionFile ? (
             <img
               src={Cards[counter].questionFile}
               alt={Cards[counter].question}
-              width="350px"
+              width="250px"
             />
           ) : null}
           {next ? (
@@ -51,6 +52,7 @@ const PlayPage = () => {
               variant="outline"
               text="See Answer"
               callBack={() => setNext(!next)}
+              _hover={{ bg: '#AF63DD', color: ' white' }}
             />
           ) : (
             <Flex
@@ -73,6 +75,7 @@ const PlayPage = () => {
                     updateDifficulty('Easy');
                     setCounter(++counter);
                   }}
+                  _hover={{ bg: '#AF63DD', color: ' white' }}
                   text="Easy"
                 />
                 <AgnosticButton
@@ -82,6 +85,7 @@ const PlayPage = () => {
                     updateDifficulty('Medium');
                     setCounter(++counter);
                   }}
+                  _hover={{ bg: '#AF63DD', color: ' white' }}
                   text="Medium"
                 />
                 <AgnosticButton
@@ -91,22 +95,31 @@ const PlayPage = () => {
                     updateDifficulty('Hard');
                     setCounter(++counter);
                   }}
+                  _hover={{ bg: '#AF63DD', color: ' white' }}
                   text="Hard"
                 />
               </Flex>
             </Flex>
           )}
+
+          <AgnosticButton
+            variant="outline"
+            text="Back"
+            callBack={() => {
+              sorted(Cards, user, position);
+              patchAgnostic(user._id, 'users', token, user).then((res) =>
+                console.log(res),
+              );
+              navigate('/dashboard');
+            }}
+            _hover={{ bg: '#AF63DD', color: ' white' }}
+          />
         </Flex>
       ) : (
-        <AgnosticButton
-          variant="outline"
-          text="Back"
-          callBack={() => {
-            sorted(Cards, user, position);
-            patchAgnostic(user._id, 'users', token, user).then((res) => console.log(res));
-            navigate('/dashboard');
-          }}
-        />
+        <>
+          <p>There`s no cards in this deck</p>
+          <Spinner />
+        </>
       )}
     </Box>
   );
