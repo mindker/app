@@ -38,11 +38,11 @@ const CreateDeck = () => {
 
   return (
     <Flex bg="#5f1590" w="100vw" h="100vh" alignItems="center" justifyContent="center">
-      <Flex m="400px" justifyContent="center" marginBlockStart="400px" display="flex">
-        <FormControl bg="white" padding="50px" borderRadius="20px">
+      <Flex m="410px" justifyContent="center" marginBlockStart="400px" display="flex">
+        <FormControl bg="white" padding="25px" borderRadius="20px">
           <form>
             <Text fontSize="4xl" as="b">
-              Create new deck
+              New deck
             </Text>
             <FormLabel as="b" marginTop="30px">
               Deck title*

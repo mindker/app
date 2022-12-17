@@ -78,23 +78,28 @@ const Login = () => {
       </Button>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent bg="#5f1590" color="white">
           <DrawerCloseButton />
-          <DrawerHeader>Login</DrawerHeader>
+          <DrawerHeader fontSize="2xl">Login</DrawerHeader>
           <DrawerBody>
             <form onSubmit={handleSubmit(onFormSubmit)}>
-              <FormLabel>Nickname</FormLabel>
+              <FormLabel paddingTop="0.6rem">Nickname</FormLabel>
               <Input
                 {...register('nickname', {
                   required: true,
                 })}
                 type="text"
+                bg="white"
+                color="#5f1590"
               />
-              {/*  {errors.nickname ? <Text color="red">This field is required</Text> : null} */}
               {nicknameError ? (
-                <Text color="red">This nickname does not exist</Text>
+                <Text color="white" fontSize="xs" letterSpacing="1.1px">
+                  This nickname does not exist
+                </Text>
               ) : errors.nickname ? (
-                <Text color="red">This field is required</Text>
+                <Text color="white" fontSize="xs" letterSpacing="1.1px">
+                  This field is required
+                </Text>
               ) : null}
               <FormLabel>Password</FormLabel>
               <InputGroup mb="1rem">
@@ -108,27 +113,41 @@ const Login = () => {
                     },
                   })}
                   type={show ? 'text' : 'password'}
+                  bg="white"
+                  color="#5f1590"
                 />
                 <InputRightElement width="4.5rem">
-                  <Button h="1.75rem" size="sm" onClick={handleClick}>
+                  <Button
+                    h="1.75rem"
+                    size="sm"
+                    color="white"
+                    borderRadius="1rem"
+                    onClick={handleClick}
+                    bg="#af63dd"
+                    _hover={{ bg: '#5f1590', color: 'white' }}
+                  >
                     {show ? 'Hide' : 'Show'}
                   </Button>
                 </InputRightElement>
               </InputGroup>
               {passwordError ? (
-                <Text color="red">Incorrect password</Text>
+                <Text color="white" fontSize="xs" letterSpacing="1.1px">
+                  Incorrect password
+                </Text>
               ) : errors.password ? (
-                <Text color="red">This field is required</Text>
+                <Text color="white" fontSize="xs" letterSpacing="1.1px">
+                  This field is required
+                </Text>
               ) : null}
               <AgnosticButton
                 text="Login"
                 type="submit"
-                variant="outline"
-                bg="#5f1590"
+                bg="#af63dd"
                 color="white"
                 size="md"
                 borderRadius="1.5rem"
                 w="6rem"
+                _hover={{ bg: 'white', color: '#5f1590' }}
                 callBack={() => setErrorsInFalse()}
               />
             </form>

@@ -14,6 +14,7 @@ const AgnosticButton = ({
   color,
   _hover,
   border,
+  mt,
 }) => {
   return (
     <Button
@@ -29,6 +30,7 @@ const AgnosticButton = ({
       color={color}
       _hover={_hover}
       border={border}
+      mt={mt}
     >
       {text}
     </Button>
