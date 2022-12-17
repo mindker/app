@@ -3,7 +3,7 @@ import * as React from 'react';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 export const Footer = () => (
-  <Container as="footer">
+  <Container as="footer" bottom="0">
     <Stack>
       <Stack justify="center" direction="row" align="center">
         <ButtonGroup variant="ghost">
@@ -28,7 +28,7 @@ export const Footer = () => (
         </ButtonGroup>
       </Stack>
       <Text fontSize="sm" color="subtle" justify="center" direction="row" align="center">
-        &copy; {new Date().getFullYear()} Copyrght© 2022 Mindker. All Rights Reserved.
+        Copyright© 2022 Mindker. All Rights Reserved
       </Text>
     </Stack>
   </Container>

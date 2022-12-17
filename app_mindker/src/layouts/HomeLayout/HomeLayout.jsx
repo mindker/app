@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 const StyledDiv = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
   color: black;
-  gap: 2rem;
+  height: 100vh;
+  width: 100vw;
   flex-direction: ${(props) => (props.direction == 'row' ? 'row' : 'column')};
 `;
 
