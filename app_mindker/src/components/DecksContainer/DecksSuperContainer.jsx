@@ -17,7 +17,13 @@ const DecksSuperContainer = ({ array, text }) => {
       overflowY="scroll"
       sx={{
         '::-webkit-scrollbar': {
+          backgroundColor: 'white',
+          width: '12px',
+        },
+
+        '&::-webkit-scrollbar-thumb': {
           backgroundColor: '#5F1592',
+          borderRadius: '24px',
         },
       }}
     >
