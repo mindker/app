@@ -16,6 +16,7 @@ import EditDeck from './pages/editDeckPage/EditDeck';
 import Home from './pages/home/Home';
 import NotFound from './pages/notFound/NotFound';
 import PlayPage from './pages/playPage/PlayPage';
+import CreateCard from './pages/createCard/createCard';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
