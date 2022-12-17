@@ -85,7 +85,6 @@ const CreateDeck = () => {
               placeholder="Upload background image"
               borderRadius="15px"
             />
-
             <Flex gap="2rem" mt="3rem" justifyContent="center">
               <AgnosticButton
                 _hover={{ bg: '#5f1590', color: 'white' }}
