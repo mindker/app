@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex, Input, Text } from '@chakra-ui/react';
+import { Avatar, Box, Flex, Input, Text, useBreakpointValue } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import {
   FaBolt,
@@ -22,7 +22,7 @@ const NavUserDashboard = ({ user }) => {
     setParam,
     setParamReforce,
   } = useContext(GlobalContext);
-
+  const isDesKtop = useBreakpointValue({ base: false, lg: true });
   const navigate = useNavigate();
   const [deployer, setDeployer] = useState(false);
   const logout = () => {
@@ -155,7 +155,7 @@ const NavUserDashboard = ({ user }) => {
         </Flex>
       </Box>
     </Box>
-  );
+  ) 
 };
 
 export default React.memo(NavUserDashboard);

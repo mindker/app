@@ -19,15 +19,7 @@ const HeaderDashboard = ({ text, image }) => {
 
   return (
     <header>
-      <Flex
-        as="header"
-        bg={bg}
-        color={color}
-        py={0}
-        borderBottom="1px solid #DDD"
-        justifyContent="space-between"
-        width="100%"
-      >
+      <Flex as="header" bg={bg} color={color} justifyContent="space-between" width="100%">
         <Image
           src={image}
           alt={text}
@@ -42,7 +34,7 @@ const HeaderDashboard = ({ text, image }) => {
           text="LogOut"
           type="text"
           variant="outline"
-          colorScheme="facebook"
+          borderRadius="1rem"
           callBack={() => logout()}
         />
         <WrapItem>

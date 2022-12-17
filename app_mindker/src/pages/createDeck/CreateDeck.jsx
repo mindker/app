@@ -94,7 +94,7 @@ const CreateDeck = () => {
                 color="white"
                 borderRadius="20px"
                 bg="#af63dd"
-                leftIcon={<AddIcon />}
+                //leftIcon={<AddIcon />}
                 callBack={(e) => {
                   onFormSubmit(e);
                   toast({
@@ -116,7 +116,7 @@ const CreateDeck = () => {
                 color="white"
                 borderRadius="20px"
                 bg="#af63dd"
-                leftIcon={<CheckIcon />}
+                //leftIcon={<CheckIcon />}
                 callBack={(e) => {
                   onFormSubmit(e);
                   toast({
