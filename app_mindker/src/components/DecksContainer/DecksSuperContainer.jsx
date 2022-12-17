@@ -12,9 +12,17 @@ const DecksSuperContainer = ({ array, text }) => {
       h="100vh"
       w="85vw"
       bg="inherit"
+      alignItems="center"
+      px="2rem"
+      overflowY="scroll"
+      sx={{
+        '::-webkit-scrollbar': {
+          backgroundColor: '#5F1592',
+        },
+      }}
     >
-      <Flex justifyContent="flex-start">
-        <TextComponet text={text} fontSize="4x1" color="black" as="b" />
+      <Flex justifyContent="center" alignItems="center" p="1.5rem">
+        <TextComponet text={text} fontSize="2rem" color="black" as="b" />
       </Flex>
       <DecksContainer array={array} />
     </Flex>

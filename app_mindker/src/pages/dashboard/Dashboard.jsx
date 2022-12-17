@@ -8,20 +8,21 @@ import { getAgnostic } from '../../services/APIservice';
 import { filterDecks } from '../../utils/filterDecks';
 
 const Dashboard = () => {
-  const { user, dashboardContent, switcher, param, setParam, paramReforce, deck } =
+  const { user, dashboardContent, switcher, param, setParam, paramReforce } =
     useContext(GlobalContext);
   let arr = [];
-
   const [arrayDecks, setArrayDecks] = useState([]);
   const [textDecks, setTextDecks] = useState('My Decks');
 
   useEffect(() => {
-    dashboardContent == 'decks'
-      ? setTextDecks('Popular Decks')
-      : dashboardContent === false
-      ? (setArrayDecks(user.decks), setTextDecks('My Decks'))
-      : param == '' && setParam(paramReforce),
-      setTextDecks(param);
+    if (dashboardContent == 'decks') {
+      setTextDecks('Popular Decks');
+    } else if (dashboardContent === false) {
+      setArrayDecks(user.decks), setTextDecks('My Decks');
+    } else if (param == '') {
+      setTextDecks('');
+      setParam(paramReforce);
+    }
     if (dashboardContent) {
       getAgnostic(dashboardContent, param)
         .then((res) => {
@@ -33,7 +34,7 @@ const Dashboard = () => {
 
   return (
     <DashboardLayout direction="row">
-      <NavUserDashboard />
+      <NavUserDashboard user={user} />
       <DecksSuperContainer array={arrayDecks} text={textDecks} />
     </DashboardLayout>
   );

@@ -1,4 +1,4 @@
-import { Flex, useToast } from '@chakra-ui/react';
+import { Flex, Spinner, useToast } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { FaSearchengin, FaSith, FaStudiovinari, FaWrench } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { getAgnostic, patchAgnostic } from '../../services/APIservice.js';
 import DeckCard from '../Cards/DeckCard';
 
 const DecksContainer = ({ array }) => {
-  const { setDeck, dashboardContent, user, deck } = useContext(GlobalContext);
+  const { setDeck, dashboardContent, user } = useContext(GlobalContext);
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -43,7 +43,7 @@ const DecksContainer = ({ array }) => {
             />
           ))
         ) : (
-          <p>NO WAY</p>
+          <Spinner />
         )}
       </Flex>
     );
@@ -77,7 +77,7 @@ const DecksContainer = ({ array }) => {
             />
           ))
         ) : (
-          <p>NO WAY</p>
+          <Spinner />
         )}
       </Flex>
     );
