@@ -12,7 +12,7 @@ const HeaderHome = ({ text, image }) => {
     <header>
       <Flex
         as="header"
-        bg="purple"
+        bg="#5f1590"
         color="white"
         justifyContent="space-around"
         width="100vw"
@@ -23,7 +23,6 @@ const HeaderHome = ({ text, image }) => {
             src={image}
             alt={text}
             boxSize="50px"
-            //ml="4rem"
             objectFit="cover"
             title="imagen de mindker"
           />

@@ -71,7 +71,7 @@ const Login = () => {
         type="button"
         variant="outline"
         bg="white"
-        color="purple"
+        color="#5f1590"
         size="md"
         borderRadius="1.5rem"
         w="6rem"
@@ -126,8 +126,11 @@ const Login = () => {
                 text="Login"
                 type="submit"
                 variant="outline"
-                leftIcon={<AiFillApi />}
-                colorScheme="facebook"
+                bg="#5f1590"
+                color="white"
+                size="md"
+                borderRadius="1.5rem"
+                w="6rem"
                 callBack={() => setErrorsInFalse()}
               />
             </form>

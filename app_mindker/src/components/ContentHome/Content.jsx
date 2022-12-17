@@ -2,16 +2,21 @@ import { Flex, Heading, Text, useColorModeValue } from '@chakra-ui/react';
 import ImageComponent from '../ImageComponents/Image';
 
 const Content = () => {
-  //bg es background
-  //noOfLines oculta lineas
   const bg = useColorModeValue('');
   const color = useColorModeValue('');
   return (
-    <section id="sectionContentHome">
-      <Flex direction="row" bg={bg} color={color} align="center">
-        <Flex direction="column" w="50%" px="5rem" bg="green">
+    <Flex id="sectionContentHome" w="100vw" py="1rem" px="5rem">
+      <Flex
+        direction="row"
+        color={color}
+        align="center"
+        flexWrap="wrap"
+        justifyContent="space-around"
+        w="100vw"
+      >
+        <Flex direction="column" w="60%">
           <Heading w="100%">
-            <Text fontSize="30px" width="100%" textAlign="left" as="b">
+            <Text fontSize="30px" width="100%" textAlign="left" as="b" p="0.5rem">
               What is Mindker?
             </Text>
           </Heading>
@@ -43,14 +48,16 @@ const Content = () => {
             </Text>
           </Flex>
         </Flex>
-        <Flex bg="pink" w="45%">
+
+        <Flex w="30rem" alignItems="center" justifyContent="center">
           <ImageComponent
-            w="8rem"
+            boxSize="25rem"
+            w="25rem"
             src="https://cdn.discordapp.com/attachments/1022121860479066113/1053339135374536814/Curva-del-olvido.png"
           ></ImageComponent>
         </Flex>
       </Flex>
-    </section>
+    </Flex>
   );
 };
 export default Content;
