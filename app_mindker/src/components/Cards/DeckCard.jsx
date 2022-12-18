@@ -1,5 +1,5 @@
 import { Card, CardBody, Flex } from '@chakra-ui/react';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 import GlobalContext from '../../context/GlobalContext';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
@@ -80,7 +80,7 @@ const DeckCard = ({
           >
             <TextComponent text={object.title} fontSize="1rem" color="black" />
             <TextComponent
-              text={` ${object.createdAt}`}
+              text={` ${object.cards.length}`}
               fontSize="sm"
               color="black"
               as="sub"
