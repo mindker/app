@@ -1,5 +1,5 @@
 import { Card, CardBody, Flex } from '@chakra-ui/react';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import GlobalContext from '../../context/GlobalContext';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
@@ -11,10 +11,11 @@ const DeckCard = ({
   callBack2,
   textUp,
   textBottom,
-  leftIconUp,
-  leftIconDown,
+  /* leftIconUp,
+  leftIconDown, */
 }) => {
   const { dashboardContent } = useContext(GlobalContext);
+
   return (
     <Card height="200" width="200" borderRadius="4px" bg="#E9B5F7">
       <CardBody overflowX="hidden">
@@ -29,7 +30,7 @@ const DeckCard = ({
               text={textUp}
               type="button"
               variant="outline"
-              leftIcon={leftIconUp}
+              //leftIcon={leftIconUp}
               color="white"
               borderRadius="20px"
               size="xs"
@@ -43,7 +44,7 @@ const DeckCard = ({
                 text={textBottom}
                 type="button"
                 variant="outline"
-                leftIcon={leftIconDown}
+                //leftIcon={leftIconDown}
                 color="white"
                 borderRadius="20px"
                 size="xs"
@@ -58,7 +59,7 @@ const DeckCard = ({
                 text={textBottom}
                 type="button"
                 variant="outline"
-                leftIcon={leftIconDown}
+                //lefticon={lefticonDown}
                 color="white"
                 borderRadius="20px"
                 size="xs"
@@ -79,7 +80,7 @@ const DeckCard = ({
           >
             <TextComponent text={object.title} fontSize="1rem" color="black" />
             <TextComponent
-              //text={`Numero de preguntas ${object.cards.length}`}
+              text={` ${object.createdAt}`}
               fontSize="sm"
               color="black"
               as="sub"

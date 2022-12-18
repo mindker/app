@@ -28,19 +28,13 @@ const CreateCard = () => {
     (async () => {
       try {
         const newCardCreated = await CreateAgnosticItem('cards', newCardToPost, token);
-        console.log(newCardCreated);
-        deck.cards.push(newCardCreated);
-        console.log('el boolean: ', boolean);
         if (boolean) {
           setAnswer('');
           setQuestion('');
         } else {
-          /*  user.decks.push(deck); */
+          deck.cards.push(newCardCreated);
           patchAgnostic(user._id, 'users', token, user);
-          console.log('el deck: ', deck);
-          patchAgnostic(deck._id, 'decks', token, deck).then((res) =>
-            console.log('la res del patchagnos deck: ', res),
-          );
+          patchAgnostic(deck._id, 'decks', token, deck);
         }
         return newCardCreated;
       } catch (error) {
@@ -131,12 +125,11 @@ const CreateCard = () => {
                   borderRadius="20px"
                   bg="#af63dd"
                   leftIcon={<CheckIcon />}
-                  // leftIcon={<AddIcon />}
                   callBack={(e) => {
                     boolean = false;
                     onFormSubmitCard(e);
                     toast({
-                      title: 'Card created.',
+                      title: 'Card created',
                       description: "We've created your card for you.",
                       status: 'success',
                       duration: 9000,

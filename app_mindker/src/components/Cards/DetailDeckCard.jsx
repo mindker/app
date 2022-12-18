@@ -31,7 +31,6 @@ const DetailDeckCard = () => {
     };
     getDeckDetail();
   }, []);
-  console.log(deckDetail);
   const adoptDeck = async () => {
     const token = window.localStorage.getItem(user.nickname);
     user.decks.push(deckDetail.info.data);

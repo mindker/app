@@ -8,7 +8,7 @@ import GlobalContext from '../../context/GlobalContext';
 import { CreateAgnosticItem, patchAgnostic } from '../../services/APIservice';
 
 const CreateDeck = () => {
-  const { user, setDashboardContent, setDeck } = useContext(GlobalContext);
+  const { user, setDeck } = useContext(GlobalContext);
   const [image, setDeckImage] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -25,11 +25,21 @@ const CreateDeck = () => {
     (async () => {
       try {
         const values = { title: title, description: description, image: image };
-        CreateAgnosticItem('decks', values, token).then((res) => {
-          user.decks.push(res);
-          setDeck(res);
-          patchAgnostic(user._id, 'users', token, user);
-        });
+        if (values.title !== '' && values.description !== '') {
+          CreateAgnosticItem('decks', values, token).then((res) => {
+            user.decks.push(res);
+            setDeck(res);
+            patchAgnostic(user._id, 'users', token, user);
+            navigate('/createCard');
+            toast({
+              title: 'Deck created.',
+              description: 'Now you can add some cards',
+              status: 'success',
+              duration: 4000,
+              isClosable: true,
+            });
+          });
+        }
       } catch (error) {
         console.log(error);
       }
@@ -38,7 +48,7 @@ const CreateDeck = () => {
 
   return (
     <Flex bg="#5f1590" w="100vw" h="100vh" alignItems="center" justifyContent="center">
-      <Flex m="410px" justifyContent="center" marginBlockStart="400px" display="flex">
+      <Flex alignItems="center" justifyContent="center" display="flex">
         <FormControl bg="white" padding="25px" borderRadius="20px">
           <form>
             <Text fontSize="4xl" as="b">
@@ -85,7 +95,6 @@ const CreateDeck = () => {
               placeholder="Upload background image"
               borderRadius="15px"
             />
-
             <Flex gap="2rem" mt="3rem" justifyContent="center">
               <AgnosticButton
                 _hover={{ bg: '#5f1590', color: 'white' }}
@@ -94,40 +103,8 @@ const CreateDeck = () => {
                 color="white"
                 borderRadius="20px"
                 bg="#af63dd"
-                //leftIcon={<AddIcon />}
                 callBack={(e) => {
                   onFormSubmit(e);
-                  toast({
-                    title: 'Deck created.',
-                    description: 'Now you can add some cards to it',
-                    status: 'success',
-                    duration: 4000,
-                    isClosable: true,
-                  });
-                  navigate('/createCard');
-                }}
-                variant="outline"
-                colorScheme="twitter"
-              />
-              <AgnosticButton
-                _hover={{ bg: '#5f1590', color: 'white' }}
-                text="Save deck"
-                type="button"
-                color="white"
-                borderRadius="20px"
-                bg="#af63dd"
-                //leftIcon={<CheckIcon />}
-                callBack={(e) => {
-                  onFormSubmit(e);
-                  toast({
-                    title: 'Deck created.',
-                    description: 'FUCKOFFFF BITCH, SUCK MY DICK',
-                    status: 'success',
-                    duration: 4000,
-                    isClosable: true,
-                  });
-                  setDashboardContent(false);
-                  navigate('/dashboard');
                 }}
                 variant="outline"
                 colorScheme="twitter"

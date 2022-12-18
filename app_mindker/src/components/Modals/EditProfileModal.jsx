@@ -43,7 +43,6 @@ const EditProfileModal = () => {
         ...values,
         avatar: avatar,
       };
-      console.log('el values de EditProfile', values);
       await patchAgnostic(user._id, 'users', token, values);
       setTimeout(() => {
         loginUser('login', {

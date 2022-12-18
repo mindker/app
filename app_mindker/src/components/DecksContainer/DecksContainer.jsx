@@ -16,12 +16,8 @@ const DecksContainer = ({ array }) => {
   const adoptDeckUser = async (deck) => {
     getAgnostic('decks', deck._id).then((res) => {
       user.decks.push(res.info.data);
-      console.log('user1: ', user);
       setUser({ ...user });
-      console.log('user2: ', user);
-      patchAgnostic(user._id, 'users', token, user).then((res) =>
-        console.log('laRes: ', res),
-      );
+      patchAgnostic(user._id, 'users', token, user);
     });
   };
 
@@ -31,8 +27,8 @@ const DecksContainer = ({ array }) => {
         {array.length ? (
           array.map((deck) => (
             <DeckCard
-              leftIconDown={<FaWrench />}
-              leftIconUp={<FaStudiovinari />}
+              //leftIconDown={<FaWrench />}
+              //leftIconUp={<FaStudiovinari />}
               textUp="Play"
               textBottom="Edit"
               key={deck._id}
@@ -58,8 +54,8 @@ const DecksContainer = ({ array }) => {
         {array.length ? (
           array.map((deck) => (
             <DeckCard
-              leftIconUp={<FaSearchengin />}
-              leftIconDown={<FaSith />}
+              //leftIconUp={<FaSearchengin />}
+              //leftIconDown={<FaSith />}
               textUp="Detail"
               textBottom="Adopt"
               key={deck._id}
@@ -69,11 +65,10 @@ const DecksContainer = ({ array }) => {
                 navigate('/detailDeck');
               }}
               callBack2={async () => {
-                console.log('deck de la callback2: ', deck);
                 await adoptDeckUser(deck);
                 toast({
                   title: 'Deck adopted.',
-                  description: 'you adopted the deck.',
+                  description: 'You can go to My dekcs to start playing',
                   status: 'success',
                   duration: 9000,
                   isClosable: true,
