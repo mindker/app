@@ -40,15 +40,11 @@ const CreateCard = () => {
             isClosable: true,
           });
         } else if (boolean == false && deck.cards.length == 1) {
-          patchAgnostic(user._id, 'users', token, user).then((res) =>
-            console.log('patchUser', res),
-          );
-          patchAgnostic(deck._id, 'decks', token, deck).then((res) =>
-            console.log('patchDeck', res),
-          );
+          patchAgnostic(user._id, 'users', token, user);
+          patchAgnostic(deck._id, 'decks', token, deck);
           toast({
             title: 'Card saved',
-            description: 'Now you can start playing your deck',
+            description: 'You can start playing your deck',
             status: 'success',
             duration: 4000,
             isClosable: true,
@@ -58,15 +54,11 @@ const CreateCard = () => {
         } else if (boolean == false && deck.cards.length > 1) {
           deck.cards.push(newCardCreated);
           deck.cards.pop();
-          patchAgnostic(user._id, 'users', token, user).then((res) =>
-            console.log('patchUser', res),
-          );
-          patchAgnostic(deck._id, 'decks', token, deck).then((res) =>
-            console.log('patchDeck', res),
-          );
+          patchAgnostic(user._id, 'users', token, user);
+          patchAgnostic(deck._id, 'decks', token, deck);
           toast({
             title: 'Card saved',
-            description: 'Now you can start playing your deck',
+            description: 'You can start playing your deck',
             status: 'success',
             duration: 4000,
             isClosable: true,
@@ -76,7 +68,6 @@ const CreateCard = () => {
         }
         return newCardCreated;
       } catch (error) {
-        console.log(' elrrror del catcvh: ', error);
         toast({
           title: 'Fill in the required fields',
           status: 'error',

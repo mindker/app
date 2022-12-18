@@ -32,7 +32,7 @@ const CreateDeck = () => {
             patchAgnostic(user._id, 'users', token, user);
             navigate('/createCard');
             toast({
-              title: 'Deck created.',
+              title: 'Deck created',
               description: 'Now you can add some cards',
               status: 'success',
               duration: 4000,
