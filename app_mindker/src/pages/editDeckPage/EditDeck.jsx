@@ -42,8 +42,6 @@ const EditDeck = () => {
     getDeck();
   }, []);
 
-  console.log('deckinedition: ', deckInEdition);
-
   const onFormSubmit = (values) => {
     (async () => {
       try {

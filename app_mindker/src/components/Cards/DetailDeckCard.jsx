@@ -88,17 +88,16 @@ const DetailDeckCard = () => {
               variant="solid"
               borderRadius="20px"
               //leftIcon={<AiFillHome />}
-              //colorScheme="purple"
               bg="#5f1590"
               size="md"
               callBack={async () => {
                 await adoptDeck(deckDetail.info.data._id);
 
                 toast({
-                  title: 'Deck adopted.',
-                  description: 'you adopted the deck.',
+                  title: 'Deck adopted',
+                  description: 'You can start playing it',
                   status: 'success',
-                  duration: 9000,
+                  duration: 4000,
                   isClosable: true,
                 });
               }}
@@ -108,7 +107,6 @@ const DetailDeckCard = () => {
               color="white"
               type="button"
               variant="solid"
-              //colorScheme="purple"
               bg="#5f1590"
               size="md"
               //leftIcon={<AiFillHome />}

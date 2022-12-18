@@ -67,10 +67,10 @@ const DecksContainer = ({ array }) => {
               callBack2={async () => {
                 await adoptDeckUser(deck);
                 toast({
-                  title: 'Deck adopted.',
-                  description: 'You can go to My dekcs to start playing',
+                  title: 'Deck adopted',
+                  description: 'You can go to My Decks to start playing',
                   status: 'success',
-                  duration: 9000,
+                  duration: 4000,
                   isClosable: true,
                 });
               }}

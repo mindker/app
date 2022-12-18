@@ -1,4 +1,4 @@
-import { AddIcon, CheckIcon } from '@chakra-ui/icons';
+/* import { AddIcon, CheckIcon } from '@chakra-ui/icons'; */
 import { Flex, FormControl, FormLabel, Input, Text, useToast } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -32,12 +32,19 @@ const CreateDeck = () => {
             patchAgnostic(user._id, 'users', token, user);
             navigate('/createCard');
             toast({
-              title: 'Deck created.',
+              title: 'Deck created',
               description: 'Now you can add some cards',
               status: 'success',
               duration: 4000,
               isClosable: true,
             });
+          });
+        } else {
+          toast({
+            title: 'Fill in the required fields',
+            status: 'error',
+            duration: 4000,
+            isClosable: true,
           });
         }
       } catch (error) {
@@ -47,15 +54,22 @@ const CreateDeck = () => {
   };
 
   return (
-    <Flex bg="#5f1590" w="100vw" h="100vh" alignItems="center" justifyContent="center">
+    <Flex
+      bg="#5f1590"
+      w="100vw"
+      h="100vh"
+      alignItems="center"
+      justifyContent="center"
+      flexDir="column"
+    >
       <Flex alignItems="center" justifyContent="center" display="flex">
         <FormControl bg="white" padding="25px" borderRadius="20px">
           <form>
-            <Text fontSize="4xl" as="b">
+            <Text fontSize="4xl" as="b" lineHeight="1.8rem">
               New deck
             </Text>
-            <FormLabel as="b" marginTop="30px">
-              Deck title*
+            <FormLabel fontWeight="bold" color="#5f1590" marginTop="25px">
+              Deck title *
             </FormLabel>
             <Input
               bg="white"
@@ -66,9 +80,13 @@ const CreateDeck = () => {
               placeholder="Add a title for your deck"
               borderRadius="10px"
             ></Input>
-            {isErrorTitle ? <Text color="black">This field is required</Text> : null}
-            <FormLabel as="b" marginTop="25px">
-              Description
+            {isErrorTitle ? (
+              <Text color="black" fontSize="sm">
+                This field is required
+              </Text>
+            ) : null}
+            <FormLabel fontWeight="bold" color="#5f1590" marginTop="25px">
+              Description *
             </FormLabel>
             <Input
               bg="white"
@@ -77,14 +95,16 @@ const CreateDeck = () => {
               name="description"
               type="text"
               placeholder="Include a description"
-              h="120px"
+              h="80px"
               borderRadius="10px"
             ></Input>
             {isErrorDescription ? (
-              <Text color="black">This field is required</Text>
+              <Text color="black" fontSize="sm">
+                This field is required
+              </Text>
             ) : null}
-            <FormLabel as="b" marginTop="20px">
-              Add a background photo
+            <FormLabel fontWeight="bold" color="#5f1590" marginTop="20px">
+              Add a photo
             </FormLabel>
             <Input
               textColor="black"
@@ -92,10 +112,10 @@ const CreateDeck = () => {
               type="file"
               onChange={(e) => setDeckImage(e.target.files[0])}
               accept="image/*"
-              placeholder="Upload background image"
+              placeholder="Upload an image"
               borderRadius="15px"
             />
-            <Flex gap="2rem" mt="3rem" justifyContent="center">
+            <Flex gap="2rem" mt="2rem" justifyContent="center">
               <AgnosticButton
                 _hover={{ bg: '#5f1590', color: 'white' }}
                 text="Add cards"
@@ -113,6 +133,17 @@ const CreateDeck = () => {
           </form>
         </FormControl>
       </Flex>
+      <AgnosticButton
+        text="Back"
+        color="#5f1590"
+        type="button"
+        bg="white"
+        size="md"
+        borderRadius="20px"
+        callBack={() => navigate('/dashboard')}
+        mt="1.5rem"
+        _hover={{ bg: '#af63dd', color: 'white' }}
+      />
     </Flex>
   );
 };

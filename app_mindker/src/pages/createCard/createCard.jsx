@@ -28,17 +28,52 @@ const CreateCard = () => {
     (async () => {
       try {
         const newCardCreated = await CreateAgnosticItem('cards', newCardToPost, token);
+        deck.cards.push(newCardCreated);
         if (boolean) {
           setAnswer('');
           setQuestion('');
-        } else {
-          deck.cards.push(newCardCreated);
+          toast({
+            title: 'Card added to your deck',
+            description: 'Keep adding some cards',
+            status: 'success',
+            duration: 4000,
+            isClosable: true,
+          });
+        } else if (boolean == false && deck.cards.length == 1) {
           patchAgnostic(user._id, 'users', token, user);
           patchAgnostic(deck._id, 'decks', token, deck);
+          toast({
+            title: 'Card saved',
+            description: 'You can start playing your deck',
+            status: 'success',
+            duration: 4000,
+            isClosable: true,
+          });
+          setDashboardContent(false);
+          navigate('/dashboard');
+        } else if (boolean == false && deck.cards.length > 1) {
+          deck.cards.push(newCardCreated);
+          deck.cards.pop();
+          patchAgnostic(user._id, 'users', token, user);
+          patchAgnostic(deck._id, 'decks', token, deck);
+          toast({
+            title: 'Card saved',
+            description: 'You can start playing your deck',
+            status: 'success',
+            duration: 4000,
+            isClosable: true,
+          });
+          setDashboardContent(false);
+          navigate('/dashboard');
         }
         return newCardCreated;
       } catch (error) {
-        console.log(error);
+        toast({
+          title: 'Fill in the required fields',
+          status: 'error',
+          duration: 4000,
+          isClosable: true,
+        });
       }
     })();
   };
@@ -50,13 +85,13 @@ const CreateCard = () => {
   return (
     <div>
       <Flex bg="#5f1590" w="100vw" h="100vh" alignItems="center" justifyContent="center">
-        <Flex m="485px" justifyContent="center" marginBlockStart="475px" display="flex">
+        <Flex justifyContent="center" display="flex">
           <FormControl bg="white" padding="25px" borderRadius="20px">
             <form>
-              <Text fontSize="4xl" as="b">
+              <Text fontSize="4xl" as="b" lineHeight="1.8rem">
                 New card
               </Text>
-              <FormLabel as="b" marginTop="30px">
+              <FormLabel fontWeight="bold" color="#5f1590" marginTop="25px">
                 Insert the question *
               </FormLabel>
               <Input
@@ -68,9 +103,14 @@ const CreateCard = () => {
                 isRequired={true}
                 borderRadius="10px"
                 type="text"
+                h="50px"
               ></Input>
-              {isErrorQ ? <Text color="black">This field is required</Text> : null}
-              <FormLabel as="b" marginTop="25px">
+              {isErrorQ ? (
+                <Text color="black" fontSize="sm">
+                  This field is required
+                </Text>
+              ) : null}
+              <FormLabel fontWeight="bold" color="#5f1590" marginTop="25px">
                 You can add a picture for this question if you wish
               </FormLabel>
               <Input
@@ -81,7 +121,7 @@ const CreateCard = () => {
                 onChange={(e) => setImageQuestion(e.target.files[0])}
                 borderRadius="10px"
               />
-              <FormLabel as="b" marginTop="20px">
+              <FormLabel fontWeight="bold" color="#5f1590" marginTop="25px">
                 Type the answer *
               </FormLabel>
               <Input
@@ -93,9 +133,13 @@ const CreateCard = () => {
                 isRequired={true}
                 borderRadius="10px"
                 type="text"
-                h="90px"
+                h="50px"
               ></Input>
-              {isErrorA ? <Text color="black">This field is required</Text> : null}
+              {isErrorA ? (
+                <Text color="black" fontSize="sm">
+                  This field is required
+                </Text>
+              ) : null}
 
               <Flex gap="2rem" mt="3rem" justifyContent="center" marginBottom="10px">
                 <AgnosticButton
@@ -108,13 +152,6 @@ const CreateCard = () => {
                   leftIcon={<AddIcon />}
                   callBack={(e) => {
                     onFormSubmitCard(e);
-                    toast({
-                      title: 'Deck created.',
-                      description: "We've created your deck for you.",
-                      status: 'success',
-                      duration: 9000,
-                      isClosable: true,
-                    });
                   }}
                 />
                 <AgnosticButton
@@ -128,15 +165,6 @@ const CreateCard = () => {
                   callBack={(e) => {
                     boolean = false;
                     onFormSubmitCard(e);
-                    toast({
-                      title: 'Card created',
-                      description: "We've created your card for you.",
-                      status: 'success',
-                      duration: 9000,
-                      isClosable: true,
-                    });
-                    setDashboardContent(false);
-                    navigate('/dashboard');
                   }}
                 />
               </Flex>
