@@ -19,8 +19,7 @@ import { useMediaQuery } from '@chakra-ui/react';
 const DetailDeckCard = () => {
   const [deckDetail, setDeckDetail] = useState('');
   const navigate = useNavigate();
-  const { deck } = useContext(GlobalContext);
-  const { user } = useContext(GlobalContext);
+  const { user, deck, setDashboardContent } = useContext(GlobalContext);
   const toast = useToast();
   const [isLargerThan700] = useMediaQuery('(min-width: 700px)');
 
@@ -33,9 +32,11 @@ const DetailDeckCard = () => {
     getDeckDetail();
   }, []);
   const adoptDeck = async () => {
-    const token = window.localStorage.getItem(user.nickname);
+    const token = window.localStorage.getItem('user');
     user.decks.push(deckDetail.info.data);
     patchAgnostic(user._id, 'users', token, user);
+    setDashboardContent(false);
+    navigate('/dashboard');
   };
 
   return deckDetail != '' ? (
