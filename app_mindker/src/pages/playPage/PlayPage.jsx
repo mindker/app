@@ -155,6 +155,7 @@ const PlayPage = () => {
               size="md"
               borderRadius="20px"
               callBack={() => {
+                sorted(Cards, user, position);
                 setCounter(0);
                 setPosition(0);
               }}

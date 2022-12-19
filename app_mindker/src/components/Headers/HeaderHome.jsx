@@ -6,11 +6,9 @@ import Register from '../Register/Register';
 import { useMediaQuery } from '@chakra-ui/react';
 
 const HeaderHome = ({ text, image }) => {
-  //const bg = useColorModeValue('#FFF', '#000');
-  //const color = useColorModeValue('#000', '#FFF');
-const [isLargerThan610] = useMediaQuery('(min-width: 610px)');
-  return isLargerThan610 ? (
+  const [isLargerThan650] = useMediaQuery('(min-width: 650px)');
 
+  return isLargerThan650 ? (
     <header>
       <Flex
         as="header"
@@ -39,7 +37,6 @@ const [isLargerThan610] = useMediaQuery('(min-width: 610px)');
       </Flex>
     </header>
   ) : (
-
     <header>
       <Flex
         as="header"
@@ -48,7 +45,6 @@ const [isLargerThan610] = useMediaQuery('(min-width: 610px)');
         justifyContent="space-around"
         width="100vw"
         flexWrap="wrap"
-        
       >
         <Flex alignItems="center" gap="1rem" w="100%" justifyContent="center">
           <ImageComponent
@@ -68,11 +64,6 @@ const [isLargerThan610] = useMediaQuery('(min-width: 610px)');
         </Flex>
       </Flex>
     </header>
-  ) 
-    
-
-
-
-  
+  );
 };
 export default HeaderHome;

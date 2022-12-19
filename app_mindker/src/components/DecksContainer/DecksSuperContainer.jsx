@@ -2,8 +2,10 @@ import { Flex } from '@chakra-ui/react';
 
 import DecksContainer from '../../components/DecksContainer/DecksContainer';
 import TextComponet from '../TextComponent/TextComponent';
+import { useMediaQuery } from '@chakra-ui/react';
 
 const DecksSuperContainer = ({ array, text }) => {
+  const [isLargerThan610] = useMediaQuery('(min-width: 610px)');
   return (
     <Flex
       gap="3rem"

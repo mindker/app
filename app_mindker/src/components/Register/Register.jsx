@@ -78,12 +78,12 @@ const Register = () => {
         onClick={onOpen}
         text="Register"
         type="button"
-        variant="outline"
         color="#5f1590"
         bg="white"
-        size="md"
+        size="sm"
         borderRadius="1.5rem"
-        w="6rem"
+        w="5rem"
+        _hover={{ bg: '#af63dd', color: 'white' }}
       >
         Register
       </Button>

@@ -25,7 +25,7 @@ const NavUserDashboard = ({ user }) => {
   const navigate = useNavigate();
   const [deployer, setDeployer] = useState(false);
   const [isLargerThan610] = useMediaQuery('(min-width: 610px)');
-  
+
   const logout = () => {
     window.localStorage.clear();
     setHomeContent('content');
@@ -58,6 +58,8 @@ const NavUserDashboard = ({ user }) => {
               callBack={() => logout()}
               variant="outline"
               border="1px white"
+              _hover={{ bg: 'white', color: '#5f1590' }}
+              borderRadius="1rem"
             />
           </Flex>
           <Flex
@@ -173,7 +175,7 @@ const NavUserDashboard = ({ user }) => {
           <Image
             src="https://res.cloudinary.com/drprserzu/image/upload/v1671392221/image_1_2_1_mgafao.png"
             boxSize="50px"
-            />
+          />
           <AgnosticButton
             color="white"
             bg="#5f1590"
@@ -224,7 +226,7 @@ const NavUserDashboard = ({ user }) => {
           {deployer ? (
             <Flex gap="1rem">
               <Input
-                placeholder='search'
+                placeholder="search"
                 bg="white"
                 border="2px"
                 borderColor="#5F1592"

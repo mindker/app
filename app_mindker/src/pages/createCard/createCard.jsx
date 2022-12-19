@@ -86,7 +86,7 @@ const CreateCard = () => {
     <div>
       <Flex bg="#5f1590" w="100vw" h="100vh" alignItems="center" justifyContent="center">
         <Flex justifyContent="center" display="flex">
-          <FormControl bg="white" padding="25px" borderRadius="20px">
+          <FormControl bg="white" padding="25px" borderRadius="20px" mx="1rem">
             <form>
               <Text fontSize="4xl" as="b" lineHeight="1.8rem">
                 New card

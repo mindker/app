@@ -9,7 +9,7 @@ import { CreateAgnosticItem, patchAgnostic } from '../../services/APIservice';
 
 const CreateDeck = () => {
   const { user, setDeck } = useContext(GlobalContext);
-  const [image, setDeckImage] = useState('');
+  const [deckImage, setDeckImage] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const navigate = useNavigate();
@@ -22,9 +22,9 @@ const CreateDeck = () => {
 
   const onFormSubmit = (e) => {
     e.preventDefault();
+    const values = { title: title, description: description, image: deckImage };
     (async () => {
       try {
-        const values = { title: title, description: description, image: image };
         if (values.title !== '' && values.description !== '') {
           CreateAgnosticItem('decks', values, token).then((res) => {
             user.decks.push(res);
@@ -63,7 +63,7 @@ const CreateDeck = () => {
       flexDir="column"
     >
       <Flex alignItems="center" justifyContent="center" display="flex">
-        <FormControl bg="white" padding="25px" borderRadius="20px">
+        <FormControl bg="white" padding="25px" borderRadius="20px" mx="1rem">
           <form>
             <Text fontSize="4xl" as="b" lineHeight="1.8rem">
               New deck

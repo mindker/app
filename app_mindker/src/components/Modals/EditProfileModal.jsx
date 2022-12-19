@@ -77,6 +77,8 @@ const EditProfileModal = () => {
           variant="outline"
           color="black"
           border="1px white"
+          _hover={{ bg: 'white', color: '#5f1590' }}
+          borderRadius="1rem"
         />
       ) : (
         <AgnosticButton

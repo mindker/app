@@ -29,7 +29,6 @@ const DeckCard = ({
             <AgnosticButton
               text={textUp}
               type="button"
-              //leftIcon={leftIconUp}
               color="white"
               borderRadius="20px"
               size="xs"
@@ -41,7 +40,6 @@ const DeckCard = ({
               <AgnosticButton
                 text={textBottom}
                 type="button"
-                //leftIcon={leftIconDown}
                 color="white"
                 borderRadius="20px"
                 size="xs"
@@ -54,7 +52,6 @@ const DeckCard = ({
               <AgnosticButton
                 text={textBottom}
                 type="button"
-                //lefticon={lefticonDown}
                 color="white"
                 borderRadius="20px"
                 size="xs"
