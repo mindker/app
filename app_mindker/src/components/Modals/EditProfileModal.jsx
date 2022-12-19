@@ -11,12 +11,13 @@ import {
   ModalOverlay,
   useDisclosure,
   useToast,
+  Avatar,
 } from '@chakra-ui/react';
 import { FormLabel } from '@chakra-ui/react';
 import { Input, Text } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-
+import { useMediaQuery } from '@chakra-ui/react';
 import GlobalContext from '../../context/GlobalContext';
 import { loginUser, patchAgnostic } from '../../services/APIService';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
@@ -26,6 +27,7 @@ const EditProfileModal = () => {
   const [avatar, setAvatar] = useState('');
   const { user, switcher, setSwitcher, setUser, setLocal } = useContext(GlobalContext);
   const [show, setShow] = React.useState(false);
+  const [isLargerThan610] = useMediaQuery('(min-width: 610px)');
   const handleClick = () => setShow(!show);
 
   const toast = useToast();
@@ -68,13 +70,23 @@ const EditProfileModal = () => {
 
   return (
     <>
-      <AgnosticButton
-        leftIcon="⚙"
-        callBack={onOpen}
-        variant="outline"
-        color="black"
-        border="1px white"
-      />
+      {isLargerThan610 ? (
+        <AgnosticButton
+          leftIcon="⚙"
+          callBack={onOpen}
+          variant="outline"
+          color="black"
+          border="1px white"
+        />
+      ) : (
+        <AgnosticButton
+          callBack={onOpen}
+          bgImage={user.avatar}
+          bgSize="cover"
+          size="lg"
+          borderRadius="1.5rem"
+        />
+      )}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

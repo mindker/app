@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-
+import { useMediaQuery } from '@chakra-ui/react';
 import DecksSuperContainer from '../../components/DecksContainer/DecksSuperContainer';
 import NavUserDashboard from '../../components/NavUserDashboard/NavUserDashboard';
 import GlobalContext from '../../context/GlobalContext';
@@ -13,7 +13,7 @@ const Dashboard = () => {
   let arr = [];
   const [arrayDecks, setArrayDecks] = useState([]);
   const [textDecks, setTextDecks] = useState('My Decks');
-
+  const [isLargerThan610] = useMediaQuery('(min-width: 610px)');
   useEffect(() => {
     if (dashboardContent == 'decks') {
       setTextDecks('Popular Decks');
@@ -32,8 +32,13 @@ const Dashboard = () => {
     }
   }, [switcher]);
 
-  return (
+  return isLargerThan610 ? (
     <DashboardLayout direction="row">
+      <NavUserDashboard user={user} />
+      <DecksSuperContainer array={arrayDecks} text={textDecks} />
+    </DashboardLayout>
+  ) : (
+    <DashboardLayout direction="column">
       <NavUserDashboard user={user} />
       <DecksSuperContainer array={arrayDecks} text={textDecks} />
     </DashboardLayout>
