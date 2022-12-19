@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text, Image } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -56,11 +56,13 @@ const PlayPage = () => {
               align="center"
             />
             {Cards[counter].questionFile ? (
-              <img
-                src={Cards[counter].questionFile}
-                alt={Cards[counter].question}
-                width="250px"
-              />
+              <Flex width="200px" height="200px">
+                <Image
+                  src={Cards[counter].questionFile}
+                  alt={Cards[counter].question}
+                  objectFit="contain"
+                />
+              </Flex>
             ) : null}
             {next ? (
               <AgnosticButton
