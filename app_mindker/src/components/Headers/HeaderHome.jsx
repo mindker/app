@@ -48,7 +48,7 @@ const HeaderHome = ({ text, image }) => {
       >
         <Flex alignItems="center" gap="1rem" w="100%" justifyContent="center">
           <ImageComponent
-            src="https://res.cloudinary.com/drprserzu/image/upload/v1671392221/image_1_2_1_mgafao.png"
+            src="https://res.cloudinary.com/drprserzu/image/upload/v1671566486/image_1_2_1_qgcc0b.png"
             alt={text}
             boxSize="50px"
             objectFit="cover"

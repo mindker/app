@@ -13,7 +13,7 @@ const Home = () => {
     <HomeLayout direction="column" flexWrap="no-wrap">
       <HeaderHome
         text="mindker"
-        image="https://res.cloudinary.com/drprserzu/image/upload/v1671204804/image_loxdyy.png"
+        image="https://res.cloudinary.com/drprserzu/image/upload/v1671566518/minkerlogo_vr6sca.png"
       />
       {homeContent == 'content' ? <Content /> : null}
       <Footer />
