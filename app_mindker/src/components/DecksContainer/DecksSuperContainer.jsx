@@ -6,7 +6,7 @@ import { useMediaQuery } from '@chakra-ui/react';
 
 const DecksSuperContainer = ({ array, text }) => {
   const [isLargerThan610] = useMediaQuery('(min-width: 610px)');
-  return (
+  return isLargerThan610 ? (
     <Flex
       gap="3rem"
       flexWrap="no-wrap"
@@ -30,6 +30,32 @@ const DecksSuperContainer = ({ array, text }) => {
       }}
     >
       <Flex justifyContent="center" alignItems="center" p="1.5rem">
+        <TextComponet text={text} fontSize="2rem" color="black" as="b" />
+      </Flex>
+      <DecksContainer array={array} />
+    </Flex>
+  ) : (
+    <Flex
+      gap="2rem"
+      flexWrap="no-wrap"
+      flexDirection="column"
+      h="100vh"
+      w="85vw"
+      bg="inherit"
+      alignItems="center"
+      overflowY="scroll"
+      sx={{
+        '::-webkit-scrollbar': {
+          backgroundColor: 'white',
+          width: '12px',
+        },
+
+        '&::-webkit-scrollbar-thumb': {
+          display: 'none',
+        },
+      }}
+    >
+      <Flex justifyContent="center" alignItems="center" p="1rem">
         <TextComponet text={text} fontSize="2rem" color="black" as="b" />
       </Flex>
       <DecksContainer array={array} />
