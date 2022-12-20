@@ -173,7 +173,7 @@ const NavUserDashboard = ({ user }) => {
         <Flex justifyContent="space-between" mx="1rem">
           <EditProfileModal />
           <Image
-            src="https://res.cloudinary.com/drprserzu/image/upload/v1671392221/image_1_2_1_mgafao.png"
+            src="https://res.cloudinary.com/drprserzu/image/upload/v1671566486/image_1_2_1_qgcc0b.png"
             boxSize="50px"
           />
           <AgnosticButton
