@@ -11,7 +11,6 @@ import { sorted } from '../../utils/difficultySorted';
 const PlayPage = () => {
   const navigate = useNavigate();
   const { deck, user } = useContext(GlobalContext);
-
   const [Cards, setCards] = useState([]);
   let [counter, setCounter] = useState(0);
   const [next, setNext] = useState(true);
