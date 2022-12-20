@@ -22,7 +22,7 @@ import AgnosticButton from '../AgnosticButton/AgnosticButton';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setUser, setLocal } = useContext(GlobalContext);
+  const { setLocal } = useContext(GlobalContext);
   const [passwordError, setPasswordError] = useState(false);
   const [nicknameError, setNicknameError] = useState(false);
 
@@ -33,22 +33,20 @@ const Login = () => {
   } = useForm();
 
   const onFormSubmit = (values) => {
-    (async () => {
-      try {
-        const res = await loginUser('login', values);
-        await setUser(res.info.data.user);
-        await setLocal(res.info.data.token);
+    try {
+      loginUser('login', values).then((res) => {
+        setLocal(JSON.stringify(res.info.data));
         navigate('dashboard');
-      } catch (error) {
-        console.log(error);
-        if (error.response.data.info.message == 'Incorrect Password') {
-          setPasswordError(true);
-        }
-        if (error.response.data.info.message == 'Incorrect Nickname') {
-          setNicknameError(true);
-        }
+      });
+    } catch (error) {
+      console.log(error);
+      if (error.response.data.info.message == 'Incorrect Password') {
+        setPasswordError(true);
       }
-    })();
+      if (error.response.data.info.message == 'Incorrect Nickname') {
+        setNicknameError(true);
+      }
+    }
   };
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
@@ -65,7 +63,6 @@ const Login = () => {
       <Button
         ref={btnRef}
         onClick={onOpen}
-        text="Login"
         type="button"
         bg="white"
         color="#5f1590"

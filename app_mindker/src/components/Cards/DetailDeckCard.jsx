@@ -4,6 +4,7 @@ import {
   Flex,
   Heading,
   Image,
+  Spinner,
   Stack,
   Text,
   useToast,
@@ -13,30 +14,43 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AgnosticButton from '../../components/AgnosticButton/AgnosticButton';
 import GlobalContext from '../../context/GlobalContext';
-import { patchAgnostic } from '../../services/APIservice.js';
+import { getAgnostic, patchAgnostic } from '../../services/APIservice.js';
 import { useMediaQuery } from '@chakra-ui/react';
 
 const DetailDeckCard = () => {
   const [deckDetail, setDeckDetail] = useState('');
   const navigate = useNavigate();
-  const { user, deck, setDashboardContent } = useContext(GlobalContext);
-  const toast = useToast();
+  const { local, setLocal, setDashboardContent } = useContext(GlobalContext);
   const [isLargerThan700] = useMediaQuery('(min-width: 700px)');
+  const toast = useToast();
+  let deckID = JSON.parse(localStorage.getItem('deckID'));
 
   useEffect(() => {
     const getDeckDetail = async () => {
-      const data = await fetch(`http://localhost:8080/api/v1/decks/${deck._id}`);
-      const res = await data.json();
-      setDeckDetail(res);
+      try {
+        getAgnostic('decks', deckID).then((res) => setDeckDetail(res));
+      } catch (error) {
+        console.log(error);
+      }
     };
     getDeckDetail();
   }, []);
+
+  let userParsed;
+  if (typeof local == 'string') {
+    userParsed = JSON.parse(local);
+  } else {
+    userParsed = local;
+  }
+
   const adoptDeck = async () => {
-    const token = window.localStorage.getItem('user');
-    user.decks.push(deckDetail.info.data);
-    patchAgnostic(user._id, 'users', token, user);
-    setDashboardContent(false);
-    navigate('/dashboard');
+    getAgnostic('decks', deckID).then((res) => {
+      userParsed.user.decks.push(res.info.data);
+      patchAgnostic(userParsed.user._id, 'users', userParsed.token, userParsed.user);
+      setLocal(JSON.stringify({ ...userParsed }));
+      setDashboardContent(false);
+      navigate('/dashboard');
+    });
   };
 
   return deckDetail != '' ? (
@@ -195,7 +209,7 @@ const DetailDeckCard = () => {
       </Flex>
     )
   ) : (
-    <p>no way</p>
+    <Spinner />
   );
 };
 

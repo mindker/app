@@ -14,9 +14,7 @@ const CreateCard = () => {
   let boolean = true;
   const navigate = useNavigate();
 
-  const { deck, setDashboardContent, user } = useContext(GlobalContext);
-
-  const token = window.localStorage.getItem('user');
+  const { deck, setDashboardContent, local, setLocal } = useContext(GlobalContext);
 
   const onFormSubmitCard = (e) => {
     e.preventDefault();
@@ -27,7 +25,19 @@ const CreateCard = () => {
     };
     (async () => {
       try {
+        let token;
+        let userParsed = JSON.parse(local);
+        if (typeof local == 'string') {
+          token = userParsed.token;
+        }
+
         const newCardCreated = await CreateAgnosticItem('cards', newCardToPost, token);
+        for (const deckUser of userParsed.user.decks) {
+          if (deckUser._id == deck._id) {
+            deckUser.cards.push(newCardCreated);
+            setLocal(JSON.stringify({ ...userParsed }));
+          }
+        }
         deck.cards.push(newCardCreated);
         if (boolean) {
           setAnswer('');
@@ -40,7 +50,7 @@ const CreateCard = () => {
             isClosable: true,
           });
         } else if (boolean == false && deck.cards.length == 1) {
-          patchAgnostic(user._id, 'users', token, user);
+          patchAgnostic(userParsed.user._id, 'users', token, userParsed.user);
           patchAgnostic(deck._id, 'decks', token, deck);
           toast({
             title: 'Card saved',
@@ -54,7 +64,7 @@ const CreateCard = () => {
         } else if (boolean == false && deck.cards.length > 1) {
           deck.cards.push(newCardCreated);
           deck.cards.pop();
-          patchAgnostic(user._id, 'users', token, user);
+          patchAgnostic(userParsed.user._id, 'users', token, userParsed.user);
           patchAgnostic(deck._id, 'decks', token, deck);
           toast({
             title: 'Card saved',
@@ -86,7 +96,7 @@ const CreateCard = () => {
     <div>
       <Flex bg="#5f1590" w="100vw" h="100vh" alignItems="center" justifyContent="center">
         <Flex justifyContent="center" display="flex">
-          <FormControl bg="white" padding="25px" borderRadius="20px" mx="1rem">
+          <FormControl bg="white" padding="1.5rem" borderRadius="20px" mx="1rem">
             <form>
               <Text fontSize="4xl" as="b" lineHeight="1.8rem">
                 New card
@@ -113,14 +123,17 @@ const CreateCard = () => {
               <FormLabel fontWeight="bold" color="#5f1590" marginTop="25px">
                 You can add a picture for this question if you wish
               </FormLabel>
-              <Input
-                bg="white"
-                textColor="black"
-                type="file"
-                accept="image/*"
-                onChange={(e) => setImageQuestion(e.target.files[0])}
-                borderRadius="10px"
-              />
+              <Flex display="flex" justifyContent="center">
+                <label htmlFor="images" className={'drop-container newDeckFile'}>
+                  <span className="drop-title">Drop files here or</span>
+                  <input
+                    type="file"
+                    onChange={(e) => setImageQuestion(e.target.files[0])}
+                    accept="image/*"
+                    className="input"
+                  />
+                </label>
+              </Flex>
               <FormLabel fontWeight="bold" color="#5f1590" marginTop="25px">
                 Type the answer *
               </FormLabel>

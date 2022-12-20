@@ -8,17 +8,23 @@ import GlobalContext from '../../context/GlobalContext';
 import { CreateAgnosticItem, patchAgnostic } from '../../services/APIservice';
 
 const CreateDeck = () => {
-  const { user, setDeck } = useContext(GlobalContext);
+  const { local, setLocal, setDeck } = useContext(GlobalContext);
   const [deckImage, setDeckImage] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const navigate = useNavigate();
-  const token = window.localStorage.getItem('user');
 
   const toast = useToast();
 
   const isErrorTitle = title === '';
   const isErrorDescription = description === '';
+
+  let userParsed;
+  if (typeof local == 'string') {
+    userParsed = JSON.parse(local);
+  } else {
+    userParsed = local;
+  }
 
   const onFormSubmit = (e) => {
     e.preventDefault();
@@ -26,10 +32,21 @@ const CreateDeck = () => {
     (async () => {
       try {
         if (values.title !== '' && values.description !== '') {
-          CreateAgnosticItem('decks', values, token).then((res) => {
-            user.decks.push(res);
+          CreateAgnosticItem(
+            'decks',
+            values,
+            JSON.parse(JSON.stringify(userParsed.token)),
+          ).then((res) => {
+            localStorage.setItem('deck', res);
+            userParsed.user.decks.push(res);
             setDeck(res);
-            patchAgnostic(user._id, 'users', token, user);
+            patchAgnostic(
+              userParsed.user._id,
+              'users',
+              userParsed.token,
+              userParsed.user,
+            );
+            setLocal(JSON.stringify({ ...userParsed }));
             navigate('/createCard');
             toast({
               title: 'Deck created',
@@ -63,7 +80,15 @@ const CreateDeck = () => {
       flexDir="column"
     >
       <Flex alignItems="center" justifyContent="center" display="flex">
-        <FormControl bg="white" padding="25px" borderRadius="20px" mx="1rem">
+        <FormControl
+          bg="white"
+          padding="1.5rem"
+          borderRadius="20px"
+          mx="1rem"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
           <form>
             <Text fontSize="4xl" as="b" lineHeight="1.8rem">
               New deck
@@ -106,15 +131,17 @@ const CreateDeck = () => {
             <FormLabel fontWeight="bold" color="#5f1590" marginTop="20px">
               Add a photo
             </FormLabel>
-            <Input
-              textColor="black"
-              name="image"
-              type="file"
-              onChange={(e) => setDeckImage(e.target.files[0])}
-              accept="image/*"
-              placeholder="Upload an image"
-              borderRadius="15px"
-            />
+            <Flex display="flex" justifyContent="center">
+              <label htmlFor="images" className={'drop-container newDeckFile'}>
+                <span className="drop-title">Drop files here or</span>
+                <input
+                  type="file"
+                  onChange={(e) => setDeckImage(e.target.files[0])}
+                  accept="image/*"
+                  className="input"
+                />
+              </label>
+            </Flex>
             <Flex gap="2rem" mt="2rem" justifyContent="center">
               <AgnosticButton
                 _hover={{ bg: '#5f1590', color: 'white' }}

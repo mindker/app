@@ -8,16 +8,22 @@ import { getAgnostic, patchAgnostic } from '../../services/APIservice.js';
 import DeckCard from '../Cards/DeckCard';
 
 const DecksContainer = ({ array }) => {
-  const { setDeck, dashboardContent, user, setUser } = useContext(GlobalContext);
+  const { setDeck, dashboardContent, local, setLocal } = useContext(GlobalContext);
   const navigate = useNavigate();
   const toast = useToast();
-  const token = window.localStorage.getItem('user');
+
+  let userParsed;
+  if (typeof local == 'string') {
+    userParsed = JSON.parse(local);
+  } else {
+    userParsed = local;
+  }
 
   const adoptDeckUser = async (deck) => {
     getAgnostic('decks', deck._id).then((res) => {
-      user.decks.push(res.info.data);
-      setUser({ ...user });
-      patchAgnostic(user._id, 'users', token, user);
+      userParsed.user.decks.push(res.info.data);
+      patchAgnostic(userParsed.user._id, 'users', userParsed.token, userParsed.user);
+      setLocal(JSON.stringify({ ...userParsed }));
     });
   };
 
@@ -33,6 +39,7 @@ const DecksContainer = ({ array }) => {
               object={deck}
               callBack={() => {
                 setDeck(deck);
+                localStorage.setItem('deckID', JSON.stringify(deck._id));
                 navigate('/playPage');
               }}
               callBack2={() => {
@@ -43,8 +50,9 @@ const DecksContainer = ({ array }) => {
           ))
         ) : (
           <>
-            <Spinner />
-            <Text>No decks to show, add some decks from Popular Decks</Text>
+            <Text fontSize="xl" as="b">
+              No decks to show, add some decks from Popular Decks
+            </Text>
           </>
         )}
       </Flex>
@@ -61,6 +69,7 @@ const DecksContainer = ({ array }) => {
               object={deck}
               callBack={() => {
                 setDeck(deck);
+                localStorage.setItem('deckID', JSON.stringify(deck._id));
                 navigate('/detailDeck');
               }}
               callBack2={async () => {
@@ -77,8 +86,9 @@ const DecksContainer = ({ array }) => {
           ))
         ) : (
           <>
-            <Spinner />
-            <Text>No decks to show, you already added all the available decks</Text>
+            <Text fontSize="xl" as="b">
+              No decks to show, you already added all the available decks
+            </Text>
           </>
         )}
       </Flex>

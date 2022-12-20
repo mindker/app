@@ -10,22 +10,29 @@ import { sorted } from '../../utils/difficultySorted';
 
 const PlayPage = () => {
   const navigate = useNavigate();
-  const { deck, user } = useContext(GlobalContext);
-
+  const { local } = useContext(GlobalContext);
   const [Cards, setCards] = useState([]);
   let [counter, setCounter] = useState(0);
   const [next, setNext] = useState(true);
-  const token = window.localStorage.getItem('user');
   const [position, setPosition] = useState(0);
 
+  let userParsed;
+  if (typeof local == 'string') {
+    userParsed = JSON.parse(local);
+  } else {
+    userParsed = local;
+  }
+  const deckID = localStorage.getItem('deckID');
   useEffect(() => {
-    const playDeck = user.decks.filter((deckUser) => deckUser._id == deck._id);
+    const playDeck = userParsed.user.decks.filter(
+      (deckUser) => JSON.stringify(deckUser._id) == deckID,
+    );
     setCards(playDeck[0].cards);
-    setPosition(user.decks.indexOf(playDeck[0]));
+    setPosition(userParsed.user.decks.indexOf(playDeck[0]));
   }, [counter]);
 
   const updateDifficulty = (level) => {
-    user.decks[position].cards[counter].difficulty = level;
+    userParsed.user.decks[position].cards[counter].difficulty = level;
   };
 
   return (
@@ -157,7 +164,7 @@ const PlayPage = () => {
               size="md"
               borderRadius="20px"
               callBack={() => {
-                sorted(Cards, user, position);
+                sorted(Cards, userParsed.user, position);
                 setCounter(0);
                 setPosition(0);
               }}
@@ -172,8 +179,8 @@ const PlayPage = () => {
         mt="2rem"
         text="Back"
         callBack={() => {
-          sorted(Cards, user, position);
-          patchAgnostic(user._id, 'users', token, user).then((res) => console.log(res));
+          sorted(Cards, userParsed.user, position);
+          patchAgnostic(userParsed.user._id, 'users', userParsed.token, userParsed.user);
           navigate('/dashboard');
         }}
         bg="white"

@@ -6,3 +6,59 @@
     padding: 0;
 }
 
+
+.input {
+    width: 350px;
+    max-width: 100%;
+    color: black;
+    padding: 5px;
+    background: none;
+    border-radius: 10px;
+}
+
+.input::file-selector-button {
+    border: none;
+    background: #af63dd;
+    padding: 0.3125rem 10px;
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+}
+
+.input::file-selector-button:hover {
+    background: #5f1590;
+  }
+
+.drop-container {
+    position: relative;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    padding: 10px;
+    border-radius: 10px;
+    color: #5f1590;
+    cursor: pointer;
+    background: white;
+    margin-bottom: 1rem;
+  }
+
+.newDeckFile {
+    border: 2px solid #EEE;
+    width: 19rem;
+}
+
+.drop-container:hover {
+    background: rgba(255, 255, 255, 0.836);
+  }
+
+.drop-title {
+    color: #5f1590;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    transition: color .2s ease-in-out;
+  }

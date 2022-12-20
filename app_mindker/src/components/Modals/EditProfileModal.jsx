@@ -25,7 +25,7 @@ import AgnosticButton from '../AgnosticButton/AgnosticButton';
 const EditProfileModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [avatar, setAvatar] = useState('');
-  const { user, switcher, setSwitcher, setUser, setLocal } = useContext(GlobalContext);
+  const { local, switcher, setSwitcher, setLocal } = useContext(GlobalContext);
   const [show, setShow] = React.useState(false);
   const [isLargerThan610] = useMediaQuery('(min-width: 610px)');
   const handleClick = () => setShow(!show);
@@ -37,22 +37,30 @@ const EditProfileModal = () => {
     formState: { errors },
   } = useForm();
 
+  let userParsed;
+  let token;
+  if (typeof local == 'string') {
+    userParsed = JSON.parse(local);
+    token = userParsed.token;
+  } else {
+    userParsed = local;
+    token = local.token;
+  }
+
   const onFormSubmit = (values) => {
     (async () => {
-      const token = localStorage.getItem('user');
       values = {
-        ...user,
+        ...userParsed,
         ...values,
         avatar: avatar,
       };
-      await patchAgnostic(user._id, 'users', token, values);
+      await patchAgnostic(userParsed.user._id, 'users', token, values);
       setTimeout(() => {
         loginUser('login', {
           nickname: values.nickname,
           password: values.password,
         }).then((res) => {
-          setUser(res.info.data.user);
-          setLocal(res.info.data.token);
+          setLocal(JSON.stringify(res.info.data));
           setSwitcher(!switcher);
           onClose();
           setShow(false);
@@ -83,7 +91,7 @@ const EditProfileModal = () => {
       ) : (
         <AgnosticButton
           callBack={onOpen}
-          bgImage={user.avatar}
+          bgImage={userParsed.user.avatar}
           bgSize="cover"
           size="lg"
           borderRadius="1.5rem"
@@ -105,7 +113,7 @@ const EditProfileModal = () => {
                 })}
                 name="name"
                 type="text"
-                defaultValue={user.name}
+                defaultValue={userParsed.user.name}
                 color="#5f1590"
               />
               {errors.name ? (
@@ -122,7 +130,7 @@ const EditProfileModal = () => {
                 })}
                 name="nickname"
                 type="text"
-                defaultValue={user.nickname}
+                defaultValue={userParsed.user.nickname}
                 color="#5f1590"
               />
               {errors.nickname ? (
@@ -141,7 +149,7 @@ const EditProfileModal = () => {
                 })}
                 name="email"
                 type="text"
-                defaultValue={user.email}
+                defaultValue={userParsed.user.email}
                 color="#5f1590"
               />
               {errors.email ? (
@@ -184,15 +192,20 @@ const EditProfileModal = () => {
               <FormLabel fontWeight="bold" color="#5f1590">
                 Avatar
               </FormLabel>
-              <Input
-                {...register('avatar', {
-                  required: false,
-                })}
-                name="avatar"
-                type="file"
-                onChange={(e) => setAvatar(e.target.files[0])}
-                accept="image/*"
-              />
+              <Flex display="flex" justifyContent="center">
+                <label htmlFor="images" className={'drop-container newDeckFile'}>
+                  <span className="drop-title">Drop files here or</span>
+                  <Input
+                    {...register('avatar', {
+                      required: false,
+                    })}
+                    name="avatar"
+                    type="file"
+                    onChange={(e) => setAvatar(e.target.files[0])}
+                    accept="image/*"
+                  />
+                </label>
+              </Flex>
               <Flex justifyContent="space-around" margin=".5rem">
                 <AgnosticButton
                   type="submit"

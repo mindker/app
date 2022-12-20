@@ -8,17 +8,25 @@ import { getAgnostic } from '../../services/APIservice';
 import { filterDecks } from '../../utils/filterDecks';
 
 const Dashboard = () => {
-  const { user, dashboardContent, switcher, param, setParam, paramReforce } =
+  const { local, dashboardContent, switcher, param, setParam, paramReforce } =
     useContext(GlobalContext);
   let arr = [];
   const [arrayDecks, setArrayDecks] = useState([]);
   const [textDecks, setTextDecks] = useState('My Decks');
   const [isLargerThan610] = useMediaQuery('(min-width: 610px)');
+
+  let userParsed;
+  if (typeof local == 'string') {
+    userParsed = JSON.parse(local);
+  } else {
+    userParsed = local;
+  }
+
   useEffect(() => {
     if (dashboardContent == 'decks') {
       setTextDecks('Popular Decks');
     } else if (dashboardContent === false) {
-      setArrayDecks(user.decks), setTextDecks('My Decks');
+      setArrayDecks(userParsed.user.decks), setTextDecks('My Decks');
     } else if (param == '') {
       setTextDecks('');
       setParam(paramReforce);
@@ -26,7 +34,7 @@ const Dashboard = () => {
     if (dashboardContent) {
       getAgnostic(dashboardContent, param)
         .then((res) => {
-          arr = filterDecks(user.decks, res.info.data);
+          arr = filterDecks(userParsed.user.decks, res.info.data);
         })
         .then(() => setArrayDecks(arr));
     }
@@ -34,12 +42,12 @@ const Dashboard = () => {
 
   return isLargerThan610 ? (
     <DashboardLayout direction="row">
-      <NavUserDashboard user={user} />
+      <NavUserDashboard user={local} />
       <DecksSuperContainer array={arrayDecks} text={textDecks} />
     </DashboardLayout>
   ) : (
     <DashboardLayout direction="column">
-      <NavUserDashboard user={user} />
+      <NavUserDashboard user={local} />
       <DecksSuperContainer array={arrayDecks} text={textDecks} />
     </DashboardLayout>
   );

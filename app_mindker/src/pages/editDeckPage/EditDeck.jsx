@@ -12,9 +12,9 @@ const EditDeck = () => {
           Things are a little <span>unstable</span> here
         </p>
         <p>I suggest come back later</p>
-        <Link to="/">
+        <Link to="/dashboard">
           <p>
-            <strong>Click here to go Home</strong>
+            <strong>Click here to go back</strong>
           </p>
         </Link>
       </div>
