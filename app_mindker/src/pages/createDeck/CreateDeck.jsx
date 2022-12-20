@@ -1,4 +1,4 @@
-import { AddIcon, CheckIcon } from '@chakra-ui/icons';
+/* import { AddIcon, CheckIcon } from '@chakra-ui/icons'; */
 import { Flex, FormControl, FormLabel, Input, Text, useToast } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -8,8 +8,8 @@ import GlobalContext from '../../context/GlobalContext';
 import { CreateAgnosticItem, patchAgnostic } from '../../services/APIservice';
 
 const CreateDeck = () => {
-  const { user, setDashboardContent, setDeck } = useContext(GlobalContext);
-  const [image, setDeckImage] = useState('');
+  const { user, setDeck } = useContext(GlobalContext);
+  const [deckImage, setDeckImage] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const navigate = useNavigate();
@@ -22,14 +22,31 @@ const CreateDeck = () => {
 
   const onFormSubmit = (e) => {
     e.preventDefault();
+    const values = { title: title, description: description, image: deckImage };
     (async () => {
       try {
-        const values = { title: title, description: description, image: image };
-        CreateAgnosticItem('decks', values, token).then((res) => {
-          user.decks.push(res);
-          setDeck(res);
-          patchAgnostic(user._id, 'users', token, user);
-        });
+        if (values.title !== '' && values.description !== '') {
+          CreateAgnosticItem('decks', values, token).then((res) => {
+            user.decks.push(res);
+            setDeck(res);
+            patchAgnostic(user._id, 'users', token, user);
+            navigate('/createCard');
+            toast({
+              title: 'Deck created',
+              description: 'Now you can add some cards',
+              status: 'success',
+              duration: 4000,
+              isClosable: true,
+            });
+          });
+        } else {
+          toast({
+            title: 'Fill in the required fields',
+            status: 'error',
+            duration: 4000,
+            isClosable: true,
+          });
+        }
       } catch (error) {
         console.log(error);
       }
@@ -37,15 +54,22 @@ const CreateDeck = () => {
   };
 
   return (
-    <Flex bg="#5f1590" w="100vw" h="100vh" alignItems="center" justifyContent="center">
-      <Flex m="410px" justifyContent="center" marginBlockStart="400px" display="flex">
-        <FormControl bg="white" padding="25px" borderRadius="20px">
+    <Flex
+      bg="#5f1590"
+      w="100vw"
+      h="100vh"
+      alignItems="center"
+      justifyContent="center"
+      flexDir="column"
+    >
+      <Flex alignItems="center" justifyContent="center" display="flex">
+        <FormControl bg="white" padding="25px" borderRadius="20px" mx="1rem">
           <form>
-            <Text fontSize="4xl" as="b">
+            <Text fontSize="4xl" as="b" lineHeight="1.8rem">
               New deck
             </Text>
-            <FormLabel as="b" marginTop="30px">
-              Deck title*
+            <FormLabel fontWeight="bold" color="#5f1590" marginTop="25px">
+              Deck title *
             </FormLabel>
             <Input
               bg="white"
@@ -56,9 +80,13 @@ const CreateDeck = () => {
               placeholder="Add a title for your deck"
               borderRadius="10px"
             ></Input>
-            {isErrorTitle ? <Text color="black">This field is required</Text> : null}
-            <FormLabel as="b" marginTop="25px">
-              Description
+            {isErrorTitle ? (
+              <Text color="black" fontSize="sm">
+                This field is required
+              </Text>
+            ) : null}
+            <FormLabel fontWeight="bold" color="#5f1590" marginTop="25px">
+              Description *
             </FormLabel>
             <Input
               bg="white"
@@ -67,14 +95,16 @@ const CreateDeck = () => {
               name="description"
               type="text"
               placeholder="Include a description"
-              h="120px"
+              h="80px"
               borderRadius="10px"
             ></Input>
             {isErrorDescription ? (
-              <Text color="black">This field is required</Text>
+              <Text color="black" fontSize="sm">
+                This field is required
+              </Text>
             ) : null}
-            <FormLabel as="b" marginTop="20px">
-              Add a background photo
+            <FormLabel fontWeight="bold" color="#5f1590" marginTop="20px">
+              Add a photo
             </FormLabel>
             <Input
               textColor="black"
@@ -82,11 +112,10 @@ const CreateDeck = () => {
               type="file"
               onChange={(e) => setDeckImage(e.target.files[0])}
               accept="image/*"
-              placeholder="Upload background image"
+              placeholder="Upload an image"
               borderRadius="15px"
             />
-
-            <Flex gap="2rem" mt="3rem" justifyContent="center">
+            <Flex gap="2rem" mt="2rem" justifyContent="center">
               <AgnosticButton
                 _hover={{ bg: '#5f1590', color: 'white' }}
                 text="Add cards"
@@ -94,40 +123,8 @@ const CreateDeck = () => {
                 color="white"
                 borderRadius="20px"
                 bg="#af63dd"
-                //leftIcon={<AddIcon />}
                 callBack={(e) => {
                   onFormSubmit(e);
-                  toast({
-                    title: 'Deck created.',
-                    description: 'Now you can add some cards to it',
-                    status: 'success',
-                    duration: 4000,
-                    isClosable: true,
-                  });
-                  navigate('/createCard');
-                }}
-                variant="outline"
-                colorScheme="twitter"
-              />
-              <AgnosticButton
-                _hover={{ bg: '#5f1590', color: 'white' }}
-                text="Save deck"
-                type="button"
-                color="white"
-                borderRadius="20px"
-                bg="#af63dd"
-                //leftIcon={<CheckIcon />}
-                callBack={(e) => {
-                  onFormSubmit(e);
-                  toast({
-                    title: 'Deck created.',
-                    description: 'FUCKOFFFF BITCH, SUCK MY DICK',
-                    status: 'success',
-                    duration: 4000,
-                    isClosable: true,
-                  });
-                  setDashboardContent(false);
-                  navigate('/dashboard');
                 }}
                 variant="outline"
                 colorScheme="twitter"
@@ -136,6 +133,17 @@ const CreateDeck = () => {
           </form>
         </FormControl>
       </Flex>
+      <AgnosticButton
+        text="Back"
+        color="#5f1590"
+        type="button"
+        bg="white"
+        size="md"
+        borderRadius="20px"
+        callBack={() => navigate('/dashboard')}
+        mt="1.5rem"
+        _hover={{ bg: '#af63dd', color: 'white' }}
+      />
     </Flex>
   );
 };

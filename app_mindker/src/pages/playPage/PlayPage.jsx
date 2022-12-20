@@ -1,4 +1,4 @@
-import { Box, Flex, Spinner } from '@chakra-ui/react';
+import { Box, Flex, Text, Image } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -50,16 +50,19 @@ const PlayPage = () => {
           >
             <TextComponent
               text={Cards[counter].question}
-              fontSize="xl"
+              fontSize="lg"
               as="b"
               color="#5f1590"
+              align="center"
             />
             {Cards[counter].questionFile ? (
-              <img
-                src={Cards[counter].questionFile}
-                alt={Cards[counter].question}
-                width="250px"
-              />
+              <Flex width="200px" height="200px">
+                <Image
+                  src={Cards[counter].questionFile}
+                  alt={Cards[counter].question}
+                  objectFit="contain"
+                />
+              </Flex>
             ) : null}
             {next ? (
               <AgnosticButton
@@ -80,7 +83,12 @@ const PlayPage = () => {
                 alignItems="center"
                 gap="2rem"
               >
-                <TextComponent text={Cards[counter].answer} color="#5f1590" as="b" />
+                <TextComponent
+                  text={Cards[counter].answer}
+                  color="#5f1590"
+                  as="b"
+                  align="center"
+                />
                 <Flex
                   justifyContent="space-between"
                   flexDirection="row"
@@ -137,10 +145,27 @@ const PlayPage = () => {
             )}
           </Flex>
         ) : (
-          <>
-            <p>There`s no cards in this deck</p>
-            <Spinner />
-          </>
+          <Flex justifyContent="center" flexDir="column" alignItems="center" h="100%">
+            <Text color="black" as="b" fontSize="lg">
+              You completed the study of this deck
+            </Text>
+            <AgnosticButton
+              text="Retake"
+              color="white"
+              type="button"
+              bg="#5f1590"
+              size="md"
+              borderRadius="20px"
+              callBack={() => {
+                sorted(Cards, user, position);
+                setCounter(0);
+                setPosition(0);
+              }}
+              mt="1.5rem"
+              _hover={{ bg: '#af63dd', color: 'white' }}
+              width="6rem"
+            />
+          </Flex>
         )}
       </Box>
       <AgnosticButton

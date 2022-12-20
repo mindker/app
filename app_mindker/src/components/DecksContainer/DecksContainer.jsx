@@ -1,4 +1,4 @@
-import { Flex, Spinner, useToast } from '@chakra-ui/react';
+import { Flex, Spinner, useToast, Text } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { FaSearchengin, FaSith, FaStudiovinari, FaWrench } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -16,12 +16,8 @@ const DecksContainer = ({ array }) => {
   const adoptDeckUser = async (deck) => {
     getAgnostic('decks', deck._id).then((res) => {
       user.decks.push(res.info.data);
-      console.log('user1: ', user);
       setUser({ ...user });
-      console.log('user2: ', user);
-      patchAgnostic(user._id, 'users', token, user).then((res) =>
-        console.log('laRes: ', res),
-      );
+      patchAgnostic(user._id, 'users', token, user);
     });
   };
 
@@ -31,8 +27,6 @@ const DecksContainer = ({ array }) => {
         {array.length ? (
           array.map((deck) => (
             <DeckCard
-              leftIconDown={<FaWrench />}
-              leftIconUp={<FaStudiovinari />}
               textUp="Play"
               textBottom="Edit"
               key={deck._id}
@@ -48,7 +42,10 @@ const DecksContainer = ({ array }) => {
             />
           ))
         ) : (
-          <Spinner />
+          <>
+            <Spinner />
+            <Text>No decks to show, add some decks from Popular Decks</Text>
+          </>
         )}
       </Flex>
     );
@@ -58,8 +55,6 @@ const DecksContainer = ({ array }) => {
         {array.length ? (
           array.map((deck) => (
             <DeckCard
-              leftIconUp={<FaSearchengin />}
-              leftIconDown={<FaSith />}
               textUp="Detail"
               textBottom="Adopt"
               key={deck._id}
@@ -69,20 +64,22 @@ const DecksContainer = ({ array }) => {
                 navigate('/detailDeck');
               }}
               callBack2={async () => {
-                console.log('deck de la callback2: ', deck);
                 await adoptDeckUser(deck);
                 toast({
-                  title: 'Deck adopted.',
-                  description: 'you adopted the deck.',
+                  title: 'Deck adopted',
+                  description: 'You can go to My Decks to start playing',
                   status: 'success',
-                  duration: 9000,
+                  duration: 4000,
                   isClosable: true,
                 });
               }}
             />
           ))
         ) : (
-          <Spinner />
+          <>
+            <Spinner />
+            <Text>No decks to show, you already added all the available decks</Text>
+          </>
         )}
       </Flex>
     );

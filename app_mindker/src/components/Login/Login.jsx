@@ -67,12 +67,12 @@ const Login = () => {
         onClick={onOpen}
         text="Login"
         type="button"
-        variant="outline"
         bg="white"
         color="#5f1590"
-        size="md"
+        size="sm"
         borderRadius="1.5rem"
-        w="6rem"
+        w="5rem"
+        _hover={{ bg: '#af63dd', color: 'white' }}
       >
         Login
       </Button>
@@ -83,7 +83,9 @@ const Login = () => {
           <DrawerHeader fontSize="2xl">Login</DrawerHeader>
           <DrawerBody>
             <form onSubmit={handleSubmit(onFormSubmit)}>
-              <FormLabel paddingTop="0.6rem">Nickname</FormLabel>
+              <FormLabel paddingTop="0.6rem" fontSize="lg">
+                Nickname
+              </FormLabel>
               <Input
                 {...register('nickname', {
                   required: true,
@@ -101,8 +103,10 @@ const Login = () => {
                   This field is required
                 </Text>
               ) : null}
-              <FormLabel>Password</FormLabel>
-              <InputGroup mb="1rem">
+              <FormLabel fontSize="lg" paddingTop="0.6rem">
+                Password
+              </FormLabel>
+              <InputGroup>
                 <Input
                   {...register('password', {
                     required: true,
@@ -149,6 +153,7 @@ const Login = () => {
                 w="6rem"
                 _hover={{ bg: 'white', color: '#5f1590' }}
                 callBack={() => setErrorsInFalse()}
+                mt="1rem"
               />
             </form>
           </DrawerBody>

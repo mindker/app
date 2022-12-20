@@ -38,13 +38,12 @@ const Register = () => {
     try {
       values = { ...values, avatar: avatar };
       RegisterUser(values).then((res) => {
-        console.log(res);
         setUser(res.data.info.data.user);
         setLocal(res.data.info.data.token);
         res && navigate('/dashboard');
       });
     } catch (error) {
-      console.log('el error' + error);
+      console.log(error);
       if (error.response.data.info.message == 'nickname already exist') {
         setNicknameDuplicatedError(true);
       }
@@ -79,12 +78,12 @@ const Register = () => {
         onClick={onOpen}
         text="Register"
         type="button"
-        variant="outline"
         color="#5f1590"
         bg="white"
-        size="md"
+        size="sm"
         borderRadius="1.5rem"
-        w="6rem"
+        w="5rem"
+        _hover={{ bg: '#af63dd', color: 'white' }}
       >
         Register
       </Button>
@@ -115,7 +114,6 @@ const Register = () => {
                 <Input
                   {...register('nickname', {
                     required: true,
-                    minLength: 2,
                   })}
                   name="nickname"
                   type="text"
@@ -157,7 +155,6 @@ const Register = () => {
                   <Input
                     {...register('password', {
                       required: true,
-                      minLength: 2,
                     })}
                     name="password"
                     type={show ? 'text' : 'password'}

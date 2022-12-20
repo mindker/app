@@ -1,4 +1,4 @@
-import { Card, CardBody, Flex } from '@chakra-ui/react';
+import { Card, CardBody, Flex, Text } from '@chakra-ui/react';
 import { useContext } from 'react';
 
 import GlobalContext from '../../context/GlobalContext';
@@ -11,10 +11,11 @@ const DeckCard = ({
   callBack2,
   textUp,
   textBottom,
-  leftIconUp,
-  leftIconDown,
+  /* leftIconUp,
+  leftIconDown, */
 }) => {
   const { dashboardContent } = useContext(GlobalContext);
+
   return (
     <Card height="200" width="200" borderRadius="4px" bg="#E9B5F7">
       <CardBody overflowX="hidden">
@@ -28,28 +29,22 @@ const DeckCard = ({
             <AgnosticButton
               text={textUp}
               type="button"
-              variant="outline"
-              leftIcon={leftIconUp}
               color="white"
               borderRadius="20px"
               size="xs"
               callBack={callBack}
               bg="#AC67D6"
-              border="1px #AC67D6"
               _hover={{ bg: '#5b168d' }}
             />
             {dashboardContent == false && (
               <AgnosticButton
                 text={textBottom}
                 type="button"
-                variant="outline"
-                leftIcon={leftIconDown}
                 color="white"
                 borderRadius="20px"
                 size="xs"
                 callBack={callBack2}
                 bg="#5b168d"
-                border="1px #5b168d"
                 _hover={{ bg: '#AC67D6' }}
               />
             )}
@@ -57,33 +52,39 @@ const DeckCard = ({
               <AgnosticButton
                 text={textBottom}
                 type="button"
-                variant="outline"
-                leftIcon={leftIconDown}
                 color="white"
                 borderRadius="20px"
                 size="xs"
                 callBack={callBack2}
                 bg="#5b168d"
-                border="1px #5b168d"
                 _hover={{ bg: '#AC67D6' }}
               />
             )}
           </Flex>
           <Flex
             flexDirection="column"
-            justifyContent="center"
+            justifyContent="space-between"
             alignItems="center"
             gap="2rem"
-            mt="3rem"
-            fontWeight="bold"
+            h="100px"
+            mt="2rem"
           >
-            <TextComponent text={object.title} fontSize="1rem" color="black" />
-            <TextComponent
-              //text={`Numero de preguntas ${object.cards.length}`}
-              fontSize="sm"
-              color="black"
-              as="sub"
-            />
+            <Flex w="100%" justifyContent="center" fontWeight="bold">
+              <TextComponent
+                text={object.title}
+                fontSize="1rem"
+                color="black"
+                align="center"
+              />
+            </Flex>
+            <Flex w="100%" justifyContent="center">
+              <TextComponent
+                text={`Number of cards: ${object.cards.length}`}
+                fontSize="sm"
+                color="black"
+                align="center"
+              />
+            </Flex>
           </Flex>
         </Flex>
       </CardBody>
