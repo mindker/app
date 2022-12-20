@@ -7,6 +7,7 @@ import {
   Stack,
   Text,
   useToast,
+  Spinner,
 } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import { useEffect, useState } from 'react';
@@ -195,7 +196,7 @@ const DetailDeckCard = () => {
       </Flex>
     )
   ) : (
-    <p>no way</p>
+    <Spinner />
   );
 };
 

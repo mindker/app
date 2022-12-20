@@ -184,15 +184,21 @@ const EditProfileModal = () => {
               <FormLabel fontWeight="bold" color="#5f1590">
                 Avatar
               </FormLabel>
-              <Input
-                {...register('avatar', {
-                  required: false,
-                })}
-                name="avatar"
-                type="file"
-                onChange={(e) => setAvatar(e.target.files[0])}
-                accept="image/*"
-              />
+              <Flex display="flex" justifyContent="center">
+                <label htmlFor="images" className={'drop-container newDeckFile'}>
+                  <span className="drop-title">Drop files here or</span>
+                  <input
+                    {...register('avatar', {
+                      required: false,
+                    })}
+                    name="avatar"
+                    type="file"
+                    onChange={(e) => setAvatar(e.target.files[0])}
+                    accept="image/*"
+                    className="input"
+                  />
+                </label>
+              </Flex>
               <Flex justifyContent="space-around" margin=".5rem">
                 <AgnosticButton
                   type="submit"

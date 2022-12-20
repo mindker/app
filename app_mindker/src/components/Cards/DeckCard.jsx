@@ -5,15 +5,7 @@ import GlobalContext from '../../context/GlobalContext';
 import AgnosticButton from '../AgnosticButton/AgnosticButton';
 import TextComponent from '../TextComponent/TextComponent';
 
-const DeckCard = ({
-  object,
-  callBack,
-  callBack2,
-  textUp,
-  textBottom,
-  /* leftIconUp,
-  leftIconDown, */
-}) => {
+const DeckCard = ({ object, callBack, callBack2, textUp, textBottom }) => {
   const { dashboardContent } = useContext(GlobalContext);
 
   return (

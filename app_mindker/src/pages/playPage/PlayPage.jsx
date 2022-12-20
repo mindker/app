@@ -173,7 +173,7 @@ const PlayPage = () => {
         text="Back"
         callBack={() => {
           sorted(Cards, user, position);
-          patchAgnostic(user._id, 'users', token, user).then((res) => console.log(res));
+          patchAgnostic(user._id, 'users', token, user);
           navigate('/dashboard');
         }}
         bg="white"

@@ -1,4 +1,3 @@
-/* import { AddIcon, CheckIcon } from '@chakra-ui/icons'; */
 import { Flex, FormControl, FormLabel, Input, Text, useToast } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -106,16 +105,20 @@ const CreateDeck = () => {
             <FormLabel fontWeight="bold" color="#5f1590" marginTop="20px">
               Add a photo
             </FormLabel>
-            <Input
-              textColor="black"
-              name="image"
-              type="file"
-              onChange={(e) => setDeckImage(e.target.files[0])}
-              accept="image/*"
-              placeholder="Upload an image"
-              borderRadius="15px"
-            />
-            <Flex gap="2rem" mt="2rem" justifyContent="center">
+            <Flex display="flex" justifyContent="center">
+              <label htmlFor="images" className={'drop-container newDeckFile'}>
+                <span className="drop-title">Drop files here or</span>
+                <input
+                  textColor="black"
+                  name="image"
+                  type="file"
+                  onChange={(e) => setDeckImage(e.target.files[0])}
+                  accept="image/*"
+                  className="input"
+                />
+              </label>
+            </Flex>
+            <Flex gap="2rem" mt="0.5rem" justifyContent="center">
               <AgnosticButton
                 _hover={{ bg: '#5f1590', color: 'white' }}
                 text="Add cards"
@@ -126,8 +129,6 @@ const CreateDeck = () => {
                 callBack={(e) => {
                   onFormSubmit(e);
                 }}
-                variant="outline"
-                colorScheme="twitter"
               />
             </Flex>
           </form>

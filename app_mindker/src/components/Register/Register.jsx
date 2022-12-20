@@ -1,5 +1,5 @@
 import { FormLabel } from '@chakra-ui/react';
-import { Input, Text } from '@chakra-ui/react';
+import { Input, Text, Flex } from '@chakra-ui/react';
 import {
   Button,
   Drawer,
@@ -181,18 +181,19 @@ const Register = () => {
                   </Text>
                 ) : null}
                 <FormLabel paddingTop="0.6rem">Avatar</FormLabel>
-                <Input
-                  {...register('avatar', {
-                    required: false,
-                  })}
-                  name="avatar"
-                  type="file"
-                  onChange={(e) => setAvatar(e.target.files[0])}
-                  accept="image/*"
-                  mb="1rem"
-                  bg="white"
-                />
-
+                <label htmlFor="images" className="drop-container">
+                  <span className="drop-title">Drop files here or</span>
+                  <input
+                    {...register('avatar', {
+                      required: false,
+                    })}
+                    name="avatar"
+                    type="file"
+                    onChange={(e) => setAvatar(e.target.files[0])}
+                    accept="image/*"
+                    className="input"
+                  />
+                </label>
                 <AgnosticButton
                   text="Register"
                   type="submit"

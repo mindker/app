@@ -1,6 +1,5 @@
-import { Flex, Spinner, useToast, Text } from '@chakra-ui/react';
+import { Flex, useToast, Text } from '@chakra-ui/react';
 import { useContext } from 'react';
-import { FaSearchengin, FaSith, FaStudiovinari, FaWrench } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 import GlobalContext from '../../context/GlobalContext';
@@ -43,8 +42,9 @@ const DecksContainer = ({ array }) => {
           ))
         ) : (
           <>
-            <Spinner />
-            <Text>No decks to show, add some decks from Popular Decks</Text>
+            <Text fontSize="xl" as="b">
+              No decks to show, add some decks from Popular Decks
+            </Text>
           </>
         )}
       </Flex>
@@ -77,8 +77,9 @@ const DecksContainer = ({ array }) => {
           ))
         ) : (
           <>
-            <Spinner />
-            <Text>No decks to show, you already added all the available decks</Text>
+            <Text fontSize="xl" as="b">
+              No decks to show, you already added all the available decks
+            </Text>
           </>
         )}
       </Flex>

@@ -113,14 +113,19 @@ const CreateCard = () => {
               <FormLabel fontWeight="bold" color="#5f1590" marginTop="25px">
                 You can add a picture for this question if you wish
               </FormLabel>
-              <Input
-                bg="white"
-                textColor="black"
-                type="file"
-                accept="image/*"
-                onChange={(e) => setImageQuestion(e.target.files[0])}
-                borderRadius="10px"
-              />
+              <Flex display="flex" justifyContent="center">
+                <label htmlFor="images" className={'drop-container newDeckFile'}>
+                  <span className="drop-title">Drop files here or</span>
+                  <input
+                    bg="white"
+                    textColor="black"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setImageQuestion(e.target.files[0])}
+                    className="input"
+                  />
+                </label>
+              </Flex>
               <FormLabel fontWeight="bold" color="#5f1590" marginTop="25px">
                 Type the answer *
               </FormLabel>
@@ -140,7 +145,6 @@ const CreateCard = () => {
                   This field is required
                 </Text>
               ) : null}
-
               <Flex gap="2rem" mt="3rem" justifyContent="center" marginBottom="10px">
                 <AgnosticButton
                   text="Save & next"
