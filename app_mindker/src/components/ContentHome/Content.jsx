@@ -76,7 +76,7 @@ const Content = () => {
               <Flex>
                 <ImageComponent
                   objectFit="contain"
-                  src="https://res.cloudinary.com/drprserzu/image/upload/v1671443142/partners_sqpcrr.png"
+                  src="https://res.cloudinary.com/drprserzu/image/upload/v1671566755/partners_xsdoxv.png"
                 />
               </Flex>
             </Flex>
@@ -86,7 +86,7 @@ const Content = () => {
           <ImageComponent
             boxSize="25rem"
             w="20rem"
-            src="https://res.cloudinary.com/drprserzu/image/upload/v1671438578/forgettingcurve_m0gukg.png"
+            src="https://res.cloudinary.com/drprserzu/image/upload/v1671566914/forgettingcurve_ek1utn.png"
             borderRadius="20px"
           ></ImageComponent>
         </Flex>
